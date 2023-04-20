@@ -1,7 +1,13 @@
 {
   "short_name": "Holidaze",
   "name": "Holidaze accommodation booking app",
-  "icons": [],
+  "icons": [
+    {
+      "src": "holidazelogosmallblack.ico",
+      "sizes": "16x16",
+      "type": "image/ico"
+    }
+  ],
   "start_url": ".",
   "display": "standalone",
   "theme_color": "#000000",
