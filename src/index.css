@@ -3,11 +3,17 @@
 @tailwind utilities;
 @import url("https://fonts.googleapis.com/css2?family=Concert+One&family=Lexend&family=Ubuntu&display=swap");
 
+html {
+  padding: 0px !important;
+  margin: 0px;
+}
+
 body {
   margin: 0;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   min-height: 100vh;
+  overflow-y: scroll;
 }
 
 #root {

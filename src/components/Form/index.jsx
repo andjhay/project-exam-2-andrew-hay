@@ -1,6 +1,6 @@
 import React from "react";
 
-function Form() {
+function Form({ currentForm }) {
   const submitForm = (event) => {
     event.preventDefault();
     const form = [...event.target];
@@ -16,22 +16,41 @@ function Form() {
       }
     });
     console.log(formData);
-    alert("Contact Form Submitted");
+    alert("Form Submitted");
   };
 
   return (
     <div>
       <form onSubmit={submitForm}>
-        <div className="mb-3" controlId="Full Name">
-          <label>Full Name</label>
-          <input required minLength={3} type="name" placeholder="John Doe (required)" />
-        </div>
-        <div className="mb-3" controlId="Email">
+        {currentForm === "Sign Up" ? (
+          <div className="mb-3">
+            <label>Username</label>
+            <input required minLength={3} type="name" placeholder="" />
+          </div>
+        ) : null}
+        <div className="mb-3">
           <label>Email address</label>
           <input required type="email" placeholder="name@example.com (required)" />
         </div>
-        <button variant="custom" type="submit">
-          Log In
+        <div className="mb-3">
+          <label>Password</label>
+          <input required minLength={3} type="name" placeholder="John Doe (required)" />
+        </div>
+        {currentForm === "Sign Up" ? (
+          <div className="mb-3">
+            <label>Avatar</label>
+            <input required minLength={3} type="name" placeholder="John Doe (required)" />
+          </div>
+        ) : null}
+        {currentForm === "Sign Up" ? (
+          <div className="mb-3">
+            <label>Checkbox</label>
+            <input required minLength={3} type="checkbox" placeholder="John Doe (required)" />
+            <input required minLength={3} type="checkbox" placeholder="John Doe (required)" />
+          </div>
+        ) : null}
+        <button className="m-2 h-9 w-24 rounded-2xl border-2 border-darkbrown bg-darkbrown font-header text-white hover:border-yellowsand ">
+          {currentForm}
         </button>
       </form>
     </div>
