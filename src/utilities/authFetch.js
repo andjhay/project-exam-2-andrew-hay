@@ -1,11 +1,14 @@
-import { auth } from "./api.js";
+import * as storage from "../utilities/storage.js";
+
+let auth = storage.load("auth");
 
 function headers() {
-  return {
-    Accept: "application/json",
-    "Content-Type": "application/json",
-    Authorization: `Bearer ${auth}`,
-  };
+  if (auth)
+    return {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${auth}`,
+    };
 }
 
 export async function authFetch(url, options = {}) {

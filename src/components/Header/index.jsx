@@ -3,7 +3,7 @@ import Nav from "../Nav";
 
 function Header() {
   return (
-    <header className="bg-lightblue">
+    <header className="bg-darkblue">
       <Nav />
     </header>
   );
