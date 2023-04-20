@@ -3,7 +3,7 @@ import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 
 function VenuesMap({ data }) {
   return (
-    <MapContainer className="z-0 flex-1" center={[40, 0]} zoom={2} scrollWheelZoom={true}>
+    <MapContainer className="z-0 flex-1" center={[40, 0]} zoom={2} minZoom={2} scrollWheelZoom={true}>
       <TileLayer
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
