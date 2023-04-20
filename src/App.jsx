@@ -15,7 +15,7 @@ import VenueManage from "./pages/VenueManage";
 import { apiPath } from "./shared/api";
 
 function App() {
-  const { venueData, isLoading, isError } = useApi(apiPath + "/venues");
+  const { venueData } = useApi(apiPath + "/venues");
 
   return (
     <Routes>

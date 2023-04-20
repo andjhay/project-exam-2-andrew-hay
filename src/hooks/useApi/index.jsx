@@ -29,7 +29,7 @@ function useApi(url) {
     }
 
     getData();
-  }, [url]);
+  }, [url, auth]);
 
   return { data, isLoading, isError };
 }
