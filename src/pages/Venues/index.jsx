@@ -1,12 +1,16 @@
 import { Link } from "react-router-dom";
+import useApi from "../../hooks/useApi";
+import { apiPath } from "../../shared/api";
+import VenueCard from "../../components/VenueCard";
 
-function Venues({ data }) {
+function Venues() {
+  const { data } = useApi(apiPath + "/venues" + "?_owner=true&_bookings=true");
   console.log(data);
   return (
-    <div className="flex justify-center">
-      <div className="m-2">
+    <div className="">
+      <div className="m-2 flex justify-center">
         <Link to="/venuesmap">
-          <button className="flex items-center rounded-lg border-2 border-darkbrown bg-darkbrown px-2 py-1 font-header text-white hover:border-yellowsand ">
+          <button className="flex items-center rounded-lg border-2 border-darkbrown bg-darkbrown px-2 py-1 font-subheader text-white hover:border-yellowsand ">
             View on Map
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -19,6 +23,11 @@ function Venues({ data }) {
             </svg>
           </button>
         </Link>
+      </div>
+      <div className="m-4 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+        {data?.map((venue) => (
+          <VenueCard key={venue.id} venue={venue} />
+        ))}
       </div>
     </div>
   );

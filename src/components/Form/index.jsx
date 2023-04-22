@@ -1,57 +1,119 @@
 import React from "react";
+import { register } from "../../utilities/register";
+import { login } from "../../utilities/login";
+import * as storage from "../../utilities/storage.js";
 
-function Form({ currentForm }) {
-  const submitForm = (event) => {
+function Form({ currentForm, closeModal, setLoggedIn, setUser }) {
+  const submitForm = async (event) => {
     event.preventDefault();
     const form = [...event.target];
-    let formData = [];
+    let formData = {};
     form.forEach((target) => {
-      if (target.id) {
+      if (target.id === "customer" || target.value === "") {
+      } else if (target.id === "venueManager") {
+        let key = target.id;
+        let value = target.checked;
+        formData[key] = value;
+      } else if (target.id) {
         let key = target.id;
         let value = target.value;
-        let formEntry = {};
-        formEntry[key] = value;
-        target.value = "";
-        formData.push(formEntry);
+        formData[key] = value;
       }
     });
-    console.log(formData);
-    alert("Form Submitted");
+    if (currentForm === "Log In") {
+      await login(formData);
+    } else {
+      await register(formData);
+    }
+    let user = storage.load("user");
+    let token = storage.load("token");
+    if (token === null) {
+    } else {
+      setUser(user);
+      setLoggedIn(true);
+      closeModal();
+    }
   };
 
   return (
     <div>
       <form onSubmit={submitForm}>
         {currentForm === "Sign Up" ? (
-          <div className="mb-3">
+          <div className="my-2 flex flex-col">
             <label>Username</label>
-            <input required minLength={3} type="name" placeholder="" />
+            <input
+              id="name"
+              className="rounded-md border-2 border-black p-1"
+              required
+              minLength={3}
+              type="name"
+              pattern="^[\w]+$"
+              placeholder="(required)"
+            />
           </div>
         ) : null}
-        <div className="mb-3">
+        <div className="my-2 flex flex-col">
           <label>Email address</label>
-          <input required type="email" placeholder="name@example.com (required)" />
+          <input
+            id="email"
+            className="rounded-md border-2 border-black p-1"
+            required
+            type="email"
+            pattern="^[\w]+@stud.noroff.no|[\w]+@noroff.no$"
+            placeholder="@stud.noroff.no/@noroff.no(required)"
+          />
         </div>
-        <div className="mb-3">
+        <div className="my-2 flex flex-col">
           <label>Password</label>
-          <input required minLength={3} type="name" placeholder="John Doe (required)" />
+          <input
+            id="password"
+            className="rounded-md border-2 border-black p-1"
+            required
+            minLength={8}
+            type="password"
+            placeholder="Min 8 (required)"
+          />
         </div>
         {currentForm === "Sign Up" ? (
-          <div className="mb-3">
+          <div className="my-2 flex flex-col">
             <label>Avatar</label>
-            <input required minLength={3} type="name" placeholder="John Doe (required)" />
+            <input
+              id="avatar"
+              className="rounded-md border-2 border-black p-1"
+              type="url"
+              pattern=".*\.jpeg|.*\.png|.*\.gif|.*\.jpg$"
+              placeholder="URL (.jpg .png .jpeg .gif)"
+            />
           </div>
         ) : null}
         {currentForm === "Sign Up" ? (
-          <div className="mb-3">
-            <label>Checkbox</label>
-            <input required minLength={3} type="checkbox" placeholder="John Doe (required)" />
-            <input required minLength={3} type="checkbox" placeholder="John Doe (required)" />
+          <div className="flex justify-center py-4">
+            Account Type:
+            <label className="mx-3 flex items-center">
+              <input
+                id="customer"
+                className="custom-radio mx-2"
+                value="Customer"
+                type="radio"
+                name="account_type"
+                defaultChecked
+              />
+              Customer
+            </label>
+            <label className="mx-3 flex items-center">
+              <input id="venueManager" className="custom-radio mx-2" type="radio" name="account_type" />
+              Manager
+            </label>
           </div>
         ) : null}
-        <button className="m-2 h-9 w-24 rounded-2xl border-2 border-darkbrown bg-darkbrown font-header text-white hover:border-yellowsand ">
-          {currentForm}
-        </button>
+        <div className="flex justify-end">
+          <button
+            type="submit"
+            className="m-2 h-9 w-24 rounded-2xl border-2 border-darkbrown bg-darkbrown font-header text-white hover:border-yellowsand "
+          >
+            {currentForm}
+          </button>
+        </div>
       </form>
     </div>
   );

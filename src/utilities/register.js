@@ -1,13 +1,12 @@
-import { apiPath } from "./api.mjs";
-import { login } from "./login.mjs";
+import { apiPath } from "../shared/api.js";
+import { login } from "./login.js";
 
 const apiReg = "/auth/register";
 const method = "post";
 
-export async function register(profile) {
+export async function register(input) {
   const registerUrl = apiPath + apiReg;
-  const body = JSON.stringify(profile);
-
+  const body = JSON.stringify(input);
   const response = await fetch(registerUrl, {
     headers: {
       "Content-Type": "application/json",
@@ -18,9 +17,11 @@ export async function register(profile) {
 
   if (response.ok) {
     const result = await response.json();
-    alert("You are now registered");
-    console.log(profile.password);
-    login(profile);
+    alert("Registered Successfully");
+    delete input["avatar"];
+    delete input["venueManager"];
+    delete input["name"];
+    login(input);
     return result;
   } else {
     const result = await response.json();

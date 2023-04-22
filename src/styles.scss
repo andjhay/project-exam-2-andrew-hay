@@ -1,0 +1,17 @@
+$lightblue: #aab9bf;
+$darkblue: #7b92a6;
+$darkbrown: #252617;
+$sand: #d9b282;
+$yellowsand: #f2cf8d;
+
+.card-img {
+  object-fit: cover;
+  width: 250px;
+  height: 150px;
+}
+
+.custom-radio {
+  height: 20px;
+  width: 20px;
+  accent-color: $darkbrown;
+}

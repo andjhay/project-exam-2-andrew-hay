@@ -1,7 +1,6 @@
-import { userProfile } from "../../handlers/fetchUserData.mjs";
-import { apiPath } from "../api.mjs";
-import { authFetch } from "../authFetch.mjs";
-import * as storage from "../../handlers/storage.mjs";
+import { apiPath } from "../shared/api.js";
+import { authFetch } from "./authFetch.mjs";
+import * as storage from "./storage.mjs";
 
 const action = "/listings";
 const method = "post";
