@@ -4,7 +4,6 @@ import { apiPath } from "../../shared/api";
 import Leaflet from "leaflet";
 import { MapContainer, TileLayer } from "react-leaflet";
 import MapMarker from "../../components/MapMarker";
-import DraggableMarker from "../../components/MapMarkerSelect";
 
 function VenuesMap() {
   const corner1 = Leaflet.latLng(-60, -175);

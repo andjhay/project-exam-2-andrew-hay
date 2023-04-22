@@ -7,7 +7,7 @@ function UserBookings({ userName }) {
   return (
     <div className="flex m-5">
       <h2 className="font-subheader text-xl">Bookings</h2>
-      <div></div>
+      <div>{data ? "Is Bookings" : "No Bookings"}</div>
     </div>
   );
 }

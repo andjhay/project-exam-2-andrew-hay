@@ -4,7 +4,7 @@ import { apiPath } from "../../shared/api";
 import VenueCard from "../../components/VenueCard";
 
 function Venues() {
-  const { data } = useApi(apiPath + "/venues" + "?_owner=true&_bookings=true");
+  const { data } = useApi(apiPath + "/venues?_owner=true&_bookings=true");
   console.log(data);
   return (
     <div className="">
