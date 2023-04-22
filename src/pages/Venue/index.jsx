@@ -6,7 +6,7 @@ import { apiPath } from "../../shared/api";
 function Venue() {
   let { id } = useParams();
   const { data } = useApi(apiPath + "/venues/" + id);
-  return <div>Single Venue</div>;
+  return <div>{data.name}</div>;
 }
 
 export default Venue;
