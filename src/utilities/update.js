@@ -1,5 +1,5 @@
-import { apiPath } from "../api.mjs";
-import { authFetch } from "../authFetch.mjs";
+import { apiPath } from "../api.js";
+import { authFetch } from "../authFetch.js";
 
 const apiListing = "/listings";
 const apiAvatar = "/profiles";

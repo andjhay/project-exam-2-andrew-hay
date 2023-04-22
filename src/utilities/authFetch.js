@@ -1,13 +1,13 @@
 import * as storage from "../utilities/storage.js";
 
-let auth = storage.load("auth");
+let token = storage.load("token");
 
 function headers() {
-  if (auth)
+  if (token)
     return {
       Accept: "application/json",
       "Content-Type": "application/json",
-      Authorization: `Bearer ${auth}`,
+      Authorization: `Bearer ${token}`,
     };
 }
 
@@ -17,5 +17,5 @@ export async function authFetch(url, options = {}) {
     ...options,
   });
 
-  return response.json();
+  return response;
 }
