@@ -43,7 +43,7 @@ function VenueCard({ venue }) {
           </button>
         </div>
       </div>
-      <div className="flex flex-col grow basis-1/2 justify-end items-center">
+      <div className="flex grow basis-1/2 flex-col items-center justify-end">
         {venue.name}
         {venue.price}
         <Link to={"/venue/" + venue.id}>

@@ -1,8 +1,7 @@
 import * as storage from "../utilities/storage.js";
 
-let token = storage.load("token");
-
 function headers() {
+  let token = storage.load("token");
   if (token)
     return {
       Accept: "application/json",

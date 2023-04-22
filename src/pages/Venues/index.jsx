@@ -4,8 +4,8 @@ import { apiPath } from "../../shared/api";
 import VenueCard from "../../components/VenueCard";
 
 function Venues() {
-  const { data } = useApi(apiPath + "/venues");
-  console.log(data)
+  const { data } = useApi(apiPath + "/venues" + "?_owner=true&_bookings=true");
+  console.log(data);
   return (
     <div className="">
       <div className="m-2 flex justify-center">
@@ -24,7 +24,7 @@ function Venues() {
           </button>
         </Link>
       </div>
-      <div className="m-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+      <div className="m-4 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
         {data?.map((venue) => (
           <VenueCard key={venue.id} venue={venue} />
         ))}

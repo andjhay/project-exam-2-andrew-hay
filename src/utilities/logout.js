@@ -6,6 +6,5 @@ import * as storage from "./storage.js";
 export function logOut() {
   storage.remove("token");
   storage.remove("user");
-  alert(`You are now logged out.`);
   return;
 }

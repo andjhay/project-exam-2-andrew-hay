@@ -1,11 +1,17 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import { Marker, Popup } from "react-leaflet";
 
 function MapMarker({ venue }) {
   return (
-    <Marker position={[51.505, -0.09]}>
+    <Marker position={[venue.location.lat, venue.location.lng]}>
       <Popup>
-        A pretty CSS3 popup. <br /> Easily customizable.
+        {venue.name}
+        <Link to={"/venue/" + venue.id}>
+          <button className="m-auto rounded-lg border-2 border-darkbrown bg-darkbrown px-2 py-1 font-subheader text-white hover:border-yellowsand">
+            View
+          </button>
+        </Link>
       </Popup>
     </Marker>
   );

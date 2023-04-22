@@ -22,8 +22,6 @@ export async function login(input) {
     storage.save("user", user);
     let responseData = user;
     responseData["token"] = accessToken;
-    const currentUser = storage.load("user");
-    alert(`You are now logged in as ${currentUser.name} `);
     return responseData;
   } else {
     const result = await response.json();

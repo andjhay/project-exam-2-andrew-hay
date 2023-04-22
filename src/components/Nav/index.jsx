@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Dialog } from "@headlessui/react";
-import { NavLink } from "react-router-dom";
+import { NavLink, Link } from "react-router-dom";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import Logo from "../../assets/holidazelogoblack.png";
 import LogoText from "../../assets/holidazelogotextblack.png";
@@ -8,29 +8,27 @@ import Search from "../Search";
 import Form from "../Form";
 import { logOut } from "../../utilities/logout";
 import * as storage from "../../utilities/storage.js";
+import useUser from "../../hooks/useUser";
+
+let userData = storage.load("user");
 
 function Nav() {
-  let token = storage.load("token");
-  let state;
-  if (token) {
-    state = true;
-  } else {
-    state = false;
-  }
-
-  let userData = storage.load("user");
-  let currentUser;
-  if (userData) {
-    currentUser = userData;
-  } else {
-    currentUser = null;
-  }
-
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  let [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   let [isOpen, setIsOpen] = useState(false);
-  let [isLoggedIn, setLoggedIn] = useState(state);
+  let [isLoggedIn, setLoggedIn] = useState(false);
   let [currentForm, setForm] = useState("");
-  let [user, setUser] = useState(currentUser);
+  let { user, setUser } = useUser(userData);
+
+  useEffect(() => {
+    let token = storage.load("token");
+    if (token) {
+      setLoggedIn(true);
+      setUser(storage.load("user"));
+    } else {
+      setLoggedIn(false);
+      setUser({});
+    }
+  }, [setUser]);
 
   const formType = (event) => {
     setForm(event.target.innerText);
@@ -44,7 +42,7 @@ function Nav() {
   function handelLogOut() {
     logOut();
     setLoggedIn(false);
-    setUser(null);
+    setUser({});
   }
 
   return (
@@ -93,24 +91,26 @@ function Nav() {
           {isLoggedIn ? (
             <>
               <h2>{user?.name}</h2>
-              <button
-                onClick={handelLogOut}
-                className="mx-2 h-8 w-24 rounded-lg border-2 border-darkbrown bg-darkbrown font-subheader text-white hover:border-yellowsand "
-              >
-                Log Out
-              </button>
+              <Link to="/">
+                <button
+                  onClick={handelLogOut}
+                  className="mx-2 rounded-lg border-2 border-darkbrown bg-darkbrown px-2 py-1 font-subheader text-white hover:border-yellowsand"
+                >
+                  Log Out
+                </button>
+              </Link>
             </>
           ) : (
             <>
               <button
                 onClick={formType}
-                className="mx-2 h-8 w-24 rounded-lg border-2 border-darkbrown bg-darkbrown font-subheader text-white hover:border-yellowsand "
+                className="mx-2 rounded-lg border-2 border-darkbrown bg-darkbrown px-2 py-1 font-subheader text-white hover:border-yellowsand"
               >
                 Log In
               </button>
               <button
                 onClick={formType}
-                className="mx-2 h-8 w-24 rounded-lg border-2 border-darkbrown bg-darkbrown font-subheader text-white hover:border-yellowsand "
+                className="mx-2 rounded-lg border-2 border-darkbrown bg-darkbrown px-2 py-1 font-subheader text-white hover:border-yellowsand"
               >
                 Sign Up
               </button>
@@ -170,24 +170,26 @@ function Nav() {
                 {isLoggedIn ? (
                   <>
                     <h2>{user?.name}</h2>
-                    <button
-                      onClick={handelLogOut}
-                      className="mx-2 h-8 w-24 rounded-lg border-2 border-darkbrown bg-darkbrown font-subheader text-white hover:border-yellowsand "
-                    >
-                      Log Out
-                    </button>
+                    <Link to="/">
+                      <button
+                        onClick={handelLogOut}
+                        className="mx-2 rounded-lg border-2 border-darkbrown bg-darkbrown px-2 py-1 font-subheader text-white hover:border-yellowsand "
+                      >
+                        Log Out
+                      </button>
+                    </Link>
                   </>
                 ) : (
                   <>
                     <button
                       onClick={formType}
-                      className="mx-2 h-8 w-24 rounded-lg border-2 border-darkbrown bg-darkbrown font-subheader text-white hover:border-yellowsand "
+                      className="mx-2 rounded-lg border-2 border-darkbrown bg-darkbrown px-2 py-1 font-subheader text-white hover:border-yellowsand "
                     >
                       Log In
                     </button>
                     <button
                       onClick={formType}
-                      className="mx-2 h-8 w-24 rounded-lg border-2 border-darkbrown bg-darkbrown font-subheader text-white hover:border-yellowsand "
+                      className="mx-2 rounded-lg border-2 border-darkbrown bg-darkbrown px-2 py-1 font-subheader text-white hover:border-yellowsand "
                     >
                       Sign Up
                     </button>

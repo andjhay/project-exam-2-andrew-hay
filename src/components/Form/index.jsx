@@ -20,19 +20,16 @@ function Form({ currentForm, closeModal, setLoggedIn, setUser }) {
         formData[key] = value;
       }
     });
-    let response;
     if (currentForm === "Log In") {
-      response = await login(formData);
+      await login(formData);
     } else {
-      response = await register(formData);
+      await register(formData);
     }
-    console.log(response);
-    let user = storage.load("user")
+    let user = storage.load("user");
     let token = storage.load("token");
     if (token === null) {
     } else {
-      console.log(token);
-      setUser(user)
+      setUser(user);
       setLoggedIn(true);
       closeModal();
     }

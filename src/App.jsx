@@ -21,8 +21,8 @@ function App() {
         <Route path="/venuesmap" element={<VenuesMap />} />
         <Route path="/venue/:id" element={<Venue />} />
         <Route path="/venuebook/:id" element={<VenueBook />} />
-        <Route path="/venuemanage" element={<VenueManage />} />
-        <Route path="/account/:name" element={<Account />} />
+        <Route path="/venuemanage/:id" element={<VenueManage />} />
+        <Route path="/account/:userName" element={<Account />} />
         <Route path="*" element={<RouteNotFound />} />
       </Route>
     </Routes>
