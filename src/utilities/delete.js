@@ -1,22 +1,18 @@
 import { apiPath } from "../api.mjs";
 import { authFetch } from "../authFetch.mjs";
 
-const action = "/listings";
+const apiVenues = "/venues";
+const apiBookings = "/bookings";
 const method = "delete";
 
-/**
- * Deletes the users selected listing from the server if the user is the owner of the listing and is logged in
- * @param {string} id listing id
- */
-
-export async function removeListing(id) {
-  const deletePostURL = `${apiPath}${action}/${id}`;
+export async function removeListing(venueId) {
+  const deletePostURL = `${apiPath}${apiVenues}/${venueId}`;
 
   const response = await authFetch(deletePostURL, {
     method,
   });
 
-  if (response.ok == true) {
+  if (response.ok === true) {
     window.location.href = "userprofile.html";
     alert(`Listing Deleted`);
   } else {

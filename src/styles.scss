@@ -6,12 +6,68 @@ $yellowsand: #f2cf8d;
 
 .card-img {
   object-fit: cover;
-  width: 250px;
-  height: 150px;
+  width: 100%;
+  height: 200px;
+}
+
+.venue-img {
+  object-fit: cover;
+  width: 600px;
+  height: 400px;
 }
 
 .custom-radio {
   height: 20px;
   width: 20px;
   accent-color: $darkbrown;
+}
+
+// CSS for input number selector
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  opacity: 1;
+  margin: 0;
+}
+
+input#lng[type="number"]::-webkit-inner-spin-button,
+input#lng[type="number"]::-webkit-outer-spin-button {
+  opacity: 0;
+  margin: 0;
+}
+
+input#lat[type="number"]::-webkit-inner-spin-button,
+input#lat[type="number"]::-webkit-outer-spin-button {
+  opacity: 0;
+  margin: 0;
+}
+
+.react-calendar__tile:disabled {
+  background-color: #f87171 !important ;
+}
+
+.react-calendar__month-view__days__day--weekend {
+  color: black !important;
+}
+
+.react-calendar__month-view__days__day--neighboringMonth {
+  color: #757575 !important;
+}
+
+.react-calendar__month-view__days__day {
+  pointer-events: none;
+}
+
+.react-calendar__tile--now {
+  color: #f2cf8d !important;
+}
+
+svg.fill-red-400,
+svg.fill-lightblue {
+  width: 45px;
+  height: 35px;
+}
+
+#set-position {
+  width: 100%;
+  height: 400px;
 }

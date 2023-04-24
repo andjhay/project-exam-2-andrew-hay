@@ -1,16 +1,59 @@
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import useApi from "../../hooks/useApi";
 import { apiPath } from "../../shared/api";
 import VenueCard from "../../components/VenueCard";
+import Search from "../../components/Search";
+import { Listbox } from "@headlessui/react";
+import { CheckIcon, ChevronUpDownIcon } from "@heroicons/react/20/solid";
+import useSearch from "../../hooks/useSearch";
+
+const sortBy = [
+  { id: 1, value: "Price (low)", sort: "?sort=price&sortOrder=asc&_owner=true&_bookings=true" },
+  { id: 2, value: "Price (high)", sort: "?sort=price&sortOrder=desc&_owner=true&_bookings=true" },
+  { id: 3, value: "Guests (less)", sort: "?sort=maxGuests&sortOrder=asc&_owner=true&_bookings=true" },
+  { id: 4, value: "Guests (more)", sort: "?sort=maxGuests&sortOrder=desc&_owner=true&_bookings=true" },
+  { id: 5, value: "Rating (low)", sort: "?sort=rating&sortOrder=asc&_owner=true&_bookings=true" },
+  { id: 6, value: "Rating (High)", sort: "?sort=rating&sortOrder=asc&_owner=true&_bookings=true" },
+];
 
 function Venues() {
-  const { data } = useApi(apiPath + "/venues?_owner=true&_bookings=true");
-  console.log(data);
+  const [selected, setSelected] = useState(sortBy[0]);
+  const { search } = useSearch();
+  const { data } = useApi(apiPath + "/venues" + selected.sort);
+  const [filteredData, setFilteredData] = useState(data);
+
+  useEffect(() => {
+    const searchResults = data?.filter((venue) => {
+      if (
+        (venue.name.toLowerCase().includes(search.searchTerm?.toLowerCase()) === true ||
+          venue.description.toLowerCase().includes(search.searchTerm?.toLowerCase()) === true) &&
+        venue.maxGuests >= Number(search.guests) &&
+        !venue.bookings.some((booking) => {
+          const bookingFrom = new Date(booking.dateFrom).getTime();
+          const bookingTo = new Date(booking.dateTo).getTime();
+          const searchFrom = new Date(search.dateFrom).getTime();
+          const searchTo = new Date(search.dateTo).getTime();
+          return (
+            (searchFrom <= bookingTo && searchFrom >= bookingFrom) ||
+            (searchTo <= bookingTo && searchTo >= bookingFrom) ||
+            (searchFrom <= bookingFrom && searchTo >= bookingTo)
+          );
+        })
+      ) {
+        return true;
+      } else {
+        return false;
+      }
+    });
+    setFilteredData(searchResults);
+  }, [search, data]);
+
   return (
     <div className="">
-      <div className="m-2 flex justify-center">
+      <div className="m-2 flex flex-col flex-wrap items-center justify-center lg:flex-row">
         <Link to="/venuesmap">
-          <button className="flex items-center rounded-lg border-2 border-darkbrown bg-darkbrown px-2 py-1 font-subheader text-white hover:border-yellowsand ">
+          <button className="m-2 flex items-center rounded-lg border-2 border-darkbrown bg-darkbrown px-2 py-1 font-subheader text-white hover:border-yellowsand ">
             View on Map
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -23,9 +66,45 @@ function Venues() {
             </svg>
           </button>
         </Link>
+        <div className="m-2">
+          <Search />
+        </div>
+        <div>
+          <Listbox value={selected} onChange={setSelected}>
+            <Listbox.Button className="relative w-48 rounded-lg border-2 border-black bg-white p-2 pr-10 text-left shadow-md">
+              <span className="block truncate">{selected.value}</span>
+              <span className="absolute inset-y-0 right-0 flex items-center pr-2">
+                <ChevronUpDownIcon className="h-5 w-5 text-gray-400" aria-hidden="true" />
+              </span>
+            </Listbox.Button>
+
+            <Listbox.Options className="absolute z-10 mt-1 max-h-60 w-48 overflow-auto rounded-lg border-2 border-black bg-white py-1 text-base text-sm shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+              {sortBy.map((value, valueIdx) => (
+                <Listbox.Option
+                  key={valueIdx}
+                  className={({ active }) => `relative p-2 pr-4 ${active ? "bg-lightblue" : "text-darkbrown"}`}
+                  value={value}
+                >
+                  {({ selected }) => (
+                    <>
+                      <span className={`block truncate ${selected ? "font-medium" : "font-normal"}`}>
+                        {value.value}
+                      </span>
+                      {selected ? (
+                        <span className="absolute inset-y-0 right-0 me-3 flex items-center pl-3 text-darkbrown">
+                          <CheckIcon className="h-5 w-5" aria-hidden="true" />
+                        </span>
+                      ) : null}
+                    </>
+                  )}
+                </Listbox.Option>
+              ))}
+            </Listbox.Options>
+          </Listbox>
+        </div>
       </div>
       <div className="m-4 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-        {data?.map((venue) => (
+        {filteredData?.map((venue) => (
           <VenueCard key={venue.id} venue={venue} />
         ))}
       </div>

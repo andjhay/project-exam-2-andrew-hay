@@ -1,20 +1,20 @@
-import { apiPath } from "../api.js";
-import { authFetch } from "../authFetch.js";
+import { apiPath } from "../shared/api.js";
+import { authFetch } from "./authFetch.js";
 
-const apiListing = "/listings";
+const apiVenues = "/venues";
 const apiAvatar = "/profiles";
 const method = "put";
 
-export async function updateListing(listingData) {
-  const updatePostURL = `${apiPath}${apiListing}/${listingData.id}`;
-  if (listingData.media[0] == [""]) {
-    delete listingData.media;
+export async function updateVenue(venueData) {
+  const updatePostURL = `${apiPath}${apiVenues}/${venueData.id}`;
+  if (venueData.media[0] == [""]) {
+    delete venueData.media;
   }
-  delete listingData.id;
-  delete listingData.endsAt;
+  delete venueData.id;
+  delete venueData.endsAt;
   const response = await authFetch(updatePostURL, {
     method,
-    body: JSON.stringify(listingData),
+    body: JSON.stringify(venueData),
   });
 
   return await response.json();
@@ -22,16 +22,13 @@ export async function updateListing(listingData) {
 
 export async function updateAvatar(newAvatar, username) {
   const updateAvatarURL = `${apiPath}${apiAvatar}/${username}/media`;
-
   const response = await authFetch(updateAvatarURL, {
     method,
     body: JSON.stringify(newAvatar),
   });
 
   if (response.ok) {
-    result = await response.json();
-    location.reload();
-    alert(`Avatar Updated`);
+    let result = await response.json();
     return result;
   } else {
     const result = await response.json();
