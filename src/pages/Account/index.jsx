@@ -98,7 +98,9 @@ function Account() {
           ) : null}
         </div>
       </div>
+
       <UserBookings userName={userName} bookings={userData?.bookings} userData={userData} setUserData={setUserData} />
+      <h2 className="font-subheader text-xl">Venues</h2>
       <UserVenues userName={userName} venues={userData.venues} userData={userData} setUserData={setUserData} />
     </div>
   );
