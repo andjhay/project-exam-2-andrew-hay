@@ -109,7 +109,7 @@ function Form({ currentForm, closeModal, setLoggedIn, setUser }) {
         <div className="flex justify-end">
           <button
             type="submit"
-            className="m-2 h-9 w-24 rounded-2xl border-2 border-darkbrown bg-darkbrown font-header text-white hover:border-yellowsand "
+            className="my-2 rounded-lg border-2 border-darkbrown bg-darkbrown px-2 py-1 font-subheader text-white hover:border-yellowsand"
           >
             {currentForm}
           </button>

@@ -1,14 +1,7 @@
-import React, { useRef, useMemo, useCallback, useState } from "react";
-import { Marker, Popup } from "react-leaflet";
+import React, { useRef, useMemo } from "react";
+import { Marker } from "react-leaflet";
 
-const center = {
-  lat: 0,
-  lng: 0,
-};
-
-function DraggableMarker() {
-  const [draggable, setDraggable] = useState(false);
-  const [position, setPosition] = useState(center);
+function DraggableMarker({ position, setPosition }) {
   const markerRef = useRef(null);
   const eventHandlers = useMemo(
     () => ({
@@ -16,26 +9,13 @@ function DraggableMarker() {
         const marker = markerRef.current;
         if (marker != null) {
           setPosition(marker.getLatLng());
-          console.log(marker.getLatLng())
         }
       },
     }),
-    []
+    [setPosition]
   );
-  const toggleDraggable = useCallback(() => {
-    setDraggable((d) => !d);
-  }, []);
-  
 
-  return (
-    <Marker draggable={draggable} eventHandlers={eventHandlers} position={position} ref={markerRef}>
-      <Popup minWidth={90}>
-        <span onClick={toggleDraggable}>
-          {draggable ? "Marker is draggable" : "Click here to make marker draggable"}
-        </span>
-      </Popup>
-    </Marker>
-  );
+  return <Marker draggable={true} eventHandlers={eventHandlers} position={position} ref={markerRef}></Marker>;
 }
 
 export default DraggableMarker;

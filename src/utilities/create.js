@@ -1,45 +1,16 @@
 import { apiPath } from "../shared/api.js";
-import { authFetch } from "./authFetch.mjs";
-import * as storage from "./storage.mjs";
+import { authFetch } from "./authFetch.js";
 
-const action = "/listings";
 const method = "post";
 
-/**
- * Sends listing data to the server
- * @param {string} listingData the input from create listing form
- */
-
-export async function createListing(listingData) {
-  const createListingURL = apiPath + action;
-  if (listingData.media[0] == [""]) {
-    delete listingData.media;
-  }
-  const response = await authFetch(createListingURL, {
+export async function createPost(data, apiDestination) {
+  const createVenueURL = apiPath + apiDestination;
+  const response = await authFetch(createVenueURL, {
     method,
-    body: JSON.stringify(listingData),
+    body: JSON.stringify(data),
   });
-  alert(`Listing Created`);
-  window.location.href = "userprofile.html";
+  alert(`Post Created`);
   return await response.json();
 }
 
-/**
- * Sends bid data to the server
- * @param {string} bidData the input bid input form
- * @param {string} id listing id
- */
 
-export async function createBid(id, bidData) {
-  const placeBidURL = apiPath + action + `/${id}` + "/bids";
-  const body = JSON.stringify(bidData);
-  const response = await authFetch(placeBidURL, {
-    method,
-    body,
-  });
-  const user = await userProfile();
-  storage.save("user", user);
-  alert(`Bid Placed`);
-  location.reload();
-  return await response.json();
-}
