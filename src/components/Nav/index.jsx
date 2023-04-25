@@ -4,7 +4,6 @@ import { NavLink, Link } from "react-router-dom";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import Logo from "../../assets/holidazelogoblack.png";
 import LogoText from "../../assets/holidazelogotextblack.png";
-import Search from "../Search";
 import Form from "../Form";
 import { logOut } from "../../utilities/logout";
 import * as storage from "../../utilities/storage.js";

@@ -12,7 +12,7 @@ function DraggableMarker({ position, setPosition }) {
         }
       },
     }),
-    []
+    [setPosition]
   );
 
   return <Marker draggable={true} eventHandlers={eventHandlers} position={position} ref={markerRef}></Marker>;
