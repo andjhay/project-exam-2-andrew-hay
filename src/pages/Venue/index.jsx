@@ -9,16 +9,15 @@ import { isWithinInterval, parseISO } from "date-fns";
 import useUser from "../../hooks/useUser";
 
 function Venue() {
-  const [img, setImg] = useState(0);
-  const { user } = useUser();
-
-  const [value, onChange] = useState(new Date());
   let { id } = useParams();
-  const { data } = useApi(apiPath + "/venues/" + id + "?_owner=true&_bookings=true");
-  const media = data?.media || [];
-  const owner = data?.owner || [];
-  const meta = data?.meta || {};
-  const bookings = data?.bookings || [];
+  const { user } = useUser();
+  const { data, isLoading, isError } = useApi(apiPath + "/venues/" + id + "?_owner=true&_bookings=true");
+  const [img, setImg] = useState(0);
+  const [value, onChange] = useState(new Date());
+  const media = data.media || [];
+  const owner = data.owner || [];
+  const meta = data.meta || {};
+  const bookings = data.bookings || [];
   const { name, price, rating, maxGuests, description } = data;
 
   function handleClickAdd() {
@@ -38,7 +37,7 @@ function Venue() {
   }
   let disabledRanges;
 
-  if (data?.bookings?.length >= 1) {
+  if (data.bookings?.length >= 1) {
     disabledRanges = bookings.map((booking) => {
       if (booking.dateFrom === undefined) {
         return [];
@@ -62,6 +61,14 @@ function Venue() {
   }
 
   let facilities = Object.values(meta).every((item) => item === false);
+
+  if (isLoading) {
+    return <h1>Loading</h1>;
+  }
+
+  if (isError) {
+    return <h1>Error</h1>;
+  }
 
   return (
     <div>
@@ -173,7 +180,7 @@ function Venue() {
               className="h-80 !bg-lightblue"
               onChange={onChange}
               value={value}
-              tileDisabled={data?.bookings?.length >= 1 ? tileDisabled : null}
+              tileDisabled={data.bookings?.length >= 1 ? tileDisabled : null}
               minDate={new Date()}
             />
           </div>

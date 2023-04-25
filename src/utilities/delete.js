@@ -1,21 +1,16 @@
-import { apiPath } from "../api.mjs";
-import { authFetch } from "../authFetch.mjs";
+import { apiPath } from "../shared/api.js";
+import { authFetch } from "./authFetch.js";
 
-const apiVenues = "/venues";
-const apiBookings = "/bookings";
 const method = "delete";
 
-export async function removeListing(venueId) {
-  const deletePostURL = `${apiPath}${apiVenues}/${venueId}`;
+export async function deleteItem(id, apiDestination) {
+  const deleteVenueURL = apiPath + apiDestination + "/" + id;
 
-  const response = await authFetch(deletePostURL, {
+  const response = await authFetch(deleteVenueURL, {
     method,
   });
 
-  if (response.ok === true) {
-    window.location.href = "userprofile.html";
-    alert(`Listing Deleted`);
-  } else {
+  if (response.ok === false) {
     const result = await response.json();
     alert("ERROR " + result.errors[0].message);
   }

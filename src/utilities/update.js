@@ -1,23 +1,24 @@
 import { apiPath } from "../shared/api.js";
 import { authFetch } from "./authFetch.js";
 
-const apiVenues = "/venues";
 const apiAvatar = "/profiles";
 const method = "put";
 
-export async function updateVenue(venueData) {
-  const updatePostURL = `${apiPath}${apiVenues}/${venueData.id}`;
-  if (venueData.media[0] == [""]) {
-    delete venueData.media;
-  }
-  delete venueData.id;
-  delete venueData.endsAt;
+export async function updatePut(data, apiDestination) {
+  const updatePostURL = apiPath + apiDestination + "/" + data.id;
+
   const response = await authFetch(updatePostURL, {
     method,
-    body: JSON.stringify(venueData),
+    body: JSON.stringify(data),
   });
 
-  return await response.json();
+  if (response.ok) {
+    let result = await response.json();
+    return result;
+  } else {
+    const result = await response.json();
+    alert("ERROR " + result.errors[0].message);
+  }
 }
 
 export async function updateAvatar(newAvatar, username) {

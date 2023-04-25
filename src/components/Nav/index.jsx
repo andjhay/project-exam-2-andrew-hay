@@ -87,7 +87,9 @@ function Nav() {
         <div className="hidden items-center lg:flex lg:flex-1 lg:justify-end">
           {isLoggedIn ? (
             <>
-              <h2>{user?.name}</h2>
+              <Link className="underline underline-offset-4" to={"/account/" + user?.name}>
+                {user?.name}
+              </Link>
               <Link to="/">
                 <button
                   onClick={handelLogOut}
@@ -118,7 +120,7 @@ function Nav() {
             className={
               isLoggedIn
                 ? ({ isActive }) => (isActive ? "mx-2 fill-white" : "mx-2 hover:fill-white")
-                : "mx-2 pointer-events-none opacity-50"
+                : "pointer-events-none mx-2 opacity-50"
             }
           >
             <svg className="h-9" xmlns="http://www.w3.org/2000/svg" viewBox="0 96 960 960">
@@ -166,7 +168,9 @@ function Nav() {
               <div className="flex items-center justify-center py-2">
                 {isLoggedIn ? (
                   <>
-                    <h2>{user?.name}</h2>
+                    <Link className="underline underline-offset-4" to={"/account/" + user?.name}>
+                      {user?.name}
+                    </Link>
                     <Link to="/">
                       <button
                         onClick={handelLogOut}
@@ -198,7 +202,7 @@ function Nav() {
                   className={
                     isLoggedIn
                       ? ({ isActive }) => (isActive ? "mx-2 fill-darkblue" : "mx-2 hover:fill-darkblue")
-                      : "mx-2 pointer-events-none opacity-50"
+                      : "pointer-events-none mx-2 opacity-50"
                   }
                 >
                   <svg className="h-9" xmlns="http://www.w3.org/2000/svg" viewBox="0 96 960 960">

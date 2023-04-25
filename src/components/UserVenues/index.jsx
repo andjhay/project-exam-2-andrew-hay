@@ -1,13 +1,15 @@
 import React from "react";
-import useApi from "../../hooks/useApi";
-import { apiPath } from "../../shared/api";
+import VenueCard from "../VenueCard";
 
-function UserVenues({ userName }) {
-  const { data } = useApi(apiPath + "/profiles/" + userName + "/venues");
+function UserVenues({ userName, venues, userData, setUserData }) {
   return (
-    <div className="m-5 flex">
+    <div className="m-5">
       <h2 className="font-subheader text-xl">Venues</h2>
-      <div>{data ? "Is Bookings" : "No Bookings"}</div>
+      <div className="flex flex-wrap">
+        {venues?.map((venue) => (
+          <VenueCard userName={userName} venue={venue} venues={venues} userData={userData} setUserData={setUserData}  />
+        ))}
+      </div>
     </div>
   );
 }

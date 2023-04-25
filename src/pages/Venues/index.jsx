@@ -20,7 +20,7 @@ const sortBy = [
 function Venues() {
   const [selected, setSelected] = useState(sortBy[0]);
   const { search } = useSearch();
-  const { data } = useApi(apiPath + "/venues" + selected.sort);
+  const { data, isLoading, isError } = useApi(apiPath + "/venues" + selected.sort);
   const [filteredData, setFilteredData] = useState(data);
 
   useEffect(() => {
@@ -48,6 +48,14 @@ function Venues() {
     });
     setFilteredData(searchResults);
   }, [search, data]);
+
+  if (isLoading) {
+    return <h1>Loading</h1>;
+  }
+
+  if (isError) {
+    return <h1>Error</h1>;
+  }
 
   return (
     <div className="">

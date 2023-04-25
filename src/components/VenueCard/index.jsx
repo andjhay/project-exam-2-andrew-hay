@@ -1,8 +1,24 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import { deleteItem } from "../../utilities/delete";
+import useUser from "../../hooks/useUser";
 
-function VenueCard({ venue }) {
+function VenueCard({ venue, userName, venues, userData, setUserData }) {
+  const { user } = useUser();
   const [img, setImg] = useState(0);
+
+  let loggedInUser = false;
+  if (userName === user.name) {
+    loggedInUser = true;
+  }
+
+  function handleDelete(id) {
+    deleteItem(id, "/venues");
+    setUserData({
+      ...userData,
+      venues: venues.filter((venue) => venue.id !== id),
+    });
+  }
 
   let mediaCount = venue.media.length;
 
@@ -45,14 +61,37 @@ function VenueCard({ venue }) {
       </div>
       <div className="m-3 flex grow basis-1/2 flex-col justify-end">
         <h3>{venue.name}</h3>
-        <p>NOK <b>{venue.price}</b> per night</p>
-        <p>Guests: <b>{venue.maxGuests}</b></p>
-        <p>Rating: <b>{venue.rating === 0 ? "No Rating Yet" : venue.rating}</b></p>
-        <Link to={"/venue/" + venue.id}>
-          <button className="my-2 mx-auto flex items-center rounded-lg border-2 border-darkbrown bg-darkbrown px-2 py-1 font-subheader text-white hover:border-yellowsand ">
-            View Venue
-          </button>
-        </Link>
+        <p>
+          NOK <b>{venue.price}</b> per night
+        </p>
+        <p>
+          Guests: <b>{venue.maxGuests}</b>
+        </p>
+        <p>
+          Rating: <b>{venue.rating === 0 ? "No Rating Yet" : venue.rating}</b>
+        </p>
+        <div className="flex justify-center">
+          <Link to={"/venue/" + venue.id}>
+            <button className="m-2 rounded-lg border-2 border-darkbrown bg-darkbrown px-2 py-1 font-subheader text-white hover:border-yellowsand ">
+              View Venue
+            </button>
+          </Link>
+          {loggedInUser ? (
+            <Link to={"/venuemanage/" + venue.id}>
+              <button className="m-2 rounded-lg border-2 border-darkbrown bg-darkbrown px-2 py-1 font-subheader text-white hover:border-yellowsand">
+                Edit
+              </button>
+            </Link>
+          ) : null}
+          {loggedInUser ? (
+            <button
+              onClick={() => handleDelete(venue.id)}
+              className="m-2 rounded-lg border-2 border-darkbrown bg-red-500 px-2 py-1 font-subheader text-white hover:border-yellowsand"
+            >
+              Delete
+            </button>
+          ) : null}
+        </div>
       </div>
     </div>
   );
