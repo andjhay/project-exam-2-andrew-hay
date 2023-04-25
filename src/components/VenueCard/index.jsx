@@ -1,14 +1,15 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { deleteItem } from "../../utilities/delete";
 import useUser from "../../hooks/useUser";
 
 function VenueCard({ venue, userName, venues, userData, setUserData }) {
   const { user } = useUser();
   const [img, setImg] = useState(0);
+  const navigate = useNavigate();
 
   let loggedInUser = false;
-  if (userName === user.name) {
+  if (userName === user.name && user.name !== undefined) {
     loggedInUser = true;
   }
 
@@ -70,23 +71,25 @@ function VenueCard({ venue, userName, venues, userData, setUserData }) {
         <p>
           Rating: <b>{venue.rating === 0 ? "No Rating Yet" : venue.rating}</b>
         </p>
-        <div className="flex justify-center">
-          <Link to={"/venue/" + venue.id}>
-            <button className="m-2 rounded-lg border-2 border-darkbrown bg-darkbrown px-2 py-1 font-subheader text-white hover:border-yellowsand ">
-              View Venue
-            </button>
-          </Link>
+        <div className="my-2 flex flex-wrap justify-center">
+          <button
+            onClick={() => navigate("/venue/" + venue.id)}
+            className="m-auto rounded-lg border-2 border-darkbrown bg-darkbrown px-2 py-1 font-subheader text-white hover:border-yellowsand "
+          >
+            View Venue
+          </button>
           {loggedInUser ? (
-            <Link to={"/venuemanage/" + venue.id}>
-              <button className="m-2 rounded-lg border-2 border-darkbrown bg-darkbrown px-2 py-1 font-subheader text-white hover:border-yellowsand">
-                Edit
-              </button>
-            </Link>
+            <button
+              onClick={() => navigate("/venuemanage/" + venue.id)}
+              className="m-auto rounded-lg border-2 border-darkbrown bg-darkbrown px-2 py-1 font-subheader text-white hover:border-yellowsand"
+            >
+              Edit
+            </button>
           ) : null}
           {loggedInUser ? (
             <button
               onClick={() => handleDelete(venue.id)}
-              className="m-2 rounded-lg border-2 border-darkbrown bg-red-500 px-2 py-1 font-subheader text-white hover:border-yellowsand"
+              className="m-auto rounded-lg border-2 border-darkbrown bg-red-500 px-2 py-1 font-subheader text-white hover:border-yellowsand"
             >
               Delete
             </button>

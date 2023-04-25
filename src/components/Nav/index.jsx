@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Dialog } from "@headlessui/react";
-import { NavLink, Link } from "react-router-dom";
+import { NavLink, Link, useNavigate, useLocation } from "react-router-dom";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import Logo from "../../assets/holidazelogoblack.png";
 import LogoText from "../../assets/holidazelogotextblack.png";
@@ -17,6 +17,10 @@ function Nav() {
   let [isLoggedIn, setLoggedIn] = useState(false);
   let [currentForm, setForm] = useState("");
   let { user, setUser } = useUser(userData);
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  console.log(location);
 
   useEffect(() => {
     let token = storage.load("token");
@@ -42,6 +46,9 @@ function Nav() {
     logOut();
     setLoggedIn(false);
     setUser({});
+    if (location.pathname.includes("account")) {
+      navigate("/");
+    }
   }
 
   return (
@@ -89,14 +96,12 @@ function Nav() {
               <Link className="underline underline-offset-4" to={"/account/" + user?.name}>
                 {user?.name}
               </Link>
-              <Link to="/">
-                <button
-                  onClick={handelLogOut}
-                  className="mx-2 rounded-lg border-2 border-darkbrown bg-darkbrown px-2 py-1 font-subheader text-white hover:border-yellowsand"
-                >
-                  Log Out
-                </button>
-              </Link>
+              <button
+                onClick={handelLogOut}
+                className="mx-2 rounded-lg border-2 border-darkbrown bg-darkbrown px-2 py-1 font-subheader text-white hover:border-yellowsand"
+              >
+                Log Out
+              </button>
             </>
           ) : (
             <>
@@ -170,14 +175,12 @@ function Nav() {
                     <Link className="underline underline-offset-4" to={"/account/" + user?.name}>
                       {user?.name}
                     </Link>
-                    <Link to="/">
-                      <button
-                        onClick={handelLogOut}
-                        className="mx-2 rounded-lg border-2 border-darkbrown bg-darkbrown px-2 py-1 font-subheader text-white hover:border-yellowsand "
-                      >
-                        Log Out
-                      </button>
-                    </Link>
+                    <button
+                      onClick={handelLogOut}
+                      className="mx-2 rounded-lg border-2 border-darkbrown bg-darkbrown px-2 py-1 font-subheader text-white hover:border-yellowsand "
+                    >
+                      Log Out
+                    </button>
                   </>
                 ) : (
                   <>
