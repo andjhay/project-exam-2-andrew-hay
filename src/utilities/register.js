@@ -25,6 +25,6 @@ export async function register(input) {
     return result;
   } else {
     const result = await response.json();
-    alert("ERROR " + result.errors[0].message);
+    alert("Error " + result.errors[0].message);
   }
 }

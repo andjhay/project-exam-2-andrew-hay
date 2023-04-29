@@ -81,8 +81,7 @@ function Form({ currentForm, closeModal, setLoggedIn, setUser }) {
               id="avatar"
               className="rounded-md border-2 border-black p-1"
               type="url"
-              pattern=".*\.jpeg|.*\.png|.*\.gif|.*\.jpg$"
-              placeholder="URL (.jpg .png .jpeg .gif)"
+              placeholder="Image URL (optional)"
             />
           </div>
         ) : null}

@@ -22,7 +22,8 @@ export async function createPost(data, apiDestination) {
     alert(apiDestination + " has been created");
     return result;
   } else {
-    const result = await response.json();
-    alert("ERROR " + result.errors[0].message);
+    let result = await response.json();
+    alert("Error Could not create " + apiDestination + " - " + result.errors[0].message);
+    return result;
   }
 }

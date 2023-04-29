@@ -45,7 +45,7 @@ function VenueCard({ venue, userName, venues, userData, setUserData }) {
   }
 
   return (
-    <div className="flex flex-col rounded-lg border font-paragraph">
+    <div className="flex flex-col rounded-lg font-paragraph shadow-lg">
       <div className="flex basis-1/2 items-center justify-center">
         <div className="me-auto basis-1/12">
           <button className={mediaCount <= 1 ? "pointer-events-none opacity-25" : ""} onClick={handleClickRemove}>

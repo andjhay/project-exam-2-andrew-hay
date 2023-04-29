@@ -35,7 +35,7 @@ function UserBookings({ userName, bookings, userData, setUserData }) {
       {filteredBookings?.length >= 1
         ? filteredBookings?.map((booking) => {
             return (
-              <div key={booking.id} className="m-2 rounded-lg border p-3">
+              <div key={booking.id} className="m-2 rounded-lg p-3 shadow-lg">
                 Booking at: {booking.venue.name} - {booking.guests} {booking.guests > 1 ? "guests" : "guest"}{" "}
                 from {new Date(booking.dateFrom).toLocaleString("en-GB").slice(0, 10)} to{" "}
                 {new Date(booking.dateTo).toLocaleString("en-GB").slice(0, 10)}

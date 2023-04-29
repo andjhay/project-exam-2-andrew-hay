@@ -12,6 +12,6 @@ export async function deleteItem(id, apiDestination) {
 
   if (response.ok === false) {
     const result = await response.json();
-    alert("ERROR " + result.errors[0].message);
+    alert("Error " + result.errors[0].message);
   }
 }

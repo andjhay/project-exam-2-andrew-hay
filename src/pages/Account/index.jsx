@@ -26,6 +26,7 @@ function Account() {
 
   useEffect(() => {
     setUserData(data);
+    console.log(data);
   }, [data]);
 
   const submitUpdate = async (event) => {
