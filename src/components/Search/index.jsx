@@ -58,7 +58,7 @@ function Search() {
     <form className="flex flex-col items-center font-paragraph lg:flex-row lg:justify-center" onSubmit={submitSearch}>
       <label
         className="flex w-full flex-row items-center rounded-t-lg border-2 border-b-0 border-black bg-lightblue lg:flex-col lg:rounded-l-lg lg:rounded-tr-none lg:border-b-2 lg:border-r-0"
-        htmlFor="dateTo"
+        htmlFor="searchTerm"
       >
         <p className="w-24 text-center">Where</p>
         <input
@@ -121,7 +121,7 @@ function Search() {
         />
       </label>
       <button
-        value="search"
+        aria-label="submit-search"
         type="submit"
         className="flex w-full justify-center rounded-b-lg border-2 border-black bg-lightblue shadow-xl hover:bg-darkblue lg:m-2 lg:flex-col lg:rounded-lg"
       >

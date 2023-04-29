@@ -71,7 +71,7 @@ function VenueCard({ venue, userName, venues, userData, setUserData }) {
       </div>
       <div className="m-3 flex grow basis-1/2 flex-col justify-end">
         <div className="mx-6">
-          <h2 className="font-subheader text-xl">{venue.name}</h2>
+          {venue.name ? <h2 className="font-subheader text-xl">{venue.name}</h2> : null}
           <p>
             NOK <b>{venue.price}</b> per night
           </p>
