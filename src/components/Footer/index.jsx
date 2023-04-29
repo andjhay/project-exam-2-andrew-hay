@@ -5,7 +5,7 @@ import useUser from "../../hooks/useUser";
 function Footer() {
   let { user } = useUser();
   return (
-    <footer className="grid grid-cols-2 divide-x divide-black bg-sand p-2 ">
+    <footer className="font-paragraph grid grid-cols-2 divide-x divide-black bg-sand p-2 ">
       <div className="grid grid-cols-1 justify-items-center sm:grid-cols-2">
         <Link to="/sitemap" className="hover:text-white">
           Sitemap

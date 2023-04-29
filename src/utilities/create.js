@@ -4,13 +4,25 @@ import { authFetch } from "./authFetch.js";
 const method = "post";
 
 export async function createPost(data, apiDestination) {
-  const createVenueURL = apiPath + apiDestination;
-  const response = await authFetch(createVenueURL, {
+  const createVenueUrl = apiPath + "/venues";
+  const createBookingUrl = apiPath + "/bookings";
+  let useUrl;
+  if (apiDestination === "Venue") {
+    useUrl = createVenueUrl;
+  }
+  if (apiDestination === "Booking") {
+    useUrl = createBookingUrl;
+  }
+  const response = await authFetch(useUrl, {
     method,
     body: JSON.stringify(data),
   });
-  alert(`Post Created`);
-  return await response.json();
+  if (response.ok) {
+    let result = await response.json();
+    alert(apiDestination + " has been created");
+    return result;
+  } else {
+    const result = await response.json();
+    alert("ERROR " + result.errors[0].message);
+  }
 }
-
-

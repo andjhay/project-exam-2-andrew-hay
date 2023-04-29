@@ -1,24 +1,25 @@
 import React, { useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams, useNavigate } from "react-router-dom";
 import useApi from "../../hooks/useApi";
 import { apiPath } from "../../shared/api";
-import Calendar from "react-calendar";
 import { Disclosure } from "@headlessui/react";
 import { ChevronDownIcon } from "@heroicons/react/20/solid";
-import { isWithinInterval, parseISO } from "date-fns";
 import useUser from "../../hooks/useUser";
+import LoadingElement from "../../components/LoadingElement";
+import ErrorElement from "../../components/Error";
+import Logo from "../../assets/holidazelogotextlargebg.png";
 
 function Venue() {
   let { id } = useParams();
   const { user } = useUser();
-  const { data, isLoading, isError } = useApi(apiPath + "/venues/" + id + "?_owner=true&_bookings=true");
+  const { data, isLoading, isError, errorMsg } = useApi(apiPath + "/venues/" + id + "?_owner=true&_bookings=true");
   const [img, setImg] = useState(0);
-  const [value, onChange] = useState(new Date());
   const media = data.media || [];
   const owner = data.owner || [];
   const meta = data.meta || {};
-  const bookings = data.bookings || [];
+
   const { name, price, rating, maxGuests, description } = data;
+  const navigate = useNavigate();
 
   function handleClickAdd() {
     if (img === media.length - 1) {
@@ -35,62 +36,47 @@ function Venue() {
       setImg(img - 1);
     }
   }
-  let disabledRanges;
 
-  if (data.bookings?.length >= 1) {
-    disabledRanges = bookings.map((booking) => {
-      if (booking.dateFrom === undefined) {
-        return [];
-      } else {
-        return [parseISO(booking.dateFrom), parseISO(booking.dateTo)];
-      }
-    });
-  }
-  function tileDisabled({ date, view }) {
-    if (view === "month") {
-      return isWithinRanges(date, disabledRanges);
-    }
-  }
-
-  function isWithinRange(date, range) {
-    return isWithinInterval(date, { start: range[0], end: range[1] });
-  }
-
-  function isWithinRanges(date, ranges) {
-    return ranges.some((range) => isWithinRange(date, range));
-  }
+  let currentDate = new Date().setUTCHours(0, 0, 0, 0);
 
   let facilities = Object.values(meta).every((item) => item === false);
 
+  let venueBookings = data?.bookings;
+
+  venueBookings?.sort((a, b) => {
+    return new Date(a.dateFrom) - new Date(b.dateFrom);
+  });
+
   if (isLoading) {
-    return <h1>Loading</h1>;
+    return <LoadingElement />;
   }
 
-  if (isError) {
-    return <h1>Error</h1>;
+  if (isError || data.errors) {
+    return <ErrorElement errorMsg={errorMsg} data={data} />;
   }
 
   return (
-    <div>
-      <h1 className="m-3 text-center font-header text-3xl">{name}</h1>
+    <div className="font-paragraph">
+      <h1 className="m-2 text-center font-header text-3xl">{name}</h1>
       <div className="m-3 flex flex-col md:flex-row">
         <div className="basis-1/2">
           <div className="flex items-center justify-center">
             <div>
-              <button
-                className={media.length === 1 ? "pointer-events-none opacity-25" : ""}
-                onClick={handleClickRemove}
-              >
+              <button className={media.length <= 1 ? "pointer-events-none opacity-25" : ""} onClick={handleClickRemove}>
                 <svg className="h-9" xmlns="http://www.w3.org/2000/svg" viewBox="0 96 960 960">
                   <path d="M561 816 320 575l241-241 43 43-198 198 198 198-43 43Z" />
                 </svg>
               </button>
             </div>
             <div>
-              <img className="venue-img my-5 max-h-[50vh] rounded-md shadow" src={media[img]} alt={name} />
+              <img
+                className="venue-img my-5 max-h-[50vh] rounded-md shadow"
+                src={media.length === 0 ? Logo : media[img]}
+                alt={name}
+              />
             </div>
             <div>
-              <button className={media.length === 1 ? "pointer-events-none opacity-25" : ""} onClick={handleClickAdd}>
+              <button className={media.length <= 1 ? "pointer-events-none opacity-25" : ""} onClick={handleClickAdd}>
                 <svg className="h-9" xmlns="http://www.w3.org/2000/svg" viewBox="0 96 960 960">
                   <path d="m375 816-43-43 198-198-198-198 43-43 241 241-241 241Z" />
                 </svg>
@@ -98,11 +84,11 @@ function Venue() {
             </div>
           </div>
         </div>
-        <div className="m-5 flex w-full basis-1/2 flex-col ">
+        <div className="m-5 flex basis-1/2 flex-col ">
           <h2 className="mb-3 font-subheader text-xl">Details</h2>
           <div>
             <Disclosure>
-              <Disclosure.Button className="flex items-center rounded-lg bg-gray-100 px-1 text-left hover:bg-gray-200 focus:outline-none focus-visible:ring focus-visible:ring-purple-500 focus-visible:ring-opacity-75">
+              <Disclosure.Button className="flex items-center rounded-lg bg-gray-100 px-2 text-left hover:bg-gray-200 focus:outline-none focus-visible:ring focus-visible:ring-purple-500 focus-visible:ring-opacity-75">
                 <span>Description</span>
                 <ChevronDownIcon className="h-10" />
               </Disclosure.Button>
@@ -119,15 +105,8 @@ function Venue() {
               </Link>{" "}
             </p>
           </div>
-
-          <Link to={"/venuebook/" + id}>
-            <button className=" my-2 rounded-lg border-2 border-darkbrown bg-darkbrown px-2 py-1 font-subheader text-white hover:border-yellowsand ">
-              Book Venue
-            </button>
-          </Link>
           {facilities ? null : <h2 className="my-3 font-subheader text-xl">Venue Facilities</h2>}
-
-          <div className="flex max-w-[50vw] md:max-w-[25vw]">
+          <div className="flex">
             {meta.wifi === true ? (
               <div className="flex basis-1/4 flex-col items-center p-2">
                 <svg className="h-10" xmlns="http://www.w3.org/2000/svg" viewBox="0 96 960 960">
@@ -161,29 +140,37 @@ function Venue() {
               </div>
             ) : null}
           </div>
-          <div>
-            <h2 className="my-3 font-subheader text-xl">Availability</h2>
-            <span className="flex items-center">
-              <svg className="fill-red-400">
-                <rect width="45" height="35" />
-              </svg>
-              <p className="m-2">Booked/Unavailable</p>
-            </span>
-            <span className="flex items-center">
-              <svg className="fill-lightblue">
-                <rect width="45" height="35" />
-              </svg>
-              <p className="m-2">Available</p>
-            </span>
-
-            <Calendar
-              className="h-80 !bg-lightblue"
-              onChange={onChange}
-              value={value}
-              tileDisabled={data.bookings?.length >= 1 ? tileDisabled : null}
-              minDate={new Date()}
-            />
+          <div className="m-4 flex flex-col items-center">
+            {!user.name ? <h3 className="font-subheader text-lg">Login or sign up now to book</h3> : null}
+            <button
+              onClick={() => navigate("/bookingcreate/" + id)}
+              className={
+                user.name ? "main-button w-fit shadow" : "main-button pointer-events-none w-fit opacity-50 shadow"
+              }
+            >
+              Book This Venue
+            </button>
           </div>
+          {user.name === owner.name ? (
+            <div>
+              <h2 className="my-3 font-subheader text-xl">Upcoming and current bookings at your venue</h2>
+              {venueBookings?.length >= 1
+                ? venueBookings?.map((booking) => {
+                    if (new Date(currentDate).toISOString() <= booking.dateTo) {
+                      return (
+                        <div key={booking.id} className="m-2 w-fit rounded-lg border p-3">
+                          {booking.guests} guests from {new Date(booking.dateFrom).toLocaleString("en-GB").slice(0, 10)}{" "}
+                          to {new Date(booking.dateTo).toLocaleString("en-GB").slice(0, 10)}
+                        </div>
+                      );
+                    } else {
+                      <h3 className="">No current bookings for this venue</h3>;
+                    }
+                    return null;
+                  })
+                : "No current bookings"}
+            </div>
+          ) : null}
         </div>
       </div>
     </div>

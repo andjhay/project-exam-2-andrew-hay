@@ -53,12 +53,8 @@ input#lat[type="number"]::-webkit-outer-spin-button {
   color: #757575 !important;
 }
 
-.react-calendar__month-view__days__day {
-  pointer-events: none;
-}
-
-.react-calendar__tile--now {
-  color: #f2cf8d !important;
+.react-calendar__tile--now:not(.react-calendar__tile--active) {
+  background-color: $yellowsand;
 }
 
 svg.fill-red-400,
@@ -69,5 +65,20 @@ svg.fill-lightblue {
 
 #set-position {
   width: 100%;
-  height: 727px;
+  height: 500px;
+  border-radius: 0.5rem;
+}
+
+.main-button {
+  font-family: Lexend;
+  color: white;
+  margin: 0.5rem;
+  padding: 0.25rem 0.5rem;
+  background-color: $darkbrown;
+  border-radius: 0.5rem;
+}
+
+.main-button:hover {
+  color: $darkbrown;
+  background-color: $sand;
 }

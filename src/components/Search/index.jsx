@@ -7,6 +7,7 @@ function Search() {
   const [fromDate, setFromDate] = useState("");
   const [toDate, setToDate] = useState();
   const navigate = useNavigate();
+
   const submitSearch = async (event) => {
     event.preventDefault();
     const form = [...event.target];
@@ -23,7 +24,6 @@ function Search() {
         formData[key] = value;
       }
     });
-    console.log(formData);
     setSearchInput(formData);
     navigate("/venues");
   };
@@ -35,15 +35,19 @@ function Search() {
   function dateSelected(event) {
     let dateToInput = document.getElementById("dateTo");
     let inputToDate = new Date(dateToInput.value);
+
     let inputFromDate = new Date(event.target.value);
+    console.log(inputFromDate);
     let compareDate = inputFromDate < inputToDate;
     if (compareDate === false) {
       dateToInput.value = "";
     }
-    if (isNaN(inputFromDate.getTime())) {
-      console.log("found the invalid date");
+    if (isNaN(inputFromDate.getTime()) === true) {
+      dateToInput.value = "";
+      setFromDate("");
     } else {
       inputFromDate.setDate(inputFromDate.getDate() + 1);
+      console.log(inputFromDate);
       dayAfterToday = inputFromDate.toISOString().slice(0, 10);
       setToDate(dayAfterToday);
       setFromDate(event.target.value);
@@ -51,7 +55,7 @@ function Search() {
   }
 
   return (
-    <form className="flex flex-col items-center lg:flex-row lg:justify-center" onSubmit={submitSearch}>
+    <form className="flex flex-col items-center font-paragraph lg:flex-row lg:justify-center" onSubmit={submitSearch}>
       <label
         className="flex w-full flex-row items-center rounded-t-lg border-2 border-b-0 border-black bg-lightblue lg:flex-col lg:rounded-l-lg lg:rounded-tr-none lg:border-b-2 lg:border-r-0"
         htmlFor="dateTo"
@@ -61,7 +65,7 @@ function Search() {
           id="searchTerm"
           defaultValue={search.searchTerm}
           type="text"
-          className="h-10 rounded-tr-lg border-l-2 border-black p-1 px-3 placeholder-black shadow-xl focus:outline-none lg:rounded-t-none lg:rounded-bl-lg lg:border-l-0 lg:border-r-0 lg:border-t-2"
+          className="h-10 w-auto rounded-tr-lg border-l-2 border-black p-1 px-3 placeholder-black shadow-xl focus:outline-none lg:rounded-t-none lg:rounded-bl-lg lg:border-l-0 lg:border-r-0 lg:border-t-2"
           placeholder="Search"
           aria-label="Search"
         />
@@ -118,7 +122,7 @@ function Search() {
       </label>
       <button
         type="submit"
-        className="flex w-full justify-center rounded-b-lg border-2 border-black bg-lightblue shadow-xl lg:m-2 lg:flex-col lg:rounded-lg"
+        className="flex w-full justify-center rounded-b-lg border-2 border-black bg-lightblue shadow-xl hover:bg-darkblue lg:m-2 lg:flex-col lg:rounded-lg"
       >
         <svg className="h-10 hover:fill-white" xmlns="http://www.w3.org/2000/svg" viewBox="0 96 960 960">
           <path d="M796 935 533 672q-30 26-69.959 40.5T378 727q-108.162 0-183.081-75Q120 577 120 471t75-181q75-75 181.5-75t181 75Q632 365 632 471.15 632 514 618 554q-14 40-42 75l264 262-44 44ZM377 667q81.25 0 138.125-57.5T572 471q0-81-56.875-138.5T377 275q-82.083 0-139.542 57.5Q180 390 180 471t57.458 138.5Q294.917 667 377 667Z" />

@@ -2,12 +2,12 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { deleteItem } from "../../utilities/delete";
 import useUser from "../../hooks/useUser";
+import Logo from "../../assets/holidazelogotextlargebg.png";
 
 function VenueCard({ venue, userName, venues, userData, setUserData }) {
   const { user } = useUser();
   const [img, setImg] = useState(0);
   const navigate = useNavigate();
-
   let loggedInUser = false;
   if (userName === user.name && user.name !== undefined) {
     loggedInUser = true;
@@ -40,20 +40,24 @@ function VenueCard({ venue, userName, venues, userData, setUserData }) {
   }
 
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col rounded-lg border font-paragraph">
       <div className="flex basis-1/2 items-center justify-center">
         <div className="me-auto basis-1/12">
-          <button className={mediaCount === 1 ? "pointer-events-none opacity-25" : ""} onClick={handleClickRemove}>
+          <button className={mediaCount <= 1 ? "pointer-events-none opacity-25" : ""} onClick={handleClickRemove}>
             <svg className="h-9" xmlns="http://www.w3.org/2000/svg" viewBox="0 96 960 960">
               <path d="M561 816 320 575l241-241 43 43-198 198 198 198-43 43Z" />
             </svg>
           </button>
         </div>
         <div className="basis-10/12">
-          <img className="card-img m-auto rounded-md shadow" src={venue.media[img]} alt={venue.name} />
+          <img
+            className="card-img m-auto rounded-b-md shadow"
+            src={mediaCount === 0 ? Logo : venue.media[img]}
+            alt={venue.name}
+          />
         </div>
         <div className="ms-auto basis-1/12">
-          <button className={mediaCount === 1 ? "pointer-events-none opacity-25" : ""} onClick={handleClickAdd}>
+          <button className={mediaCount <= 1 ? "pointer-events-none opacity-25" : ""} onClick={handleClickAdd}>
             <svg className="h-9" xmlns="http://www.w3.org/2000/svg" viewBox="0 96 960 960">
               <path d="m375 816-43-43 198-198-198-198 43-43 241 241-241 241Z" />
             </svg>
@@ -61,38 +65,34 @@ function VenueCard({ venue, userName, venues, userData, setUserData }) {
         </div>
       </div>
       <div className="m-3 flex grow basis-1/2 flex-col justify-end">
-        <h3>{venue.name}</h3>
-        <p>
-          NOK <b>{venue.price}</b> per night
-        </p>
-        <p>
-          Guests: <b>{venue.maxGuests}</b>
-        </p>
-        <p>
-          Rating: <b>{venue.rating === 0 ? "No Rating Yet" : venue.rating}</b>
-        </p>
+        <div className="mx-6">
+          <h2 className="font-subheader text-xl">{venue.name}</h2>
+          <p>
+            NOK <b>{venue.price}</b> per night
+          </p>
+          <p>
+            Guests: <b>{venue.maxGuests}</b>
+          </p>
+          <p>
+            Rating: <b>{venue.rating === 0 ? "No Rating Yet" : venue.rating}</b>
+          </p>
+        </div>
         <div className="my-2 flex flex-wrap justify-center">
-          <button
-            onClick={() => navigate("/venue/" + venue.id)}
-            className="m-auto rounded-lg border-2 border-darkbrown bg-darkbrown px-2 py-1 font-subheader text-white hover:border-yellowsand "
-          >
-            View Venue
+          <button onClick={() => navigate("/venue/" + venue.id)} className="main-button shadow">
+            View Venues Bookings
           </button>
           {loggedInUser ? (
-            <button
-              onClick={() => navigate("/venuemanage/" + venue.id)}
-              className="m-auto rounded-lg border-2 border-darkbrown bg-darkbrown px-2 py-1 font-subheader text-white hover:border-yellowsand"
-            >
-              Edit
-            </button>
-          ) : null}
-          {loggedInUser ? (
-            <button
-              onClick={() => handleDelete(venue.id)}
-              className="m-auto rounded-lg border-2 border-darkbrown bg-red-500 px-2 py-1 font-subheader text-white hover:border-yellowsand"
-            >
-              Delete
-            </button>
+            <>
+              <button onClick={() => navigate("/venueedit/" + venue.id)} className="main-button shadow">
+                Edit Venue
+              </button>
+              <button
+                onClick={() => handleDelete(venue.id)}
+                className="main-button !bg-red-600 shadow hover:!bg-red-400 hover:!text-white"
+              >
+                Delete
+              </button>
+            </>
           ) : null}
         </div>
       </div>
