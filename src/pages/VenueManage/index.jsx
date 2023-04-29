@@ -158,7 +158,7 @@ function VenueManage() {
       <form onSubmit={submitForm} className="flex flex-col p-3">
         <h2 className="my-3 font-subheader text-xl">Venue Details</h2>
         <div className="my-2 flex flex-col">
-          <label>Venue Name</label>
+          <label htmlFor="name">Venue Name</label>
           <input
             id="name"
             className="rounded-md border-2 border-black p-1"
@@ -170,7 +170,7 @@ function VenueManage() {
           />
         </div>
         <div className="my-2 flex flex-col">
-          <label>Description</label>
+          <label htmlFor="description">Description</label>
           <textarea
             id="description"
             className="rounded-md border-2 border-black p-1"
@@ -181,7 +181,7 @@ function VenueManage() {
           />
         </div>
         <div className="my-2 flex flex-col">
-          <label>Max Guests</label>
+          <label htmlFor="maxGuests">Max Guests</label>
           <input
             id="maxGuests"
             className="rounded-md border-2 border-black p-1"
@@ -192,7 +192,7 @@ function VenueManage() {
           />
         </div>
         <div className="my-2 flex flex-col">
-          <label>Price</label>
+          <label htmlFor="price">Price</label>
           <input
             id="price"
             className="rounded-md border-2 border-black p-1"
@@ -203,7 +203,7 @@ function VenueManage() {
           />
         </div>
         <div className="my-2 flex flex-col">
-          <label>Rating</label>
+          <label htmlFor="rating">Rating</label>
           <input
             id="rating"
             className="rounded-md border-2 border-black p-1"
@@ -222,7 +222,7 @@ function VenueManage() {
           </div>
         </div>
         <div className="my-2 flex flex-col">
-          <label>Media</label>
+          <label htmlFor="media">Media</label>
           <input
             id="media"
             className="rounded-md border-2 border-black p-1"
@@ -234,7 +234,7 @@ function VenueManage() {
         <h2 className="my-3 font-subheader text-xl">Facilities:</h2>
         <div className="flex flex-wrap justify-center py-4">
           {checkboxes.map((checkbox, index) => (
-            <label key={checkbox.id} className="mx-3 flex items-center">
+            <label key={checkbox.id} htmlFor={checkbox.id} className="mx-3 flex items-center">
               <input
                 id={checkbox.id}
                 className="custom-radio m-2"
@@ -250,7 +250,7 @@ function VenueManage() {
         </div>
         <h2 className="my-3 font-subheader text-xl">Location</h2>
         <div className="my-2 flex flex-col">
-          <label>Address</label>
+          <label htmlFor="address">Address</label>
           <input
             id="address"
             className="rounded-md border-2 border-black p-1"
@@ -261,7 +261,7 @@ function VenueManage() {
           />
         </div>
         <div className="my-2 flex flex-col">
-          <label>City</label>
+          <label htmlFor="city">City</label>
           <input
             id="city"
             className="rounded-md border-2 border-black p-1"
@@ -272,7 +272,7 @@ function VenueManage() {
           />
         </div>
         <div className="my-2 flex flex-col">
-          <label>Zip Code</label>
+          <label htmlFor="zip">Zip Code</label>
           <input
             id="zip"
             className="rounded-md border-2 border-black p-1"
@@ -282,7 +282,7 @@ function VenueManage() {
           />
         </div>
         <div className="my-2 flex flex-col">
-          <label>Country</label>
+          <label htmlFor="country">Country</label>
           <input
             id="country"
             className="rounded-md border-2 border-black p-1"
@@ -292,7 +292,7 @@ function VenueManage() {
           />
         </div>
         <div className="my-2 flex flex-col">
-          <label>Continent</label>
+          <label htmlFor="continent">Continent</label>
           <input
             id="continent"
             className="rounded-md border-2 border-black p-1"
@@ -308,7 +308,7 @@ function VenueManage() {
         </div>
         <p>Optional drag to select position on map below</p>
         <div className="my-2 flex flex-col">
-          <label>Latitude</label>
+          <label htmlFor="lat">Latitude</label>
           <input
             id="lat"
             className="rounded-md border-2 border-black p-1"
@@ -318,7 +318,7 @@ function VenueManage() {
           />
         </div>
         <div className="my-2 flex flex-col">
-          <label>Longitude</label>
+          <label htmlFor="lng">Longitude</label>
           <input
             id="lng"
             className="rounded-md border-2 border-black p-1"

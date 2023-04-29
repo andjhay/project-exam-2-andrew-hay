@@ -247,9 +247,9 @@ function VenueBooking() {
         </div>
 
         <div className="my-2 flex w-fit flex-col">
-          <label>Guests</label>
+          <label htmlFor="guests">Guests</label>
           <input
-            id="maxGuests"
+            id="guests"
             className="rounded-md border-2 border-black p-1"
             defaultValue={guestsValue}
             onChange={handleGuestsSelected}
@@ -261,7 +261,7 @@ function VenueBooking() {
         </div>
         <div className="my-2 flex flex-wrap justify-center">
           <div>
-            <h3 className="mx-2 font-subheader text-lg">Date from</h3>
+            <h2 className="mx-2 font-subheader text-lg">Date from</h2>
             <Calendar
               calendarType="ISO 8601"
               className="m-2 !bg-lightblue shadow-lg"
@@ -275,7 +275,7 @@ function VenueBooking() {
           </div>
 
           <div>
-            <h3 className="mx-2 font-subheader text-lg">Date to</h3>
+            <h2 className="mx-2 font-subheader text-lg">Date to</h2>
             <Calendar
               className="m-2 !bg-lightblue shadow-lg"
               onChange={onChangeTo}

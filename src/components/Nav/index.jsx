@@ -54,11 +54,12 @@ function Nav() {
       <nav className="mx-auto flex max-w-7xl items-center justify-between px-8" aria-label="Global">
         <div>
           <NavLink to="/">
-            <img className="h-24 w-auto" src={Logo} alt="Logo" />
+            <img className="h-24 w-auto" src={Logo} alt="Holidaze Logo" />
           </NavLink>
         </div>
         <div className="lg:hidden">
           <button
+            aria-label="open mobile menu"
             type="button"
             className="inline-flex items-center justify-center rounded-md p-2.5 text-darkbrown"
             onClick={() => setMobileMenuOpen(true)}
@@ -114,7 +115,7 @@ function Nav() {
             </>
           )}
           <NavLink
-            value="account"
+            aria-label="to-account"
             to={"/account/" + user?.name}
             className={
               isLoggedIn
@@ -196,7 +197,7 @@ function Nav() {
                 </>
               )}
               <NavLink
-                value="account"
+                aria-label="to-account"
                 to={"/account/" + user?.name}
                 onClick={() => setMobileMenuOpen(false)}
                 className={
