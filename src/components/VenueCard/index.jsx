@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { deleteItem } from "../../utilities/delete";
 import useUser from "../../hooks/useUser";
 import Logo from "../../assets/holidazelogotextlargebg.png";
@@ -8,6 +8,7 @@ function VenueCard({ venue, userName, venues, userData, setUserData }) {
   const { user } = useUser();
   const [img, setImg] = useState(0);
   const navigate = useNavigate();
+  const pageLocation = useLocation();
   let loggedInUser = false;
   if (userName === user.name && user.name !== undefined) {
     loggedInUser = true;
@@ -18,6 +19,10 @@ function VenueCard({ venue, userName, venues, userData, setUserData }) {
     setUserData({
       ...userData,
       venues: venues.filter((venue) => venue.id !== id),
+      _count: {
+        ...userData._count,
+        venues: userData._count.venues - 1,
+      },
     });
   }
 
@@ -79,7 +84,7 @@ function VenueCard({ venue, userName, venues, userData, setUserData }) {
         </div>
         <div className="my-2 flex flex-wrap justify-center">
           <button onClick={() => navigate("/venue/" + venue.id)} className="main-button shadow">
-            View Venues Bookings
+            {pageLocation.pathname.includes("account") && loggedInUser ? "Bookings at your Venue" : "View Venue"}
           </button>
           {loggedInUser ? (
             <>

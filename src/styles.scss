@@ -57,6 +57,10 @@ input#lat[type="number"]::-webkit-outer-spin-button {
   background-color: $yellowsand;
 }
 
+.view-only .react-calendar__tile {
+  pointer-events: none !important;
+}
+
 svg.fill-red-400,
 svg.fill-lightblue {
   width: 45px;
