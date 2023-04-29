@@ -1,7 +1,7 @@
 import React from "react";
 import "./styles.css";
 import "./styles.scss";
-import 'react-calendar/dist/Calendar.css';
+import "react-calendar/dist/Calendar.css";
 import { Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
 import Layout from "./components/Layout";
@@ -10,7 +10,7 @@ import Account from "./pages/Account";
 import Venue from "./pages/Venue";
 import Venues from "./pages/Venues";
 import VenuesMap from "./pages/VenuesMap";
-import VenueBook from "./pages/VenueBook";
+import VenueBooking from "./pages/VenueBooking";
 import VenueManage from "./pages/VenueManage";
 
 function App() {
@@ -21,8 +21,10 @@ function App() {
         <Route path="/venues" element={<Venues />} />
         <Route path="/venuesmap" element={<VenuesMap />} />
         <Route path="/venue/:id" element={<Venue />} />
-        <Route path="/venuebook/:id" element={<VenueBook />} />
-        <Route path="/venuemanage/:id" element={<VenueManage />} />
+        <Route path="/bookingcreate/:venueId" element={<VenueBooking />} />
+        <Route path="/bookingedit/:venueId/:bookingId" element={<VenueBooking />} />
+        <Route path="/venuecreate/:id" element={<VenueManage />} />
+        <Route path="/venueedit/:id" element={<VenueManage />} />
         <Route path="/account/:userName" element={<Account />} />
         <Route path="*" element={<RouteNotFound />} />
       </Route>

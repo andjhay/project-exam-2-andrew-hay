@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { deleteItem } from "../../utilities/delete";
 import useUser from "../../hooks/useUser";
 
@@ -10,6 +10,8 @@ function UserBookings({ userName, bookings, userData, setUserData }) {
     loggedInUser = true;
   }
 
+  const navigate = useNavigate();
+
   function handleDelete(id) {
     deleteItem(id, "/bookings");
     setUserData({
@@ -18,31 +20,44 @@ function UserBookings({ userName, bookings, userData, setUserData }) {
     });
   }
 
+  bookings?.sort((a, b) => {
+    return new Date(a.dateFrom) - new Date(b.dateFrom);
+  });
+
   return (
-    <div className="m-5">
-      <h2 className="font-subheader text-xl">Bookings</h2>
-      <div>
-        {bookings?.map((booking) => (
-          <li key={booking.id}>
-            {booking.name}
-            {loggedInUser ? (
-              <Link to={"/venuebook/" + booking.id}>
-                <button className="m-2 rounded-lg border-2 border-darkbrown bg-darkbrown px-2 py-1 font-subheader text-white hover:border-yellowsand">
-                  Edit
-                </button>
-              </Link>
-            ) : null}
-            {loggedInUser ? (
-              <button
-                onClick={() => handleDelete(booking.id)}
-                className="m-2 rounded-lg border-2 border-darkbrown bg-red-500 px-2 py-1 font-subheader text-white hover:border-yellowsand"
-              >
-                Delete
-              </button>
-            ) : null}
-          </li>
-        ))}
-      </div>
+    <div className="flex flex-wrap justify-center md:justify-start ">
+      {bookings?.length >= 1
+        ? bookings?.map((booking) => {
+            if (new Date().toISOString() <= booking.dateTo) {
+              return (
+                <div key={booking.id} className="m-2 rounded-lg border p-3">
+                  Booking at: {booking.venue.name} - {booking.guests} guests from{" "}
+                  {new Date(booking.dateFrom).toLocaleString("en-GB").slice(0, 10)} to{" "}
+                  {new Date(booking.dateTo).toLocaleString("en-GB").slice(0, 10)}
+                  <div>
+                    <button onClick={() => navigate("/venue/" + booking.venue.id)} className="main-button shadow">
+                      View Venue
+                    </button>
+                    {loggedInUser ? (
+                      <Link to={"/bookingedit/" + booking.venue.id + "/" + booking.id}>
+                        <button className="main-button m-2 shadow">Edit Booking</button>
+                      </Link>
+                    ) : null}
+                    {loggedInUser ? (
+                      <button
+                        onClick={() => handleDelete(booking.id)}
+                        className="main-button m-2 !bg-red-600 shadow shadow hover:!bg-red-400 hover:!text-white"
+                      >
+                        Delete
+                      </button>
+                    ) : null}
+                  </div>
+                </div>
+              );
+            }
+            return null;
+          })
+        : "No current bookings"}
     </div>
   );
 }

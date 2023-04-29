@@ -13,7 +13,7 @@ module.exports = {
       fontFamily: {
         header: ["Concert One"],
         subheader: ["Lexend"],
-        paragraphs: ["Ubuntu"],
+        paragraph: ["Ubuntu"],
       },
     },
   },

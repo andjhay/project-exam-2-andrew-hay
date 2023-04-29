@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, useLocation } from "react-router-dom";
 import Leaflet from "leaflet";
 import { MapContainer, TileLayer } from "react-leaflet";
 import DraggableMarker from "../../components/MapMarkerSelect";
 import { createPost } from "../../utilities/create";
 import useApi from "../../hooks/useApi";
 import { apiPath } from "../../shared/api";
-import useUser from "../../hooks/useUser";
 import { updatePut } from "../../utilities/update";
+import LoadingElement from "../../components/LoadingElement";
+import ErrorElement from "../../components/Error";
 
 const center = {
   lat: 0,
@@ -22,21 +23,21 @@ const initialCheckboxes = [
 ];
 
 function VenueManage() {
+  const pageLocation = useLocation();
+  let editMode = false;
+  let path = "/venues";
   let { id } = useParams();
-  let { user } = useUser();
-  const { data, isLoading, isError } = useApi(apiPath + "/venues/" + id);
+  if (pageLocation.pathname.includes("edit")) {
+    editMode = true;
+    path = "/venues/" + id;
+  }
+  const { data, isLoading, isError, errorMsg } = useApi(apiPath + path);
   const { name, description, media, price, maxGuests, rating, meta, location } = data;
   const navigate = useNavigate();
   const [position, setPosition] = useState(center);
   const corner1 = Leaflet.latLng(-60, -175);
   const corner2 = Leaflet.latLng(90, 190);
   const bounds = Leaflet.latLngBounds(corner1, corner2);
-
-  let editMode = false;
-  if (id !== user.name) {
-    editMode = true;
-  }
-
   const [checkboxes, setCheckboxes] = useState(initialCheckboxes);
 
   useEffect(() => {
@@ -111,31 +112,27 @@ function VenueManage() {
     });
     if (editMode) {
       formData["id"] = id;
-      console.log(formData);
-      updatePut(formData, "/venues");
+      updatePut(formData, "Venue", id);
       navigate("/venue/" + id);
     } else {
-      console.log(formData);
-      createPost(formData, "/venues");
+      createPost(formData, "Venue");
       navigate("/account/" + id);
     }
   };
 
-  console.log(rating);
-
   if (isLoading) {
-    return <h1>Loading</h1>;
+    return <LoadingElement />;
   }
 
-  if (isError) {
-    return <h1>Error</h1>;
+  if (isError || data.errors) {
+    return <ErrorElement errorMsg={errorMsg} data={data} />;
   }
 
   return (
-    <div className="flex w-full flex-col p-5 md:m-auto md:w-[50vw]">
+    <div className="flex w-full flex-col font-paragraph md:m-auto md:w-[50vw]">
       <h1 className="m-2 text-center font-header text-3xl">{editMode ? "Edit Venue" : "Create New Venue"}</h1>
-      <form onSubmit={submitForm} className="flex flex-col">
-        <h2 className="m-3 font-subheader text-xl">Venue Details</h2>
+      <form onSubmit={submitForm} className="flex flex-col p-3">
+        <h2 className="my-3 font-subheader text-xl">Venue Details</h2>
         <div className="my-2 flex flex-col">
           <label>Venue Name</label>
           <input
@@ -168,7 +165,6 @@ function VenueManage() {
             required
             min={1}
             type="number"
-            placeholder="Min 8 (required)"
           />
         </div>
         <div className="my-2 flex flex-col">
@@ -209,11 +205,10 @@ function VenueManage() {
             // add a loop for each potential image
             defaultValue={editMode ? media : null}
             type="url"
-            pattern=".*\.jpeg|.*\.png|.*\.gif|.*\.jpg$"
-            placeholder="URL (.jpg .png .jpeg .gif)"
+            placeholder="URL"
           />
         </div>
-        <h2 className="m-3 font-subheader text-xl">Facilities:</h2>
+        <h2 className="my-3 font-subheader text-xl">Facilities:</h2>
         <div className="flex flex-wrap justify-center py-4">
           {checkboxes.map((checkbox, index) => (
             <label key={checkbox.id} className="mx-3 flex items-center">
@@ -230,7 +225,7 @@ function VenueManage() {
             </label>
           ))}
         </div>
-        <h2 className="m-3 font-subheader text-xl">Location</h2>
+        <h2 className="my-3 font-subheader text-xl">Location</h2>
         <div className="my-2 flex flex-col">
           <label>Address</label>
           <input
@@ -284,14 +279,11 @@ function VenueManage() {
           />
         </div>
         <div className="flex justify-center">
-          <button
-            type="submit"
-            className="my-2 rounded-lg border-2 border-darkbrown bg-darkbrown px-2 py-1 font-subheader text-white hover:border-yellowsand"
-          >
+          <button type="submit" className="main-button shadow">
             {editMode ? "Update Venue" : "Create Venue"}
           </button>
         </div>
-        <h3>Optional drag to select position on map below</h3>
+        <p>Optional drag to select position on map below</p>
         <div className="my-2 flex flex-col">
           <label>Latitude</label>
           <input
@@ -313,7 +305,7 @@ function VenueManage() {
           />
         </div>
       </form>
-      <div className="m-3 border-2 border-black">
+      <div className="m-3 rounded-lg border-2 border-black">
         <MapContainer
           id="set-position"
           center={editMode ? position : center}

@@ -4,16 +4,15 @@ import * as storage from "../../utilities/storage.js";
 
 function useApi(url) {
   const [data, setData] = useState([]);
+  const [errorMsg, setErrorMsg] = useState({ message: "", statuscode: null });
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(false);
   let token = storage.load("token");
-
   useEffect(() => {
     async function getData() {
       let fetchedData;
       try {
         setIsLoading(true);
-        setIsError(false);
         if (token === null) {
           fetchedData = await fetch(url);
         } else {
@@ -21,7 +20,9 @@ function useApi(url) {
         }
         setData(await fetchedData.json());
       } catch (error) {
-        console.log(error);
+        console.log(error)
+        const statusCode = fetchedData ? fetchedData.status : null;
+        setErrorMsg({ message: error.message, statuscode: statusCode });
         setIsError(true);
       } finally {
         setIsLoading(false);
@@ -31,7 +32,7 @@ function useApi(url) {
     getData();
   }, [url, token]);
 
-  return { data, isLoading, isError };
+  return { data, isLoading, isError, errorMsg };
 }
 
 export default useApi;

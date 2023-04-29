@@ -4,12 +4,23 @@ import { apiPath } from "../../shared/api";
 import Leaflet from "leaflet";
 import { MapContainer, TileLayer } from "react-leaflet";
 import MapMarker from "../../components/MapMarker";
+import LoadingElement from "../../components/LoadingElement";
+import ErrorElement from "../../components/Error";
 
 function VenuesMap() {
   const corner1 = Leaflet.latLng(-60, -175);
   const corner2 = Leaflet.latLng(90, 190);
   const bounds = Leaflet.latLngBounds(corner1, corner2);
-  const { data } = useApi(apiPath + "/venues");
+  const { data, isLoading, isError, errorMsg } = useApi(apiPath + "/venues");
+
+  if (isLoading) {
+    return <LoadingElement />;
+  }
+
+  if (isError || data.errors) {
+    return <ErrorElement errorMsg={errorMsg} data={data} />;
+  }
+
   return (
     <MapContainer
       className="z-0 flex-1"
