@@ -65,6 +65,22 @@ function VenueManage() {
     setCheckboxes(updatedCheckboxes);
   }
 
+  // media
+  // :
+  // Array(3)
+  // 0
+  // :
+  // "https://images.pexels.com/photos/754268/pexels-photo-754268.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+  // 1
+  // :
+  // "https://images.pexels.com/photos/1887629/pexels-photo-1887629.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+  // 2
+  // :
+  // "https://images.pexels.com/photos/1674624/pexels-photo-1674624.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+  // length
+  // :
+  // 3
+
   const submitForm = async (event) => {
     event.preventDefault();
     const form = [...event.target];
@@ -94,9 +110,9 @@ function VenueManage() {
       } else if (target.id === "media") {
         if (target.value === "") {
         } else {
+          let mediaItems = target.value.split(",").map((media) => media);
           let key = target.id;
-          let value = target.value;
-          formData[key] = [value];
+          formData[key] = mediaItems;
         }
       } else if (target.id === "price" || target.id === "maxGuests" || target.id === "rating") {
         let key = target.id;
@@ -112,11 +128,19 @@ function VenueManage() {
     });
     if (editMode) {
       formData["id"] = id;
-      updatePut(formData, "Venue", id);
-      navigate("/venue/" + id);
+      let response = await updatePut(formData, "Venue", id);
+      if (response.errors) {
+        console.log(response);
+      } else {
+        navigate("/venue/" + id);
+      }
     } else {
-      createPost(formData, "Venue");
-      navigate("/account/" + id);
+      let response = await createPost(formData, "Venue");
+      if (response.errors) {
+        console.log(response);
+      } else {
+        navigate("/account/" + id);
+      }
     }
   };
 
@@ -138,8 +162,8 @@ function VenueManage() {
           <input
             id="name"
             className="rounded-md border-2 border-black p-1"
-            required
             defaultValue={editMode ? name : null}
+            required
             minLength={3}
             type="name"
             placeholder={editMode ? name : "(required)"}
@@ -202,10 +226,9 @@ function VenueManage() {
           <input
             id="media"
             className="rounded-md border-2 border-black p-1"
-            // add a loop for each potential image
             defaultValue={editMode ? media : null}
             type="url"
-            placeholder="URL"
+            placeholder="Must be URL(url,url,...)"
           />
         </div>
         <h2 className="my-3 font-subheader text-xl">Facilities:</h2>

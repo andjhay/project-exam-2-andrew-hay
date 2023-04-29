@@ -30,6 +30,8 @@ function VenueBooking() {
   const { search } = useSearch();
   let guestsValue = search.guests;
 
+  console.log(data);
+
   if (editMode) {
     guestsValue = bookingData?.guests;
   }
@@ -156,16 +158,15 @@ function VenueBooking() {
     return nextDate;
   };
 
-  // can set default values to search?
+  let from = new Date(new Date().setHours(0, 0, 0, 0));
+  let to = new Date(new Date().setHours(0, 0, 0, 0));
 
   let nextDate = getNextAvailableDate(new Date());
-  const [valueFrom, onChangeFrom] = useState(new Date(new Date().setHours(0, 0, 0, 0)));
-  const [valueTo, onChangeTo] = useState(new Date(new Date().setHours(0, 0, 0, 0)));
+  const [valueFrom, onChangeFrom] = useState(from);
+  const [valueTo, onChangeTo] = useState(to);
   const [datesSet, setDatesSet] = useState(false);
   const [dayAfterSelected, setDayAfterSelected] = useState(null);
   const [closestDate, setClosestDate] = useState(null);
-
-  console.log(new Date(new Date().setHours(0, 0, 0, 0)) + "newdate");
 
   useEffect(() => {
     if (editMode && bookingData !== undefined && datesSet === false) {
@@ -272,7 +273,7 @@ function VenueBooking() {
             <h3 className="mx-2 font-subheader text-lg">Date from</h3>
             <Calendar
               calendarType="ISO 8601"
-              className="m-2 !bg-lightblue"
+              className="m-2 !bg-lightblue shadow-lg"
               onChange={onChangeFrom}
               returnValue={"start"}
               minDetail="year"
@@ -285,7 +286,7 @@ function VenueBooking() {
           <div>
             <h3 className="mx-2 font-subheader text-lg">Date to</h3>
             <Calendar
-              className="m-2 !bg-lightblue"
+              className="m-2 !bg-lightblue shadow-lg"
               onChange={onChangeTo}
               returnValue={"end"}
               minDetail="year"

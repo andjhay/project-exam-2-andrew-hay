@@ -82,7 +82,7 @@ function Venue() {
   if (isError || data.errors) {
     return <ErrorElement errorMsg={errorMsg} data={data} />;
   }
-
+  console.log(data);
   return (
     <div className="font-paragraph">
       <h1 className="m-2 text-center font-header text-3xl">{name}</h1>
@@ -129,7 +129,7 @@ function Venue() {
                 </span>
               </div>
               <Calendar
-                className="view-only !bg-lightblue shadow-lg"
+                className="view-only mb-3 !bg-lightblue shadow-lg"
                 tileDisabled={data.bookings?.length >= 1 ? tileDisabled : null}
                 minDate={new Date()}
                 minDetail="year"
@@ -145,7 +145,9 @@ function Venue() {
                 <span>Description</span>
                 <ChevronDownIcon className="h-8" />
               </Disclosure.Button>
-              <Disclosure.Panel className="rounded-r-lg rounded-bl-lg bg-gray-200 p-4">{description}</Disclosure.Panel>
+              <Disclosure.Panel className="w-fit rounded-r-lg rounded-bl-lg bg-gray-200 p-4 shadow-lg">
+                {description}
+              </Disclosure.Panel>
             </Disclosure>
             <p></p>
             <p>Max Guests: {maxGuests}</p>
@@ -210,7 +212,7 @@ function Venue() {
               {filteredBookings?.length >= 1
                 ? filteredBookings?.map((booking) => {
                     return (
-                      <div key={booking.id} className="m-2 w-fit rounded-lg border p-3">
+                      <div key={booking.id} className="m-2 w-fit rounded-lg p-3 shadow-lg">
                         {booking.guests} {booking.guests > 1 ? "guests" : "guest"} from{" "}
                         {new Date(booking.dateFrom).toLocaleString("en-GB").slice(0, 10)} to{" "}
                         {new Date(booking.dateTo).toLocaleString("en-GB").slice(0, 10)}
