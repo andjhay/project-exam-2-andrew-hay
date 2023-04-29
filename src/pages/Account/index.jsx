@@ -65,7 +65,9 @@ function Account() {
           <img className="max-h-60 rounded-lg" src={avatar ? avatar : Logo} alt="user avatar" />
           {loggedInUser ? (
             <form className="my-2 flex flex-col items-center" onSubmit={submitUpdate}>
-              <label className="font-paragraph">Update Avatar</label>
+              <label htmlFor="avatar" className="font-paragraph">
+                Update Avatar
+              </label>
               <input
                 id="avatar"
                 required
