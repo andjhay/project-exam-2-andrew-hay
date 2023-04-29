@@ -25,7 +25,7 @@ function Footer() {
       </div>
       <div className="grid grid-cols-1 justify-items-center sm:grid-cols-2">
         <span>&copy;Copyright 2023</span>
-        <Link to="/policy" className="hover:text-white">
+        <Link to="/privacy" className="hover:text-white">
           Privacy Policy
         </Link>
         <Link to="/cookies" className="hover:text-white">

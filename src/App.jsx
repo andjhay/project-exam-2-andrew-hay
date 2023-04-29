@@ -12,6 +12,10 @@ import Venues from "./pages/Venues";
 import VenuesMap from "./pages/VenuesMap";
 import VenueBooking from "./pages/VenueBooking";
 import VenueManage from "./pages/VenueManage";
+import PrivacyPolicy from "./pages/PrivacyPolicy";
+import CookiePolicy from "./pages/CookiePolicy";
+import FAQ from "./pages/FAQ";
+import Sitemap from "./pages/Sitemap";
 
 function App() {
   return (
@@ -26,6 +30,10 @@ function App() {
         <Route path="/venuecreate/:id" element={<VenueManage />} />
         <Route path="/venueedit/:id" element={<VenueManage />} />
         <Route path="/account/:userName" element={<Account />} />
+        <Route path="/privacy" element={<PrivacyPolicy />} />
+        <Route path="/cookies" element={<CookiePolicy />} />
+        <Route path="/faq" element={<FAQ />} />
+        <Route path="/sitemap" element={<Sitemap />} />
         <Route path="*" element={<RouteNotFound />} />
       </Route>
     </Routes>

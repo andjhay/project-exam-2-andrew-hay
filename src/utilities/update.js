@@ -3,10 +3,10 @@ import { authFetch } from "./authFetch.js";
 
 const method = "put";
 
-export async function updatePut(data, apiDestination, username) {
-  const updateVenueUrl = apiPath + "/venues/" + data.id;
-  const updateAvatarUrl = apiPath + "/profiles/" + username + "/media";
-  const updateBookingUrl = apiPath + "/bookings/" + data.id;
+export async function updatePut(data, apiDestination, id) {
+  const updateVenueUrl = apiPath + "/venues/" + id;
+  const updateAvatarUrl = apiPath + "/profiles/" + id + "/media";
+  const updateBookingUrl = apiPath + "/bookings/" + id;
   let useUrl;
   if (apiDestination === "Avatar") {
     useUrl = updateAvatarUrl;
@@ -25,10 +25,11 @@ export async function updatePut(data, apiDestination, username) {
 
   if (response.ok) {
     let result = await response.json();
+    alert(apiDestination + " has been updated");
     return result;
   } else {
     let result = await response.json();
-    alert("ERROR " + result.errors[0].message);
+    alert("Error could not update " + apiDestination + result.errors[0].message);
     return result;
   }
 }

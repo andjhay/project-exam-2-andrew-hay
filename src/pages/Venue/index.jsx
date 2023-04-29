@@ -82,7 +82,7 @@ function Venue() {
   if (isError || data.errors) {
     return <ErrorElement errorMsg={errorMsg} data={data} />;
   }
-  console.log(data);
+
   return (
     <div className="font-paragraph">
       <h1 className="m-2 text-center font-header text-3xl">{name}</h1>
@@ -145,7 +145,7 @@ function Venue() {
                 <span>Description</span>
                 <ChevronDownIcon className="h-8" />
               </Disclosure.Button>
-              <Disclosure.Panel className="w-fit rounded-r-lg rounded-bl-lg bg-gray-200 p-4 shadow-lg">
+              <Disclosure.Panel className="w-fit rounded-b-lg bg-gray-200 p-4 shadow-lg">
                 {description}
               </Disclosure.Panel>
             </Disclosure>
