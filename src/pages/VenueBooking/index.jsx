@@ -30,8 +30,6 @@ function VenueBooking() {
   const { search } = useSearch();
   let guestsValue = search.guests;
 
-  console.log(data);
-
   if (editMode) {
     guestsValue = bookingData?.guests;
   }
@@ -172,7 +170,6 @@ function VenueBooking() {
     if (editMode && bookingData !== undefined && datesSet === false) {
       setDatesSet(true);
       onChangeFrom(new Date(bookingData?.dateFrom));
-      console.log(new Date(bookingData?.dateFrom) + "here");
       onChangeTo(new Date(bookingData?.dateTo));
     } else if (!editMode) {
       if (valueFrom < new Date(nextDate.setHours(0, 0, 0, 0))) {
@@ -220,12 +217,6 @@ function VenueBooking() {
 
   let totalNights = Math.floor((Date.parse(valueTo) - Date.parse(valueFrom)) / 86400000);
   let totalPrice = totalNights * price;
-
-  // remove once done with bugs
-  // console.log(valueFrom + "from");
-  // console.log(valueTo + "to");
-  // console.log(dayAfterSelected + "afterselect");
-  // console.log(closestDate + "from");
 
   if (isLoading) {
     return <LoadingElement />;

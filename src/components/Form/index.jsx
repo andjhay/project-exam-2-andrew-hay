@@ -81,7 +81,7 @@ function Form({ currentForm, closeModal, setLoggedIn, setUser }) {
               id="avatar"
               className="rounded-md border-2 border-black p-1"
               type="url"
-              placeholder="Image URL (optional)"
+              placeholder="(https://) Image URL (optional)"
             />
           </div>
         ) : null}

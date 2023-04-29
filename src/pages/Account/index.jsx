@@ -26,7 +26,6 @@ function Account() {
 
   useEffect(() => {
     setUserData(data);
-    console.log(data);
   }, [data]);
 
   const submitUpdate = async (event) => {
@@ -72,8 +71,7 @@ function Account() {
                 required
                 className="rounded-md border-2 border-black p-1 font-paragraph"
                 type="url"
-                pattern=".*\.jpeg|.*\.png|.*\.gif|.*\.jpg$"
-                placeholder="URL (.jpg .png .jpeg .gif)"
+                placeholder="(https://) Image URL"
               />
               <button type="submit" className="main-button shadow">
                 Update
