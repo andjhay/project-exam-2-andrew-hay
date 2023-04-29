@@ -1,0 +1,68 @@
+8 
+After creating my listing from the profile section, I was not able to see it listed in Auction Listings page. 
+(Deducting 1) 
+ 
+I was unable to place a bid on a listing, once I entered in an amount and clicked the ‘Place Bid’ button, the page refreshed to the listings, and I saw the newest listings instead of the listing that I just tried to place a bid on. 
+(Deducting 1) 
+
+Best Practices
+
+1.8 
+Try to always keep CSS and HTML separate, I saw that there were inline styles in the code. 
+(Deducting 0.4) 
+ 
+There were a couple duplicate IDs in your code, as found by the HTML validator. See  
+https://validator.w3.org/nu/?doc=https%3A%2F%2Fandjhay.github.io%2FAuction-Site-Semester-Project-2%2Fauctions.html%3Famount%3D553  
+I highly recommend that you validate your html with this tool for future reference: https://validator.w3.org/ 
+(Deducting 0.4) 
+
+ 
+
+It is good that you are alerting the user of all errors, please also note that you can wrap your api calls in a try catch statement 
+(Deducting 0.4) 
+
+User Experience
+
+2.2 
+I liked that a user had to log in to view bids. 
+ 
+I recommend that you default the navigation to a hamburger menu when the site is in mobile view. 
+ 
+When I first loaded the site, I saw the ‘Logged Out’ next to the Log In button. This is a little confusing as how can a user be logged out if they never registered or logged in in the first place? 
+(Deducting 0.4) 
+ 
+I would also recommend that you add ‘register’ to the top navigation. 
+ 
+I would add a loading indicator while fetching the list items when first loading the home page, this is important as users who do not see loading indicators might think that something is wrong with the site.  
+
+(Deducting 0.4) 
+ 
+I noticed that the media for the auction listing did not have a set height, which made the cards look inconsistent in appearance, for future reference, try to make sure that uploading images with different sizes does not cause inconsistencies in your site. 
+
+I found the Create New Listing button to be too close to other content, it did not stand out for me. 
+ 
+Be careful not to display buttons too close to their inputs or forms, it is nice if you give them ‘space to breathe’. 
+ 
+
+
+Design Appeal
+
+1 
+I found the design to be a little sparse, perhaps you were aiming for a minimalistic feel, it can be hard to achieve simplicity without it being too simple. 
+
+(Deducting 1) 
+ 
+The color of the buttons deducts from the black on the logo. 
+ 
+I also feel that you could be a little more adventurous with the font family that you selected. 
+ 
+It is mostly uncommon to have a header and footer with the same colors. 
+
+
+Configuration
+
+1
+
+Additional Feedback
+
+Thank you for the great READMEmd! 

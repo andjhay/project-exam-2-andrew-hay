@@ -114,6 +114,7 @@ function Nav() {
             </>
           )}
           <NavLink
+            value="account"
             to={"/account/" + user?.name}
             className={
               isLoggedIn
@@ -195,6 +196,7 @@ function Nav() {
                 </>
               )}
               <NavLink
+                value="account"
                 to={"/account/" + user?.name}
                 onClick={() => setMobileMenuOpen(false)}
                 className={
