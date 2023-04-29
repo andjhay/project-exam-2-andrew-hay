@@ -23,9 +23,11 @@ function Account() {
   if (userName === user.name) {
     loggedInUser = true;
   }
+
   useEffect(() => {
     setUserData(data);
   }, [data]);
+
   const submitUpdate = async (event) => {
     let avatarInput = document.getElementById("avatar");
     event.preventDefault();
@@ -95,13 +97,15 @@ function Account() {
         </div>
       </div>
       <div className="m-5">
-        <h2 className="font-subheader text-xl">Your Current Bookings</h2>
+        <h2 className="font-subheader text-xl">
+          {loggedInUser ? "Your Current Bookings" : "The Users Current Bookings"}
+        </h2>
         <UserBookings userName={userName} bookings={userData?.bookings} userData={userData} setUserData={setUserData} />
       </div>
       <div className="m-5">
         {user.venueManager ? (
           <>
-            <h2 className="font-subheader text-xl">{loggedInUser ? "Your Venues" : "Users Venues"}</h2>
+            <h2 className="font-subheader text-xl">{loggedInUser ? "Your Venues" : "The Users Venues"}</h2>
             <UserVenues userName={userName} venues={userData.venues} userData={userData} setUserData={setUserData} />
           </>
         ) : null}

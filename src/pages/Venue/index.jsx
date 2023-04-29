@@ -8,6 +8,8 @@ import useUser from "../../hooks/useUser";
 import LoadingElement from "../../components/LoadingElement";
 import ErrorElement from "../../components/Error";
 import Logo from "../../assets/holidazelogotextlargebg.png";
+import Calendar from "react-calendar";
+import { isWithinInterval, parseISO } from "date-fns";
 
 function Venue() {
   let { id } = useParams();
@@ -47,6 +49,32 @@ function Venue() {
     return new Date(a.dateFrom) - new Date(b.dateFrom);
   });
 
+  let filteredBookings = venueBookings?.filter((booking) => new Date(booking.dateTo) >= currentDate);
+
+  let disabledRanges = null;
+
+  disabledRanges = venueBookings?.map((booking) => {
+    if (booking.dateFrom === undefined) {
+      return [];
+    } else {
+      return [parseISO(booking.dateFrom), parseISO(booking.dateTo)];
+    }
+  });
+
+  function tileDisabled({ date, view }) {
+    if (view === "month") {
+      return isWithinRanges(date, disabledRanges);
+    }
+  }
+
+  function isWithinRange(date, range) {
+    return isWithinInterval(date, { start: range[0], end: range[1] });
+  }
+
+  function isWithinRanges(date, ranges) {
+    return ranges.some((range) => isWithinRange(date, range));
+  }
+
   if (isLoading) {
     return <LoadingElement />;
   }
@@ -83,16 +111,41 @@ function Venue() {
               </button>
             </div>
           </div>
+          <div className="flex justify-center">
+            <div>
+              <h3 className="font-subheader text-lg">Availability</h3>
+              <div>
+                <span className="flex items-center">
+                  <svg className="fill-red-400">
+                    <rect width="45" height="35" />
+                  </svg>
+                  <p className="m-2">Booked/Unavailable</p>
+                </span>
+                <span className="flex items-center">
+                  <svg className="fill-lightblue">
+                    <rect width="45" height="35" />
+                  </svg>
+                  <p className="m-2">Available</p>
+                </span>
+              </div>
+              <Calendar
+                className="view-only !bg-lightblue shadow-lg"
+                tileDisabled={data.bookings?.length >= 1 ? tileDisabled : null}
+                minDate={new Date()}
+                minDetail="year"
+              />
+            </div>
+          </div>
         </div>
         <div className="m-5 flex basis-1/2 flex-col ">
           <h2 className="mb-3 font-subheader text-xl">Details</h2>
           <div>
             <Disclosure>
-              <Disclosure.Button className="flex items-center rounded-lg bg-gray-100 px-2 text-left hover:bg-gray-200 focus:outline-none focus-visible:ring focus-visible:ring-purple-500 focus-visible:ring-opacity-75">
+              <Disclosure.Button className="flex items-center rounded-t-lg bg-gray-200 px-2 text-left hover:bg-gray-100">
                 <span>Description</span>
-                <ChevronDownIcon className="h-10" />
+                <ChevronDownIcon className="h-8" />
               </Disclosure.Button>
-              <Disclosure.Panel className="rounded-lg bg-gray-200 p-4">{description}</Disclosure.Panel>
+              <Disclosure.Panel className="rounded-r-lg rounded-bl-lg bg-gray-200 p-4">{description}</Disclosure.Panel>
             </Disclosure>
             <p></p>
             <p>Max Guests: {maxGuests}</p>
@@ -154,19 +207,15 @@ function Venue() {
           {user.name === owner.name ? (
             <div>
               <h2 className="my-3 font-subheader text-xl">Upcoming and current bookings at your venue</h2>
-              {venueBookings?.length >= 1
-                ? venueBookings?.map((booking) => {
-                    if (new Date(currentDate).toISOString() <= booking.dateTo) {
-                      return (
-                        <div key={booking.id} className="m-2 w-fit rounded-lg border p-3">
-                          {booking.guests} guests from {new Date(booking.dateFrom).toLocaleString("en-GB").slice(0, 10)}{" "}
-                          to {new Date(booking.dateTo).toLocaleString("en-GB").slice(0, 10)}
-                        </div>
-                      );
-                    } else {
-                      <h3 className="">No current bookings for this venue</h3>;
-                    }
-                    return null;
+              {filteredBookings?.length >= 1
+                ? filteredBookings?.map((booking) => {
+                    return (
+                      <div key={booking.id} className="m-2 w-fit rounded-lg border p-3">
+                        {booking.guests} {booking.guests > 1 ? "guests" : "guest"} from{" "}
+                        {new Date(booking.dateFrom).toLocaleString("en-GB").slice(0, 10)} to{" "}
+                        {new Date(booking.dateTo).toLocaleString("en-GB").slice(0, 10)}
+                      </div>
+                    );
                   })
                 : "No current bookings"}
             </div>

@@ -66,37 +66,57 @@ function VenueBooking() {
   let allDisabledRange = null;
   if (editMode) {
     disabledRangesFrom = allOtherBookings.map((booking) => {
-      if (booking.dateFrom === undefined) {
-        return [];
+      if (
+        booking.dateFrom === undefined ||
+        parseISO(booking.dateFrom) > new Date(parseISO(booking.dateTo).setDate(parseISO(booking.dateTo).getDate() - 1))
+      ) {
+        return [new Date(), new Date()];
       } else {
         return [parseISO(booking.dateFrom), parseISO(booking.dateTo).setDate(parseISO(booking.dateTo).getDate() - 1)];
       }
     });
     disabledRangesTo = allOtherBookings.map((booking) => {
-      if (booking.dateFrom === undefined) {
-        return [];
+      if (
+        booking.dateFrom === undefined ||
+        new Date(parseISO(booking.dateFrom).setDate(parseISO(booking.dateFrom).getDate() + 1)) >
+          parseISO(booking.dateTo)
+      ) {
+        return [new Date(), new Date()];
       } else {
         return [parseISO(booking.dateFrom).setDate(parseISO(booking.dateFrom).getDate() + 1), parseISO(booking.dateTo)];
       }
     });
   } else {
     disabledRangesFrom = bookings.map((booking) => {
-      if (booking.dateFrom === undefined) {
-        return [];
+      if (
+        booking.dateFrom === undefined ||
+        parseISO(booking.dateFrom) > new Date(parseISO(booking.dateTo).setDate(parseISO(booking.dateTo).getDate() - 1))
+      ) {
+        return [new Date(), new Date()];
       } else {
-        return [parseISO(booking.dateFrom), parseISO(booking.dateTo).setDate(parseISO(booking.dateTo).getDate() - 1)];
+        return [
+          parseISO(booking.dateFrom),
+          new Date(parseISO(booking.dateTo).setDate(parseISO(booking.dateTo).getDate() - 1)),
+        ];
       }
     });
     disabledRangesTo = bookings.map((booking) => {
-      if (booking.dateFrom === undefined) {
-        return [];
+      if (
+        booking.dateFrom === undefined ||
+        new Date(parseISO(booking.dateFrom).setDate(parseISO(booking.dateFrom).getDate() + 1)) >
+          parseISO(booking.dateTo)
+      ) {
+        return [new Date(), new Date()];
       } else {
-        return [parseISO(booking.dateFrom).setDate(parseISO(booking.dateFrom).getDate() + 1), parseISO(booking.dateTo)];
+        return [
+          new Date(parseISO(booking.dateFrom).setDate(parseISO(booking.dateFrom).getDate() + 1)),
+          parseISO(booking.dateTo),
+        ];
       }
     });
     allDisabledRange = bookings.map((booking) => {
       if (booking.dateFrom === undefined) {
-        return [];
+        return [new Date(), new Date()];
       } else {
         return [parseISO(booking.dateFrom), parseISO(booking.dateTo)];
       }
@@ -129,23 +149,29 @@ function VenueBooking() {
 
   const getNextAvailableDate = (startDate) => {
     let nextDate = startDate;
+
     while (!editMode && isDateDisabled(nextDate)) {
       nextDate = addDays(nextDate, 1);
     }
     return nextDate;
   };
 
+  // can set default values to search?
+
   let nextDate = getNextAvailableDate(new Date());
-  const [valueFrom, onChangeFrom] = useState(new Date());
-  const [valueTo, onChangeTo] = useState(new Date());
+  const [valueFrom, onChangeFrom] = useState(new Date(new Date().setHours(0, 0, 0, 0)));
+  const [valueTo, onChangeTo] = useState(new Date(new Date().setHours(0, 0, 0, 0)));
   const [datesSet, setDatesSet] = useState(false);
   const [dayAfterSelected, setDayAfterSelected] = useState(null);
   const [closestDate, setClosestDate] = useState(null);
+
+  console.log(new Date(new Date().setHours(0, 0, 0, 0)) + "newdate");
 
   useEffect(() => {
     if (editMode && bookingData !== undefined && datesSet === false) {
       setDatesSet(true);
       onChangeFrom(new Date(bookingData?.dateFrom));
+      console.log(new Date(bookingData?.dateFrom) + "here");
       onChangeTo(new Date(bookingData?.dateTo));
     } else if (!editMode) {
       if (valueFrom < new Date(nextDate.setHours(0, 0, 0, 0))) {
@@ -168,15 +194,15 @@ function VenueBooking() {
   }
 
   useEffect(() => {
-    const date = new Date(valueFrom);
+    const date = new Date(valueFrom.setHours(0, 0, 0, 0));
     date.setDate(date.getDate() + 1);
     setDayAfterSelected(date);
   }, [valueFrom]);
 
   useEffect(() => {
     const allOtherBookings = bookings.filter((booking) => booking.id !== bookingId);
-    const allDates = allOtherBookings.map((booking) => new Date(booking.dateFrom));
-    const targetDate = new Date(valueFrom);
+    const allDates = allOtherBookings.map((booking) => new Date(new Date(booking.dateFrom).setHours(0, 0, 0, 0)));
+    const targetDate = new Date(valueFrom.setHours(0, 0, 0, 0));
     const closestDate = closestLaterDate(allDates, targetDate);
     setClosestDate(closestDate);
   }, [valueFrom, bookings, bookingId]);
@@ -193,6 +219,12 @@ function VenueBooking() {
 
   let totalNights = Math.floor((Date.parse(valueTo) - Date.parse(valueFrom)) / 86400000);
   let totalPrice = totalNights * price;
+
+  // remove once done with bugs
+  // console.log(valueFrom + "from");
+  // console.log(valueTo + "to");
+  // console.log(dayAfterSelected + "afterselect");
+  // console.log(closestDate + "from");
 
   if (isLoading) {
     return <LoadingElement />;
@@ -240,9 +272,10 @@ function VenueBooking() {
             <h3 className="mx-2 font-subheader text-lg">Date from</h3>
             <Calendar
               calendarType="ISO 8601"
-              className="m-2 h-80 !bg-lightblue"
+              className="m-2 !bg-lightblue"
               onChange={onChangeFrom}
               returnValue={"start"}
+              minDetail="year"
               value={[valueFrom, valueTo]}
               tileDisabled={data.bookings?.length >= 1 ? tileDisabledFrom : null}
               minDate={getNextAvailableDate(new Date())}
@@ -252,9 +285,10 @@ function VenueBooking() {
           <div>
             <h3 className="mx-2 font-subheader text-lg">Date to</h3>
             <Calendar
-              className="m-2 h-80 !bg-lightblue"
+              className="m-2 !bg-lightblue"
               onChange={onChangeTo}
               returnValue={"end"}
+              minDetail="year"
               tileDisabled={data.bookings?.length >= 1 ? tileDisabledTo : null}
               value={[valueFrom, valueTo]}
               minDate={dayAfterSelected}
