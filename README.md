@@ -1,5 +1,7 @@
 # Project Exam 2 - Holidaze
 
+<img width="952" alt="image" src="https://user-images.githubusercontent.com/88853764/235364640-e8c0eda8-a6ac-49ca-9105-a6283af34d2a.png">
+
 ## Description
 
 Year 2 exam project for Noroff higher professional degree in front-end development, built using create-react-app & tailwind. Google Material Fonts and Icons have been used. react-calender and leaflet maps were vital in creating the site. see full list of dependencies later.
