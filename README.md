@@ -1,6 +1,10 @@
-# Project Exam 2
+# Project Exam 2 - Holidaze
 
-Year 2 exam project for Noroff higher professional degree, built using react.
+## Description
+
+Year 2 exam project for Noroff higher professional degree in front-end development, built using create-react-app & tailwind. see full list of dependecies later.
+
+## Links to required submissions
 
 | Resource         | URL                                                                                                                     |
 | ---------------- | ----------------------------------------------------------------------------------------------------------------------- |
@@ -11,11 +15,74 @@ Year 2 exam project for Noroff higher professional degree, built using react.
 | Repository       | https://github.com/andjhay/project-exam-2-andrew-hay                                                                    |
 | Hosted Demo      | https://project-exam-2-andrew-hay.netlify.app/                                                                          |
 
+## Technical Resources Used
 
-Requirements:
+### Javascript Framework
 
-automated testing npm run tests 
-- Unit testing api functions and core
-- Form handlers and user interaction end-to-end testing - possibly 1 cypress test for each user stories
+React 
 
-knock out feature is a map maybe use leaflet 
+### CSS Framework
+
+Tailwind
+
+### Hosting services
+
+Netlify
+
+### Design applications
+
+Figma
+
+### Planning applications
+
+Trello(Kanban) and TeamGantt (Gantt) a Trello Power-Up feature
+
+## Installation
+
+### Installing
+
+1. Clone the repo:
+
+```bash
+git $ git clone https://github.com/andjhay/project-exam-2-andrew-hay.git
+```
+
+2. Install the dependencies:
+
+```
+npm install
+```
+
+## Testing
+
+### Cypress end-to-end
+
+To run end-to-end tests in console run:
+```
+npm run cypress-test
+```
+
+Else to view end-to-end tests in progress run:
+```
+npm run cypress
+```
+
+## Dependencies
+
+In addition to what is installed with create-react-app these dependencies were required:
+<ul> 
+<li>prettier v2.8.7 (formatting code to standard)</li>
+<li>prettier-plugin-tailwindcss v0.2.7</li>
+<li>tailwindcss v3.3.1 (CSS framework)</li>
+<li>@heroicons/react v2.0.17 (Icon library for tailwind and headlessui)</li>
+<li>@headlessui/react v1.7.13 (tailwind component library)</li>
+<li>eslint v8.39.0</li>
+<li>eslint-plugin-react v7.32.2</li>
+<li>eslint-plugin-cypress v2.13.3</li>
+<li>react-calendar v4.2.1 (Calender component for react)</li>
+<li>react-leaflet v4.2.1 (Map component)</li>
+<li>zustand" v4.3.7</li>
+<li>sass v1.62.0</li>
+<li>react-router-dom v6.10.0</li>
+<li>date-fns v2.29.3 (Date and time function library)</li>
+</ul>

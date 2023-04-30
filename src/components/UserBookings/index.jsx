@@ -11,8 +11,6 @@ function UserBookings({ userName, bookings, userData, setUserData }) {
     loggedInUser = true;
   }
 
-  console.log(bookings);
-
   const navigate = useNavigate();
 
   function handleDelete(id) {
