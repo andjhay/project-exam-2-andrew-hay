@@ -38,7 +38,6 @@ function Search() {
     let inputToDate = new Date(dateToInput.value);
 
     let inputFromDate = new Date(event.target.value);
-    console.log(inputFromDate);
     let compareDate = inputFromDate < inputToDate;
     if (compareDate === false) {
       dateToInput.value = "";
@@ -48,7 +47,6 @@ function Search() {
       setFromDate("");
     } else {
       inputFromDate.setDate(inputFromDate.getDate() + 1);
-      console.log(inputFromDate);
       dayAfterToday = inputFromDate.toISOString().slice(0, 10);
       setToDate(dayAfterToday);
       setFromDate(event.target.value);

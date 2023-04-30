@@ -30,7 +30,13 @@ function Venues() {
       const searchResults = data?.filter((venue) => {
         if (
           (venue.name.toLowerCase().includes(search.searchTerm?.toLowerCase()) === true ||
-            venue.description.toLowerCase().includes(search.searchTerm?.toLowerCase()) === true) &&
+            venue.description.toLowerCase().includes(search.searchTerm?.toLowerCase()) === true ||
+            venue.location.address.toLowerCase().includes(search.searchTerm?.toLowerCase()) === true ||
+            venue.location.country.toLowerCase().includes(search.searchTerm?.toLowerCase()) === true ||
+            venue.location.continent.toLowerCase().includes(search.searchTerm?.toLowerCase()) === true ||
+            venue.location.city.toLowerCase().includes(search.searchTerm?.toLowerCase()) === true ||
+            venue.location.zip.toLowerCase().includes(search.searchTerm?.toLowerCase()) === true ||
+            venue.owner.name.toLowerCase().includes(search.searchTerm?.toLowerCase()) === true ) &&
           venue.maxGuests >= Number(search.guests) &&
           !venue.bookings.some((booking) => {
             const bookingFrom = new Date(booking.dateFrom).getTime();
@@ -114,7 +120,7 @@ function Venues() {
           </Listbox>
         </div>
       </div>
-      <div id="venue-items" className="m-2 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+      <div id="venue-items" className="m-5 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
         {filteredData?.map((venue) => (
           <VenueCard key={venue.id} venue={venue} />
         ))}
