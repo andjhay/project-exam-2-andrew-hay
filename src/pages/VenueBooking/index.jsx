@@ -292,17 +292,10 @@ function VenueBooking() {
         </div>
         <p className="mx-5 text-center">
           Booking {guestsSelected} {guestsSelected > 1 ? "Guests" : "Guest"} for {totalNights} nights <br /> check in{" "}
-          {valueFrom.toLocaleString().slice(0, 10)} - departure{" "}
-          {valueTo === null ? "not selected" : valueTo.toLocaleString().slice(0, 10)} <br /> A total of {totalPrice} NOK
-          payment at arrival.
+          {valueFrom.toLocaleString().slice(0, 10)} - departure {valueTo.toLocaleString().slice(0, 10)} <br /> A total
+          of {totalPrice} NOK payment at arrival.
         </p>
-        <button
-          id="submit-booking"
-          onClick={() => submitBooking()}
-          className={
-            valueTo === null ? "main-button pointer-events-none w-fit opacity-80 shadow" : "main-button w-fit shadow"
-          }
-        >
+        <button id="submit-booking" onClick={() => submitBooking()} className="main-button w-fit shadow">
           {" "}
           {editMode ? "Update Booking" : "Confirm Booking"}
         </button>
