@@ -2,7 +2,7 @@
 
 ## Description
 
-Year 2 exam project for Noroff higher professional degree in front-end development, built using create-react-app & tailwind. see full list of dependecies later.
+Year 2 exam project for Noroff higher professional degree in front-end development, built using create-react-app & tailwind. Google Material Fonts and Icons have been used. react-calender and leaflet maps were vital in creating the site. see full list of dependencies later.
 
 ## Links to required submissions
 

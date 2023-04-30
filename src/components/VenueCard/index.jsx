@@ -45,11 +45,18 @@ function VenueCard({ venue, userName, venues, userData, setUserData }) {
     }
   }
 
+  function defaultSrc(img) {
+    img.target.src = Logo;
+  }
+
   return (
     <div className="flex flex-col rounded-lg font-paragraph shadow-lg">
       <div className="flex basis-1/2 items-center justify-center">
         <div className="me-auto basis-1/12">
-          <span className={mediaCount <= 1 ? "pointer-events-none opacity-25" : ""} onClick={handleClickRemove}>
+          <span
+            className={mediaCount <= 1 ? "pointer-events-none opacity-25" : "h-fill cursor-pointer"}
+            onClick={handleClickRemove}
+          >
             <svg className="h-9" xmlns="http://www.w3.org/2000/svg" viewBox="0 96 960 960">
               <path d="M561 816 320 575l241-241 43 43-198 198 198 198-43 43Z" />
             </svg>
@@ -59,11 +66,15 @@ function VenueCard({ venue, userName, venues, userData, setUserData }) {
           <img
             className="card-img m-auto rounded-b-md shadow"
             src={mediaCount === 0 ? Logo : venue.media[img]}
+            onError={defaultSrc}
             alt={venue.name}
           />
         </div>
         <div className="ms-auto basis-1/12">
-          <span className={mediaCount <= 1 ? "pointer-events-none opacity-25" : ""} onClick={handleClickAdd}>
+          <span
+            className={mediaCount <= 1 ? "pointer-events-none opacity-25" : "cursor-pointer"}
+            onClick={handleClickAdd}
+          >
             <svg className="h-9" xmlns="http://www.w3.org/2000/svg" viewBox="0 96 960 960">
               <path d="m375 816-43-43 198-198-198-198 43-43 241 241-241 241Z" />
             </svg>
