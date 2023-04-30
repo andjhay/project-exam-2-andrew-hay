@@ -35,6 +35,7 @@ function Account() {
     let formData = {};
     form.forEach((target) => {
       if (target.type === "submit") {
+        return null;
       } else {
         let key = target.id;
         let value = target.value;
@@ -75,7 +76,7 @@ function Account() {
                 type="url"
                 placeholder="(https://) Image URL"
               />
-              <button type="submit" className="main-button shadow">
+              <button id="submit-avatar" type="submit" className="main-button shadow">
                 Update
               </button>
             </form>
@@ -92,18 +93,18 @@ function Account() {
           </div>
           {loggedInUser ? (
             <Link to={"/venuecreate/" + user.name}>
-              <button className="main-button shadow">Create New Venue</button>
+              <button id="create-venue" className="main-button shadow">Create New Venue</button>
             </Link>
           ) : null}
         </div>
       </div>
-      <div className="m-5">
+      <div id="users-bookings" className="m-5">
         <h2 className="font-subheader text-xl">
           {loggedInUser ? "Your Current Bookings" : "The Users Current Bookings"}
         </h2>
         <UserBookings userName={userName} bookings={userData?.bookings} userData={userData} setUserData={setUserData} />
       </div>
-      <div className="m-5">
+      <div id="users-venues" className="m-5">
         {user.venueManager ? (
           <>
             <h2 className="font-subheader text-xl">{loggedInUser ? "Your Venues" : "The Users Venues"}</h2>

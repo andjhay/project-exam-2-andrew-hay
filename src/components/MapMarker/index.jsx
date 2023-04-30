@@ -1,3 +1,4 @@
+import PropTypes from "prop-types"
 import React from "react";
 import { Link } from "react-router-dom";
 import { Marker, Popup } from "react-leaflet";
@@ -32,6 +33,17 @@ function MapMarker({ venue }) {
       </Popup>
     </Marker>
   );
+}
+
+MapMarker.propTypes = {
+  venue: PropTypes.shape({
+    id: PropTypes.any,
+    location: PropTypes.shape({
+      lat: PropTypes.number,
+      lng: PropTypes.number
+    }),
+    name: PropTypes.any
+  })
 }
 
 export default MapMarker;

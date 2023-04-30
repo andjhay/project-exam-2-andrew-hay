@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import React, { useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { deleteItem } from "../../utilities/delete";
@@ -104,5 +105,26 @@ function VenueCard({ venue, userName, venues, userData, setUserData }) {
     </div>
   );
 }
+
+VenueCard.propTypes = {
+  setUserData: PropTypes.func,
+  userData: PropTypes.shape({
+    _count: PropTypes.shape({
+      venues: PropTypes.number,
+    }),
+  }),
+  userName: PropTypes.any,
+  venue: PropTypes.shape({
+    id: PropTypes.any,
+    maxGuests: PropTypes.any,
+    media: PropTypes.array,
+    name: PropTypes.any,
+    price: PropTypes.any,
+    rating: PropTypes.number,
+  }),
+  venues: PropTypes.shape({
+    filter: PropTypes.func,
+  }),
+};
 
 export default VenueCard;

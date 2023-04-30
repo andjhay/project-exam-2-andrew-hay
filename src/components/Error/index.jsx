@@ -1,3 +1,4 @@
+import PropTypes from "prop-types"
 import React from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -23,6 +24,18 @@ function ErrorElement({ errorMsg, data }) {
       </div>
     </div>
   );
+}
+
+ErrorElement.propTypes = {
+  data: PropTypes.shape({
+    errors: PropTypes.any,
+    status: PropTypes.any,
+    statusCode: PropTypes.string
+  }),
+  errorMsg: PropTypes.shape({
+    message: PropTypes.any,
+    statuscode: PropTypes.any
+  })
 }
 
 export default ErrorElement;

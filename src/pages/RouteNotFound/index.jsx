@@ -8,7 +8,7 @@ function RouteNotFound() {
       <div className="text-center">
         <p className="font-subheader text-lg">404</p>
         <h1 className="mt-4 font-header text-3xl sm:text-5xl">Oops! Page not found</h1>
-        <p className="text-paragraph mt-6 text-gray-600">Sorry, this page doesn't exist</p>
+        <p className="text-paragraph mt-6 text-gray-600">Sorry, this page doesn&apos;t exist</p>
         <div className="mt-5">
           <button onClick={() => navigate("/")} className="main-button shadow">
             Go back to home

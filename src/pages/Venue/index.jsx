@@ -90,11 +90,11 @@ function Venue() {
         <div className="basis-1/2">
           <div className="flex items-center justify-center">
             <div>
-              <button className={media.length <= 1 ? "pointer-events-none opacity-25" : ""} onClick={handleClickRemove}>
+              <span className={media.length <= 1 ? "pointer-events-none opacity-25" : ""} onClick={handleClickRemove}>
                 <svg className="h-9" xmlns="http://www.w3.org/2000/svg" viewBox="0 96 960 960">
                   <path d="M561 816 320 575l241-241 43 43-198 198 198 198-43 43Z" />
                 </svg>
-              </button>
+              </span>
             </div>
             <div>
               <img
@@ -104,11 +104,11 @@ function Venue() {
               />
             </div>
             <div>
-              <button className={media.length <= 1 ? "pointer-events-none opacity-25" : ""} onClick={handleClickAdd}>
+              <span className={media.length <= 1 ? "pointer-events-none opacity-25" : ""} onClick={handleClickAdd}>
                 <svg className="h-9" xmlns="http://www.w3.org/2000/svg" viewBox="0 96 960 960">
                   <path d="m375 816-43-43 198-198-198-198 43-43 241 241-241 241Z" />
                 </svg>
-              </button>
+              </span>
             </div>
           </div>
           <div className="flex justify-center">
@@ -197,7 +197,7 @@ function Venue() {
           </div>
           <div className="m-4 flex flex-col items-center">
             {!user.name ? <h3 className="font-subheader text-lg">Login or sign up now to book</h3> : null}
-            <button
+            <button id="create-booking"
               onClick={() => navigate("/bookingcreate/" + id)}
               className={
                 user.name ? "main-button w-fit shadow" : "main-button pointer-events-none w-fit opacity-50 shadow"
@@ -207,7 +207,7 @@ function Venue() {
             </button>
           </div>
           {user.name === owner.name ? (
-            <div>
+            <div id="venues-upcoming-bookings">
               <h2 className="my-3 font-subheader text-xl">Upcoming and current bookings at your venue</h2>
               {filteredBookings?.length >= 1
                 ? filteredBookings?.map((booking) => {

@@ -14,6 +14,7 @@ function Search() {
     let formData = {};
     form.forEach((target) => {
       if (target.type === "submit") {
+        return null;
       } else if (target.type === "date") {
         let key = target.id;
         let value = target.value;
@@ -121,6 +122,7 @@ function Search() {
         />
       </label>
       <button
+        id="submit-search"
         aria-label="submit-search"
         type="submit"
         className="flex w-full justify-center rounded-b-lg border-2 border-black bg-lightblue shadow-xl hover:bg-darkblue lg:m-2 lg:flex-col lg:rounded-lg"
