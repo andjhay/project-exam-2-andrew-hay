@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { deleteItem } from "../../utilities/delete";
@@ -9,6 +10,8 @@ function UserBookings({ userName, bookings, userData, setUserData }) {
   if (userName === user.name) {
     loggedInUser = true;
   }
+
+  console.log(bookings);
 
   const navigate = useNavigate();
 
@@ -36,8 +39,8 @@ function UserBookings({ userName, bookings, userData, setUserData }) {
         ? filteredBookings?.map((booking) => {
             return (
               <div key={booking.id} className="m-2 rounded-lg p-3 shadow-lg">
-                Booking at: {booking.venue.name} - {booking.guests} {booking.guests > 1 ? "guests" : "guest"}{" "}
-                from {new Date(booking.dateFrom).toLocaleString("en-GB").slice(0, 10)} to{" "}
+                Booking at: {booking.venue.name} - {booking.guests} {booking.guests > 1 ? "guests" : "guest"} from{" "}
+                {new Date(booking.dateFrom).toLocaleString("en-GB").slice(0, 10)} to{" "}
                 {new Date(booking.dateTo).toLocaleString("en-GB").slice(0, 10)}
                 <div>
                   <button onClick={() => navigate("/venue/" + booking.venue.id)} className="main-button shadow">
@@ -64,5 +67,12 @@ function UserBookings({ userName, bookings, userData, setUserData }) {
     </div>
   );
 }
+
+UserBookings.propTypes = {
+  bookings: PropTypes.array,
+  setUserData: PropTypes.func,
+  userData: PropTypes.oneOfType([PropTypes.array, PropTypes.object]),
+  userName: PropTypes.any,
+};
 
 export default UserBookings;

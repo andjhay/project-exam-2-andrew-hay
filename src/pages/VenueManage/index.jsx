@@ -65,22 +65,6 @@ function VenueManage() {
     setCheckboxes(updatedCheckboxes);
   }
 
-  // media
-  // :
-  // Array(3)
-  // 0
-  // :
-  // "https://images.pexels.com/photos/754268/pexels-photo-754268.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-  // 1
-  // :
-  // "https://images.pexels.com/photos/1887629/pexels-photo-1887629.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-  // 2
-  // :
-  // "https://images.pexels.com/photos/1674624/pexels-photo-1674624.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-  // length
-  // :
-  // 3
-
   const submitForm = async (event) => {
     event.preventDefault();
     const form = [...event.target];
@@ -89,6 +73,7 @@ function VenueManage() {
     let formData = {};
     form.forEach((target) => {
       if (target.type === "submit") {
+        return null;
       } else if (target.type === "checkbox") {
         let key = target.id;
         let value = target.checked;
@@ -109,6 +94,7 @@ function VenueManage() {
         location[key] = value;
       } else if (target.id === "media") {
         if (target.value === "") {
+          return null;
         } else {
           let mediaItems = target.value.split(",").map((media) => media);
           let key = target.id;
@@ -228,7 +214,7 @@ function VenueManage() {
             className="rounded-md border-2 border-black p-1"
             defaultValue={editMode ? media : null}
             type="url"
-            placeholder="Must be URL(url,url,...)"
+            placeholder="(https://) Media URL (url,url,...)"
           />
         </div>
         <h2 className="my-3 font-subheader text-xl">Facilities:</h2>
@@ -302,7 +288,7 @@ function VenueManage() {
           />
         </div>
         <div className="flex justify-center">
-          <button type="submit" className="main-button shadow">
+          <button id="submit-venue" type="submit" className="main-button shadow">
             {editMode ? "Update Venue" : "Create Venue"}
           </button>
         </div>

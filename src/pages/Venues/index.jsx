@@ -65,7 +65,7 @@ function Venues() {
     <>
       <h1 className="m-2 text-center font-header text-3xl">Venues</h1>
       <div className="mx-auto my-2 flex flex-col flex-wrap items-center justify-center lg:flex-row">
-        <button onClick={() => navigate("/venuesmap")} className="main-button flex items-center shadow ">
+        <button id="map-view" onClick={() => navigate("/venuesmap")} className="main-button flex items-center shadow ">
           View on Map
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -114,7 +114,7 @@ function Venues() {
           </Listbox>
         </div>
       </div>
-      <div className="m-2 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+      <div id="venue-items" className="m-2 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
         {filteredData?.map((venue) => (
           <VenueCard key={venue.id} venue={venue} />
         ))}

@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import React from "react";
 import { register } from "../../utilities/register";
 import { login } from "../../utilities/login";
@@ -10,6 +11,7 @@ function Form({ currentForm, closeModal, setLoggedIn, setUser }) {
     let formData = {};
     form.forEach((target) => {
       if (target.id === "customer" || target.value === "") {
+        return null;
       } else if (target.id === "venueManager") {
         let key = target.id;
         let value = target.checked;
@@ -28,6 +30,7 @@ function Form({ currentForm, closeModal, setLoggedIn, setUser }) {
     let user = storage.load("user");
     let token = storage.load("token");
     if (token === null) {
+      return null;
     } else {
       setUser(user);
       setLoggedIn(true);
@@ -86,13 +89,13 @@ function Form({ currentForm, closeModal, setLoggedIn, setUser }) {
           </div>
         ) : null}
         {currentForm === "Sign Up" ? (
-          <div className="flex justify-center py-4">
+          <div id="account-selector" className="flex justify-center py-4">
             Account Type:
             <label className="mx-3 flex items-center">
               <input
                 id="customer"
                 className="custom-radio mx-2"
-                value="Customer"
+                value="customer"
                 type="radio"
                 name="account_type"
                 defaultChecked
@@ -100,16 +103,19 @@ function Form({ currentForm, closeModal, setLoggedIn, setUser }) {
               Customer
             </label>
             <label className="mx-3 flex items-center">
-              <input id="venueManager" className="custom-radio mx-2" type="radio" name="account_type" />
+              <input
+                id="venueManager"
+                className="custom-radio mx-2"
+                type="radio"
+                name="account_type"
+                value="venueManager"
+              />
               Manager
             </label>
           </div>
         ) : null}
         <div className="flex justify-end">
-          <button
-            type="submit"
-            className="my-2 rounded-lg border-2 border-darkbrown bg-darkbrown px-2 py-1 font-subheader text-white hover:border-yellowsand"
-          >
+          <button id="submit-modal-form" type="submit" className="main-button shadow-lg">
             {currentForm}
           </button>
         </div>
@@ -117,5 +123,12 @@ function Form({ currentForm, closeModal, setLoggedIn, setUser }) {
     </div>
   );
 }
+
+Form.propTypes = {
+  closeModal: PropTypes.func,
+  currentForm: PropTypes.string,
+  setLoggedIn: PropTypes.func,
+  setUser: PropTypes.func,
+};
 
 export default Form;

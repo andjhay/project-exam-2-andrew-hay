@@ -61,6 +61,7 @@ function Nav() {
           <button
             aria-label="open mobile menu"
             type="button"
+            id="mobile-open"
             className="inline-flex items-center justify-center rounded-md p-2.5 text-darkbrown"
             onClick={() => setMobileMenuOpen(true)}
           >
@@ -69,6 +70,7 @@ function Nav() {
         </div>
         <div className="hidden flex-1 lg:flex">
           <NavLink
+            id="nav-home"
             className={({ isActive }) =>
               isActive
                 ? "text-md m-2 font-subheader text-white underline decoration-white underline-offset-8"
@@ -79,6 +81,7 @@ function Nav() {
             Home
           </NavLink>
           <NavLink
+            id="nav-venues"
             className={({ isActive }) =>
               isActive
                 ? "text-md m-2 font-subheader text-white underline decoration-white underline-offset-8"
@@ -93,6 +96,7 @@ function Nav() {
           {isLoggedIn ? (
             <>
               <NavLink
+              id="nav-username"
                 to={"/account/" + user?.name}
                 className={({ isActive }) =>
                   isActive ? "text-white underline underline-offset-4" : "underline underline-offset-4 hover:text-white"
@@ -100,21 +104,22 @@ function Nav() {
               >
                 {user?.name}
               </NavLink>
-              <button onClick={handelLogOut} className="main-button shadow">
+              <button id="nav-log-out" onClick={handelLogOut} className="main-button shadow">
                 Log Out
               </button>
             </>
           ) : (
             <>
-              <button onClick={formType} className="main-button shadow">
+              <button id="nav-log-in" onClick={formType} className="main-button shadow">
                 Log In
               </button>
-              <button onClick={formType} className="main-button shadow">
+              <button id="nav-sign-up" onClick={formType} className="main-button shadow">
                 Sign Up
               </button>
             </>
           )}
           <NavLink
+          id="nav-account"
             aria-label="to-account"
             to={"/account/" + user?.name}
             className={
@@ -138,7 +143,7 @@ function Nav() {
               <span className="sr-only">Holidaze</span>
               <img className="h-8 w-auto" src={LogoText} alt="" />
             </NavLink>
-            <button type="button" className="rounded-md p-2.5 text-darkbrown" onClick={() => setMobileMenuOpen(false)}>
+            <button id="mobile-close" type="button" className="rounded-md p-2.5 text-darkbrown" onClick={() => setMobileMenuOpen(false)}>
               <span className="sr-only">Close menu</span>
               <XMarkIcon className="h-10 w-10" aria-hidden="true" />
             </button>
@@ -146,6 +151,7 @@ function Nav() {
           <div className="my-4 divide-y divide-darkbrown">
             <div className="flex flex-col space-y-2 py-6">
               <NavLink
+              id="mobile-home"
                 onClick={() => setMobileMenuOpen(false)}
                 to="/"
                 className={({ isActive }) =>
@@ -157,6 +163,7 @@ function Nav() {
                 Home
               </NavLink>
               <NavLink
+              id="mobile-venues"
                 onClick={() => setMobileMenuOpen(false)}
                 to="/venues"
                 className={({ isActive }) =>
@@ -172,6 +179,7 @@ function Nav() {
               {isLoggedIn ? (
                 <>
                   <NavLink
+                  id="mobile-username"
                     onClick={() => setMobileMenuOpen(false)}
                     to={"/account/" + user?.name}
                     className={({ isActive }) =>
@@ -182,21 +190,22 @@ function Nav() {
                   >
                     {user?.name}
                   </NavLink>
-                  <button onClick={handelLogOut} className="main-button shadow">
+                  <button id="mobile-log-out" onClick={handelLogOut} className="main-button shadow">
                     Log Out
                   </button>
                 </>
               ) : (
                 <>
-                  <button onClick={formType} className="main-button shadow">
+                  <button id="mobile-log-in" onClick={formType} className="main-button shadow">
                     Log In
                   </button>
-                  <button onClick={formType} className="main-button shadow">
+                  <button id="mobile-sign-up" onClick={formType} className="main-button shadow">
                     Sign Up
                   </button>
                 </>
               )}
               <NavLink
+              id="mobile-account"
                 aria-label="to-account"
                 to={"/account/" + user?.name}
                 onClick={() => setMobileMenuOpen(false)}
@@ -221,7 +230,7 @@ function Nav() {
           <Dialog.Panel className="w-full max-w-md rounded-2xl bg-white p-6 text-left shadow-xl transition-all">
             <Dialog.Title className="flex">
               {currentForm}
-              <button type="button" className="-m-2.5 ms-auto rounded-md p-2.5 text-gray-700" onClick={closeModal}>
+              <button id="modal-close" type="button" className="-m-2.5 ms-auto rounded-md p-2.5 text-gray-700" onClick={closeModal}>
                 <span className="sr-only">Close menu</span>
                 <XMarkIcon className="h-10 w-10" aria-hidden="true" />
               </button>

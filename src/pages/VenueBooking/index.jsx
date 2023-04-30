@@ -115,7 +115,7 @@ function VenueBooking() {
       }
     });
     allDisabledRange = bookings.map((booking) => {
-      if (booking.dateFrom === undefined) {
+      if (booking.dateFrom === undefined || parseISO(booking.dateFrom) > parseISO(booking.dateTo)) {
         return [new Date(), new Date()];
       } else {
         return [parseISO(booking.dateFrom), parseISO(booking.dateTo)];
@@ -156,8 +156,8 @@ function VenueBooking() {
     return nextDate;
   };
 
-  let from = new Date(new Date().setHours(0, 0, 0, 0));
-  let to = new Date(new Date().setHours(0, 0, 0, 0));
+  let from = new Date(new Date().setUTCHours(0, 0, 0, 0));
+  let to = new Date(new Date().setUTCHours(0, 0, 0, 0));
 
   let nextDate = getNextAvailableDate(new Date());
   const [valueFrom, onChangeFrom] = useState(from);
@@ -165,15 +165,16 @@ function VenueBooking() {
   const [datesSet, setDatesSet] = useState(false);
   const [dayAfterSelected, setDayAfterSelected] = useState(null);
   const [closestDate, setClosestDate] = useState(null);
-
+  console.log(valueFrom + "from");
+  console.log(valueTo + "from");
   useEffect(() => {
     if (editMode && bookingData !== undefined && datesSet === false) {
       setDatesSet(true);
       onChangeFrom(new Date(bookingData?.dateFrom));
       onChangeTo(new Date(bookingData?.dateTo));
     } else if (!editMode) {
-      if (valueFrom < new Date(nextDate.setHours(0, 0, 0, 0))) {
-        onChangeFrom(new Date(nextDate.setHours(0, 0, 0, 0)));
+      if (valueFrom < new Date(nextDate.setUTCHours(0, 0, 0, 0))) {
+        onChangeFrom(new Date(nextDate.setUTCHours(0, 0, 0, 0)));
       }
     }
   }, [bookingData, editMode, nextDate, valueFrom, datesSet]);
@@ -192,15 +193,15 @@ function VenueBooking() {
   }
 
   useEffect(() => {
-    const date = new Date(valueFrom.setHours(0, 0, 0, 0));
+    const date = new Date(valueFrom.setUTCHours(0, 0, 0, 0));
     date.setDate(date.getDate() + 1);
     setDayAfterSelected(date);
   }, [valueFrom]);
 
   useEffect(() => {
     const allOtherBookings = bookings.filter((booking) => booking.id !== bookingId);
-    const allDates = allOtherBookings.map((booking) => new Date(new Date(booking.dateFrom).setHours(0, 0, 0, 0)));
-    const targetDate = new Date(valueFrom.setHours(0, 0, 0, 0));
+    const allDates = allOtherBookings.map((booking) => new Date(new Date(booking.dateFrom).setUTCHours(0, 0, 0, 0)));
+    const targetDate = new Date(valueFrom.setUTCHours(0, 0, 0, 0));
     const closestDate = closestLaterDate(allDates, targetDate);
     setClosestDate(closestDate);
   }, [valueFrom, bookings, bookingId]);
@@ -210,6 +211,7 @@ function VenueBooking() {
       onChangeTo(dayAfterSelected);
     }
     if (closestDate < valueFrom) {
+      return undefined;
     } else if (valueTo > closestDate && closestDate !== null) {
       onChangeTo(dayAfterSelected);
     }
@@ -290,16 +292,10 @@ function VenueBooking() {
         </div>
         <p className="mx-5 text-center">
           Booking {guestsSelected} {guestsSelected > 1 ? "Guests" : "Guest"} for {totalNights} nights <br /> check in{" "}
-          {valueFrom.toLocaleString().slice(0, 10)} - departure{" "}
-          {valueTo === null ? "not selected" : valueTo.toLocaleString().slice(0, 10)} <br /> A total of {totalPrice} NOK
-          payment at arrival.
+          {valueFrom.toLocaleString().slice(0, 10)} - departure {valueTo.toLocaleString().slice(0, 10)} <br /> A total
+          of {totalPrice} NOK payment at arrival.
         </p>
-        <button
-          onClick={() => submitBooking()}
-          className={
-            valueTo === null ? "main-button pointer-events-none w-fit opacity-80 shadow" : "main-button w-fit shadow"
-          }
-        >
+        <button id="submit-booking" onClick={() => submitBooking()} className="main-button w-fit shadow">
           {" "}
           {editMode ? "Update Booking" : "Confirm Booking"}
         </button>
