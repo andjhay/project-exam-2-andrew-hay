@@ -18,7 +18,7 @@ describe("Mobile UserStories", () => {
   beforeEach(() => {
     // Viewport Mobile
     cy.viewport(412, 915);
-    cy.visit("http://localhost:3000/");
+    cy.visit("https://project-exam-2-andrew-hay.netlify.app/");
   });
 
   afterEach(() => {
