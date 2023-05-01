@@ -54,10 +54,13 @@ function Venue() {
   let disabledRanges = null;
 
   disabledRanges = venueBookings?.map((booking) => {
-    if (booking.dateFrom === undefined) {
-      return [];
+    if (booking.dateFrom === undefined || new Date(booking.dateFrom) > new Date(booking.dateTo)) {
+      return [new Date(), new Date()];
     } else {
-      return [parseISO(booking.dateFrom), parseISO(booking.dateTo)];
+      return [
+        new Date(new Date(booking.dateFrom).setDate(new Date(booking.dateFrom).getDate() - 1)),
+        new Date(new Date(booking.dateTo).setDate(new Date(booking.dateTo).getDate() - 1)),
+      ];
     }
   });
 
@@ -197,7 +200,8 @@ function Venue() {
           </div>
           <div className="m-4 flex flex-col items-center">
             {!user.name ? <h3 className="font-subheader text-lg">Login or sign up now to book</h3> : null}
-            <button id="create-booking"
+            <button
+              id="create-booking"
               onClick={() => navigate("/bookingcreate/" + id)}
               className={
                 user.name ? "main-button w-fit shadow" : "main-button pointer-events-none w-fit opacity-50 shadow"
