@@ -119,23 +119,10 @@ function VenueCard({ venue, userName, venues, userData, setUserData }) {
 
 VenueCard.propTypes = {
   setUserData: PropTypes.func,
-  userData: PropTypes.shape({
-    _count: PropTypes.shape({
-      venues: PropTypes.number,
-    }),
-  }),
+  userData: PropTypes.any,
   userName: PropTypes.any,
-  venue: PropTypes.shape({
-    id: PropTypes.any,
-    maxGuests: PropTypes.any,
-    media: PropTypes.array,
-    name: PropTypes.any,
-    price: PropTypes.any,
-    rating: PropTypes.number,
-  }),
-  venues: PropTypes.shape({
-    filter: PropTypes.func,
-  }),
+  venue: PropTypes.any,
+  venues: PropTypes.any,
 };
 
 export default VenueCard;

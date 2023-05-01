@@ -5,7 +5,7 @@ import Calendar from "react-calendar";
 import useApi from "../../hooks/useApi";
 import LoadingElement from "../../components/LoadingElement";
 import ErrorElement from "../../components/Error";
-import { isWithinInterval, addDays, parseISO } from "date-fns";
+import { isWithinInterval, addDays } from "date-fns";
 import useSearch from "../../hooks/useSearch";
 import { updatePut } from "../../utilities/update";
 import { createPost } from "../../utilities/create";
@@ -68,57 +68,59 @@ function VenueBooking() {
     disabledRangesFrom = allOtherBookings.map((booking) => {
       if (
         booking.dateFrom === undefined ||
-        parseISO(booking.dateFrom) > new Date(parseISO(booking.dateTo).setDate(parseISO(booking.dateTo).getDate() - 1))
+        new Date(booking.dateFrom) > new Date(new Date(booking.dateTo).setDate(new Date(booking.dateTo).getDate() - 1))
       ) {
         return [new Date(), new Date()];
       } else {
-        return [parseISO(booking.dateFrom), parseISO(booking.dateTo).setDate(parseISO(booking.dateTo).getDate() - 1)];
+        return [
+          new Date(new Date(booking.dateFrom).setDate(new Date(booking.dateFrom).getDate() - 1)),
+          new Date(booking.dateTo).setDate(new Date(booking.dateTo).getDate() - 1),
+        ];
       }
     });
+
     disabledRangesTo = allOtherBookings.map((booking) => {
       if (
         booking.dateFrom === undefined ||
-        new Date(parseISO(booking.dateFrom).setDate(parseISO(booking.dateFrom).getDate() + 1)) >
-          parseISO(booking.dateTo)
+        new Date(new Date(booking.dateFrom).setDate(new Date(booking.dateFrom).getDate() + 1)) >
+          new Date(booking.dateTo)
       ) {
         return [new Date(), new Date()];
       } else {
-        return [parseISO(booking.dateFrom).setDate(parseISO(booking.dateFrom).getDate() + 1), parseISO(booking.dateTo)];
+        return [new Date(booking.dateFrom).setDate(new Date(booking.dateFrom).getDate() + 1), new Date(booking.dateTo)];
       }
     });
   } else {
     disabledRangesFrom = bookings.map((booking) => {
       if (
         booking.dateFrom === undefined ||
-        parseISO(booking.dateFrom) > new Date(parseISO(booking.dateTo).setDate(parseISO(booking.dateTo).getDate() - 1))
+        new Date(booking.dateFrom) > new Date(new Date(booking.dateTo).setDate(new Date(booking.dateTo).getDate() - 1))
       ) {
         return [new Date(), new Date()];
       } else {
         return [
-          parseISO(booking.dateFrom),
-          new Date(parseISO(booking.dateTo).setDate(parseISO(booking.dateTo).getDate() - 1)),
+          new Date(new Date(booking.dateFrom).setDate(new Date(booking.dateFrom).getDate() - 1)),
+          new Date(new Date(booking.dateTo).setDate(new Date(booking.dateTo).getDate() - 1)),
         ];
       }
     });
+
     disabledRangesTo = bookings.map((booking) => {
-      if (
-        booking.dateFrom === undefined ||
-        new Date(parseISO(booking.dateFrom).setDate(parseISO(booking.dateFrom).getDate() + 1)) >
-          parseISO(booking.dateTo)
-      ) {
+      if (booking.dateFrom === undefined || new Date(booking.dateFrom) > new Date(booking.dateTo)) {
         return [new Date(), new Date()];
       } else {
         return [
-          new Date(parseISO(booking.dateFrom).setDate(parseISO(booking.dateFrom).getDate() + 1)),
-          parseISO(booking.dateTo),
+          new Date(booking.dateFrom),
+          new Date(new Date(booking.dateTo).setDate(new Date(booking.dateTo).getDate() + 1)),
         ];
       }
     });
+
     allDisabledRange = bookings.map((booking) => {
-      if (booking.dateFrom === undefined || parseISO(booking.dateFrom) > parseISO(booking.dateTo)) {
+      if (booking.dateFrom === undefined || new Date(booking.dateFrom) > new Date(booking.dateTo)) {
         return [new Date(), new Date()];
       } else {
-        return [parseISO(booking.dateFrom), parseISO(booking.dateTo)];
+        return [new Date(booking.dateFrom), new Date(booking.dateTo)];
       }
     });
   }
@@ -156,8 +158,8 @@ function VenueBooking() {
     return nextDate;
   };
 
-  let from = new Date(new Date().setUTCHours(0, 0, 0, 0));
-  let to = new Date(new Date().setUTCHours(0, 0, 0, 0));
+  let from = new Date(new Date().setHours(2, 0, 0, 0));
+  let to = new Date(new Date().setHours(2, 0, 0, 0));
 
   let nextDate = getNextAvailableDate(new Date());
   const [valueFrom, onChangeFrom] = useState(from);
@@ -165,16 +167,14 @@ function VenueBooking() {
   const [datesSet, setDatesSet] = useState(false);
   const [dayAfterSelected, setDayAfterSelected] = useState(null);
   const [closestDate, setClosestDate] = useState(null);
-  console.log(valueFrom + "from");
-  console.log(valueTo + "from");
   useEffect(() => {
     if (editMode && bookingData !== undefined && datesSet === false) {
       setDatesSet(true);
       onChangeFrom(new Date(bookingData?.dateFrom));
       onChangeTo(new Date(bookingData?.dateTo));
     } else if (!editMode) {
-      if (valueFrom < new Date(nextDate.setUTCHours(0, 0, 0, 0))) {
-        onChangeFrom(new Date(nextDate.setUTCHours(0, 0, 0, 0)));
+      if (valueFrom < new Date(nextDate.setHours(2, 0, 0, 0))) {
+        onChangeFrom(new Date(nextDate.setHours(2, 0, 0, 0)));
       }
     }
   }, [bookingData, editMode, nextDate, valueFrom, datesSet]);
@@ -193,21 +193,21 @@ function VenueBooking() {
   }
 
   useEffect(() => {
-    const date = new Date(valueFrom.setUTCHours(0, 0, 0, 0));
-    date.setDate(date.getDate() + 1);
+    let date = new Date(valueFrom.setHours(2, 0, 0, 0));
+    date = addDays(date, 1);
     setDayAfterSelected(date);
   }, [valueFrom]);
 
   useEffect(() => {
     const allOtherBookings = bookings.filter((booking) => booking.id !== bookingId);
-    const allDates = allOtherBookings.map((booking) => new Date(new Date(booking.dateFrom).setUTCHours(0, 0, 0, 0)));
-    const targetDate = new Date(valueFrom.setUTCHours(0, 0, 0, 0));
+    const allDates = allOtherBookings.map((booking) => new Date(new Date(booking.dateFrom).setHours(2, 0, 0, 0)));
+    const targetDate = new Date(valueFrom.setHours(2, 0, 0, 0));
     const closestDate = closestLaterDate(allDates, targetDate);
     setClosestDate(closestDate);
   }, [valueFrom, bookings, bookingId]);
 
   useEffect(() => {
-    if (valueFrom >= valueTo) {
+    if (valueFrom >= valueTo || new Date(valueFrom.setHours(2, 0, 0, 0)) >= new Date(valueTo.setHours(2, 0, 0, 0))) {
       onChangeTo(dayAfterSelected);
     }
     if (closestDate < valueFrom) {

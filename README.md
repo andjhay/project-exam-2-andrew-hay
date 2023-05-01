@@ -21,7 +21,7 @@ Year 2 exam project for Noroff higher professional degree in front-end developme
 
 ### Javascript Framework
 
-React 
+React
 
 ### CSS Framework
 
@@ -55,16 +55,24 @@ git $ git clone https://github.com/andjhay/project-exam-2-andrew-hay.git
 npm install
 ```
 
+3. Run:
+
+```
+npm run start
+```
+
 ## Testing
 
 ### Cypress end-to-end
 
 To run end-to-end tests in console run:
+
 ```
 npm run cypress-test
 ```
 
 Else to view end-to-end tests in progress run:
+
 ```
 npm run cypress
 ```
@@ -72,6 +80,7 @@ npm run cypress
 ## Dependencies
 
 In addition to what is installed with create-react-app these dependencies were required:
+
 <ul> 
 <li>prettier v2.8.7 (formatting code to standard)</li>
 <li>prettier-plugin-tailwindcss v0.2.7</li>
@@ -83,7 +92,7 @@ In addition to what is installed with create-react-app these dependencies were r
 <li>eslint-plugin-cypress v2.13.3</li>
 <li>react-calendar v4.2.1 (Calender component for react)</li>
 <li>react-leaflet v4.2.1 (Map component)</li>
-<li>zustand" v4.3.7</li>
+<li>zustand v4.3.7</li>
 <li>sass v1.62.0</li>
 <li>react-router-dom v6.10.0</li>
 <li>date-fns v2.29.3 (Date and time function library)</li>

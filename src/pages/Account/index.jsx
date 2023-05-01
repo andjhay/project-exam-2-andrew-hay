@@ -88,12 +88,14 @@ function Account() {
             <p>Username: {name}</p>
             <p>Email: {email}</p>
             <p>Account Type: {venueManager ? "Manager" : "Customer"}</p>
-            <p>Venues: {_count?.venues}</p>
-            <p>Bookings: {_count?.bookings}</p>
+            {venueManager ? <p>Venues: {_count?.venues}</p> : null}
+            <p>Total Bookings done: {_count?.bookings}</p>
           </div>
           {loggedInUser ? (
             <Link to={"/venuecreate/" + user.name}>
-              <button id="create-venue" className="main-button shadow">Create New Venue</button>
+              <button id="create-venue" className="main-button shadow">
+                Create New Venue
+              </button>
             </Link>
           ) : null}
         </div>
