@@ -41,7 +41,7 @@ function VenueBooking() {
     setGuestsSelected(event.target.value);
   }
   // Handel button press to submit create or update booking
-  function submitBooking() {
+  async function submitBooking() {
     let formData = {};
     if (!editMode) {
       formData["venueId"] = venueId;
@@ -49,11 +49,10 @@ function VenueBooking() {
     formData["dateFrom"] = valueFrom;
     formData["dateTo"] = valueTo;
     formData["guests"] = Number(guestsSelected);
-
     if (editMode) {
-      updatePut(formData, "Booking", bookingId);
+      await updatePut(formData, "Booking", bookingId);
     } else {
-      createPost(formData, "Booking");
+      await createPost(formData, "Booking");
     }
     navigate("/account/" + user.name);
   }
@@ -219,6 +218,8 @@ function VenueBooking() {
 
   let totalNights = Math.floor((Date.parse(valueTo) - Date.parse(valueFrom)) / 86400000);
   let totalPrice = totalNights * price;
+
+  console.log(data);
 
   if (isLoading) {
     return <LoadingElement />;
