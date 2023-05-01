@@ -1,8 +1,11 @@
 import React from "react";
 
+/**
+ * Privacy Policy Page component
+ */
 function PrivacyPolicy() {
   return (
-    <div className="my-5 m-auto lg:w-[50vw]">
+    <div className="m-auto my-5 lg:w-[50vw]">
       <h1>Privacy Policy</h1>
       <p>Last updated: April 30, 2023</p>
       <p>

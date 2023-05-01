@@ -11,6 +11,9 @@ import useUser from "../../hooks/useUser";
 
 let userData = storage.load("user");
 
+/**
+ * Nav component contains logo, navlinks and mobile menu and log in/sign up modal 
+ */
 function Nav() {
   let [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   let [isOpen, setIsOpen] = useState(false);

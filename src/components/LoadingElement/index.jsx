@@ -93,6 +93,9 @@ const LoadingElement3 = styled.div`
   }
 `;
 
+/**
+ * Loading component to display when fetching api data.
+ */
 function LoadingElement() {
   return (
     <div className="m-auto w-60">

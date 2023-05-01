@@ -11,6 +11,9 @@ import * as storage from "../../utilities/storage.js";
 import LoadingElement from "../../components/LoadingElement";
 import ErrorElement from "../../components/Error";
 
+/**
+ * Account Page component that displays all the required sub components and information of the account page.
+ */
 function Account() {
   let { user, setUser } = useUser();
   let { userName } = useParams();

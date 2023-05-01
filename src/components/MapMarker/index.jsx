@@ -1,9 +1,18 @@
-import PropTypes from "prop-types"
+import PropTypes from "prop-types";
 import React from "react";
 import { Link } from "react-router-dom";
 import { Marker, Popup } from "react-leaflet";
 
+/**
+ * Marker component that contains location information of a venue.
+ * @param {object} venue Venue data to provide location information for map marker.
+ */
 function MapMarker({ venue }) {
+  
+  MapMarker.propTypes = {
+    venue: PropTypes.object,
+  };
+
   function getRandomLat() {
     let min = Math.ceil(90);
     let max = Math.floor(-60);
@@ -33,17 +42,6 @@ function MapMarker({ venue }) {
       </Popup>
     </Marker>
   );
-}
-
-MapMarker.propTypes = {
-  venue: PropTypes.shape({
-    id: PropTypes.any,
-    location: PropTypes.shape({
-      lat: PropTypes.number,
-      lng: PropTypes.number
-    }),
-    name: PropTypes.any
-  })
 }
 
 export default MapMarker;

@@ -4,7 +4,21 @@ import { register } from "../../utilities/register";
 import { login } from "../../utilities/login";
 import * as storage from "../../utilities/storage.js";
 
+/**
+ * Form component that displays and handles different inputs for logging in or registering a user.
+ * @param {string} currentForm Log In or Sign Up in order to determine what inputs to render
+ * @param {function} closeModal Closes Modal that the form is to be displayed inside.
+ * @param {function} setLoggedIn updates a value on whether user has logged in through the form.
+ * @param {function} setUser Updates a user hook storing session data.
+ */
 function Form({ currentForm, closeModal, setLoggedIn, setUser }) {
+  Form.propTypes = {
+    closeModal: PropTypes.func,
+    currentForm: PropTypes.string,
+    setLoggedIn: PropTypes.func,
+    setUser: PropTypes.func,
+  };
+
   const submitForm = async (event) => {
     event.preventDefault();
     const form = [...event.target];
@@ -123,12 +137,5 @@ function Form({ currentForm, closeModal, setLoggedIn, setUser }) {
     </div>
   );
 }
-
-Form.propTypes = {
-  closeModal: PropTypes.func,
-  currentForm: PropTypes.string,
-  setLoggedIn: PropTypes.func,
-  setUser: PropTypes.func,
-};
 
 export default Form;

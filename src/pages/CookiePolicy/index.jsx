@@ -1,5 +1,8 @@
 import React from "react";
 
+/**
+ * Cookies policy page
+ */
 function CookiePolicy() {
   return (
     <div>

@@ -5,7 +5,24 @@ import { deleteItem } from "../../utilities/delete";
 import useUser from "../../hooks/useUser";
 import Logo from "../../assets/holidazelogotextlargebg.png";
 
+/**
+ * Venue Card component used to display a venue to select either to view or to manage.
+ * @param {string} id the venues individual ID
+ * @param {object} venue data of a specific venue
+ * @param {string} userName string value of the users user name, used to check if a user is logged in.
+ * @param {userData} userData all the users current session data.
+ * @param {function} setUserData function to update the current sessions user data when changes occur.
+ * @param {array} venues list of all venues managed by the user to filter out a specific venue upon deletion.
+ */
 function VenueCard({ venue, userName, venues, userData, setUserData }) {
+  VenueCard.propTypes = {
+    setUserData: PropTypes.func,
+    userData: PropTypes.object,
+    userName: PropTypes.string,
+    venue: PropTypes.object,
+    venues: PropTypes.oneOfType([PropTypes.array, PropTypes.object]),
+  };
+
   const { user } = useUser();
   const [img, setImg] = useState(0);
   const navigate = useNavigate();
@@ -116,13 +133,5 @@ function VenueCard({ venue, userName, venues, userData, setUserData }) {
     </div>
   );
 }
-
-VenueCard.propTypes = {
-  setUserData: PropTypes.func,
-  userData: PropTypes.any,
-  userName: PropTypes.any,
-  venue: PropTypes.any,
-  venues: PropTypes.any,
-};
 
 export default VenueCard;

@@ -1,6 +1,9 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 
+/**
+ * Route not found Page component to inform and return user to homepage if they go to a wrong link.
+ */
 function RouteNotFound() {
   const navigate = useNavigate();
   return (

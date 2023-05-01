@@ -84,6 +84,7 @@ In addition to what is installed with create-react-app these dependencies were r
 <ul> 
 <li>prettier v2.8.7 (formatting code to standard)</li>
 <li>prettier-plugin-tailwindcss v0.2.7</li>
+<li>styled-components v5.3.10 (Loading Element made using styled components)</li>
 <li>tailwindcss v3.3.1 (CSS framework)</li>
 <li>@heroicons/react v2.0.17 (Icon library for tailwind and headlessui)</li>
 <li>@headlessui/react v1.7.13 (tailwind component library)</li>

@@ -5,6 +5,9 @@ const useSearchStore = create((set) => ({
   setSearchInput: (searchInput) => set(() => ({ search: searchInput })),
 }));
 
+/**
+   * Zustand hook for storing the input search information for the session.
+   */
 function useSearch() {
   const search = useSearchStore((state) => state.search);
   const setSearchInput = useSearchStore((state) => state.setSearchInput);

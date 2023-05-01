@@ -19,6 +19,9 @@ const sortBy = [
   { id: 6, value: "Rating (High)", sort: "?sort=rating&sortOrder=asc&_owner=true&_bookings=true" },
 ];
 
+/**
+ * Venues Page component displaying a list of all the venues filtered by search inputs.
+ */
 function Venues() {
   const [selected, setSelected] = useState(sortBy[0]);
   const { search } = useSearch();
@@ -36,7 +39,7 @@ function Venues() {
             venue.location.continent.toLowerCase().includes(search.searchTerm?.toLowerCase()) === true ||
             venue.location.city.toLowerCase().includes(search.searchTerm?.toLowerCase()) === true ||
             venue.location.zip.toLowerCase().includes(search.searchTerm?.toLowerCase()) === true ||
-            venue.owner.name.toLowerCase().includes(search.searchTerm?.toLowerCase()) === true ) &&
+            venue.owner.name.toLowerCase().includes(search.searchTerm?.toLowerCase()) === true) &&
           venue.maxGuests >= Number(search.guests) &&
           !venue.bookings.some((booking) => {
             const bookingFrom = new Date(booking.dateFrom).getTime();

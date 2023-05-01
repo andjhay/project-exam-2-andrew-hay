@@ -1,8 +1,18 @@
-import PropTypes from "prop-types"
+import PropTypes from "prop-types";
 import React from "react";
 import { useNavigate } from "react-router-dom";
 
+/**
+ * Error component to display errors should they occur.
+ * @param {object} errorMsg the error passed down from fetch.
+ * @param {object} data
+ */
 function ErrorElement({ errorMsg, data }) {
+  ErrorElement.propTypes = {
+    data: PropTypes.object,
+    errorMsg: PropTypes.object,
+  };
+
   const navigate = useNavigate();
   return (
     <div className="m-auto flex flex-col items-center justify-center">
@@ -24,18 +34,6 @@ function ErrorElement({ errorMsg, data }) {
       </div>
     </div>
   );
-}
-
-ErrorElement.propTypes = {
-  data: PropTypes.shape({
-    errors: PropTypes.any,
-    status: PropTypes.any,
-    statusCode: PropTypes.string
-  }),
-  errorMsg: PropTypes.shape({
-    message: PropTypes.any,
-    statuscode: PropTypes.any
-  })
 }
 
 export default ErrorElement;

@@ -9,8 +9,11 @@ import LoadingElement from "../../components/LoadingElement";
 import ErrorElement from "../../components/Error";
 import Logo from "../../assets/holidazelogotextlargebg.png";
 import Calendar from "react-calendar";
-import { isWithinInterval, parseISO } from "date-fns";
+import { isWithinInterval } from "date-fns";
 
+/**
+ * Individual Venue Page component to render the components and information of a single venue as wel las calender to view availability.
+ */
 function Venue() {
   let { id } = useParams();
   const { user } = useUser();
@@ -23,6 +26,9 @@ function Venue() {
   const { name, price, rating, maxGuests, description } = data;
   const navigate = useNavigate();
 
+  /**
+   * Handles navigating through image array in one direction if more images are available
+   */
   function handleClickAdd() {
     if (img === media.length - 1) {
       setImg(0);
@@ -31,6 +37,9 @@ function Venue() {
     }
   }
 
+  /**
+   * Handles navigating through image array in the other direction if more images are available
+   */
   function handleClickRemove() {
     if (img - 1 < 0) {
       setImg(media.length - 1);
@@ -64,16 +73,31 @@ function Venue() {
     }
   });
 
+  /**
+   * Function determines what tiles to disable in month view.
+   * @param {date} date a date on the calender.
+   * @param {string} view the calenders current view mode.
+   */
   function tileDisabled({ date, view }) {
     if (view === "month") {
       return isWithinRanges(date, disabledRanges);
     }
   }
 
+  /**
+   * Checks if a date is within a range to decide if it should be disabled.
+   * @param {date} date the date to be checked
+   * @param {array} range an array of the dates to be checked.
+   */
   function isWithinRange(date, range) {
     return isWithinInterval(date, { start: range[0], end: range[1] });
   }
 
+  /**
+   * Checks if a date is within the range and returns it or not.
+   * @param {date} date the date to be checked
+   * @param {array} ranges an array of the booking ranges to be checked.
+   */
   function isWithinRanges(date, ranges) {
     return ranges.some((range) => isWithinRange(date, range));
   }

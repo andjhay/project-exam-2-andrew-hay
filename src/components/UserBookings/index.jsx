@@ -4,7 +4,20 @@ import { Link, useNavigate } from "react-router-dom";
 import { deleteItem } from "../../utilities/delete";
 import useUser from "../../hooks/useUser";
 
+/**
+ * Bookings component to display a list of all bookings the user has current and upcoming filtering out bookings before the current date.
+ * @param {string} userName name of the user used to determine if a user is logged in.
+ * @param {object} bookings the users bookings data.
+ * @param {object} userData all userData.
+ * @param {function} setUserData function to update the user date to update elements on the page this component is used within.
+ */
 function UserBookings({ userName, bookings, userData, setUserData }) {
+  UserBookings.propTypes = {
+    bookings: PropTypes.array,
+    setUserData: PropTypes.func,
+    userData: PropTypes.oneOfType([PropTypes.array, PropTypes.object]),
+    userName: PropTypes.string,
+  };
   const { user } = useUser();
   let loggedInUser = false;
   if (userName === user.name) {
@@ -13,6 +26,10 @@ function UserBookings({ userName, bookings, userData, setUserData }) {
 
   const navigate = useNavigate();
 
+  /**
+   * Handles deleting a booking and updating the current session user data to display the information correctly on the page.
+   * @param {string} id The selected bookings ID to pass to delete api call.
+   */
   function handleDelete(id) {
     deleteItem(id, "/bookings");
     setUserData({
@@ -65,12 +82,5 @@ function UserBookings({ userName, bookings, userData, setUserData }) {
     </div>
   );
 }
-
-UserBookings.propTypes = {
-  bookings: PropTypes.array,
-  setUserData: PropTypes.func,
-  userData: PropTypes.oneOfType([PropTypes.array, PropTypes.object]),
-  userName: PropTypes.any,
-};
 
 export default UserBookings;

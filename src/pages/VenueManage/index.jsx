@@ -22,6 +22,9 @@ const initialCheckboxes = [
   { id: "pets", label: "Pets", checked: false },
 ];
 
+/**
+ * Venue Manager Page component to create and edit venues by submitting data on the venue through a form.
+ */
 function VenueManage() {
   const pageLocation = useLocation();
   let editMode = false;
@@ -59,6 +62,10 @@ function VenueManage() {
     }
   }, [location, meta]);
 
+  /**
+   * Checks or unchecks the checkboxes while allowing them to be consitionally rendered.
+   * @param {number} index The position of the checkbox to update in the array of checkboxs.
+   */
   function handleCheckboxChanges(index) {
     const updatedCheckboxes = [...checkboxes];
     updatedCheckboxes[index].checked = !updatedCheckboxes[index].checked;

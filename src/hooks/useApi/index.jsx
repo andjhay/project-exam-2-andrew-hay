@@ -2,6 +2,10 @@ import { useState, useEffect } from "react";
 import { authFetch } from "../../utilities/authFetch";
 import * as storage from "../../utilities/storage.js";
 
+/**
+   * API hook to fetch data uses the input of the URL to fetch data from.
+   * @param {string} url path to desired data from API
+   */
 function useApi(url) {
   const [data, setData] = useState([]);
   const [errorMsg, setErrorMsg] = useState({ message: "", statuscode: null });

@@ -7,6 +7,9 @@ import MapMarker from "../../components/MapMarker";
 import LoadingElement from "../../components/LoadingElement";
 import ErrorElement from "../../components/Error";
 
+/**
+   * Venue map component displaying the venues list on a map, and rendering random locations for venues without lat and lng coordinates in the marker component.
+   */
 function VenuesMap() {
   const corner1 = Leaflet.latLng(-60, -175);
   const corner2 = Leaflet.latLng(90, 190);

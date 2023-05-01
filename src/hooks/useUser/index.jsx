@@ -5,6 +5,9 @@ const useUserStore = create((set) => ({
   setTheUser: (userData) => set(() => ({ user: userData })),
 }));
 
+/**
+ * Zustand hook for storing users data for the session.
+ */
 function useUser() {
   const user = useUserStore((state) => state.user);
   const setUser = useUserStore((state) => state.setTheUser);

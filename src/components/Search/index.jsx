@@ -2,6 +2,9 @@ import React, { useState } from "react";
 import useSearch from "../../hooks/useSearch";
 import { useNavigate } from "react-router-dom";
 
+/**
+ * Search component that stores the search object and redirects to view results
+ */
 function Search() {
   const { search, setSearchInput } = useSearch();
   const [fromDate, setFromDate] = useState("");
@@ -33,6 +36,10 @@ function Search() {
   let today = date.slice(0, 10);
   let dayAfterToday;
 
+  /**
+   * Date selection function that does not allow date to to be < or = to date from.
+   * @param {object} event when a date is selected in type date search inputs dateTo or dateFrom.
+   */
   function dateSelected(event) {
     let dateToInput = document.getElementById("dateTo");
     let inputToDate = new Date(dateToInput.value);
