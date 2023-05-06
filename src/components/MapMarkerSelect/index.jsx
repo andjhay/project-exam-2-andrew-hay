@@ -1,18 +1,22 @@
-import PropTypes from "prop-types"
+import PropTypes from "prop-types";
 import React, { useRef, useMemo } from "react";
 import { Marker } from "react-leaflet";
 
 /**
+ * @typedef {object} Props
+ * @property {object} position Lat and Lng coordinates in an object.
+ * @property {function} setPosition sets Lat and Lng coordinates to be used in form data.
+ */
+
+/**
  * draggable Marker component for using to pick a location position for venues.
- * @param {object} position Lat and Lng coordinates in an object.
- * @param {function} setPosition sets Lat and Lng coordinates to be used in form data.
+ * @param {Props} props
  */
 function DraggableMarker({ position, setPosition }) {
   DraggableMarker.propTypes = {
-  position: PropTypes.object,
-  setPosition: PropTypes.func
-}
-  console.log(typeof position)
+    position: PropTypes.object,
+    setPosition: PropTypes.func,
+  };
   const markerRef = useRef(null);
   const eventHandlers = useMemo(
     () => ({

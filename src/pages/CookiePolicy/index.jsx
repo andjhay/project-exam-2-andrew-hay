@@ -5,8 +5,8 @@ import React from "react";
  */
 function CookiePolicy() {
   return (
-    <div>
-      <h1>Cookies Policy</h1>
+    <div className="m-5 font-paragraph">
+      <h1 className="font-header text-2xl">Cookies Policy</h1>
       <p>Last updated: April 30, 2023</p>
       <p>
         This Cookies Policy explains what Cookies are and how We use them. You should read this policy so You can
@@ -30,15 +30,15 @@ function CookiePolicy() {
         We do not store sensitive personal information, such as mailing addresses, account passwords, etc. in the
         Cookies We use.
       </p>
-      <h1>Interpretation and Definitions</h1>
-      <h2>Interpretation</h2>
+      <h2 className="my-2 font-subheader text-xl">Interpretation and Definitions</h2>
+      <h3 className="font-subheader text-lg">Interpretation</h3>
       <p>
         The words of which the initial letter is capitalized have meanings defined under the following conditions. The
         following definitions shall have the same meaning regardless of whether they appear in singular or in plural.
       </p>
-      <h2>Definitions</h2>
+      <h3 className="font-subheader text-lg">Definitions</h3>
       <p>For the purposes of this Cookies Policy:</p>
-      <ul>
+      <ul className="list-disc mx-5">
         <li>
           <strong>Company</strong> (referred to as either &quot;the Company&quot;, &quot;We&quot;, &quot;Us&quot; or
           &quot;Our&quot; in this Cookies Policy) refers to Holidaze.
@@ -62,15 +62,15 @@ function CookiePolicy() {
           behalf of which such individual is accessing or using the Website, as applicable.
         </li>
       </ul>
-      <h1>The use of the Cookies</h1>
-      <h2>Type of Cookies We Use</h2>
+      <h2 className="my-2 font-subheader text-xl">The use of the Cookies</h2>
+      <h3 className="font-subheader text-lg">Type of Cookies We Use</h3>
       <p>
         Cookies can be &quot;Persistent&quot; or &quot;Session&quot; Cookies. Persistent Cookies remain on your personal
         computer or mobile device when You go offline, while Session Cookies are deleted as soon as You close your web
         browser.
       </p>
       <p>We use both session and persistent Cookies for the purposes set out below:</p>
-      <ul>
+      <ul className="list-disc mx-5">
         <li>
           <p>
             <strong>Necessary / Essential Cookies</strong>
@@ -97,7 +97,7 @@ function CookiePolicy() {
           </p>
         </li>
       </ul>
-      <h2>Your Choices Regarding Cookies</h2>
+      <h3 className="font-subheader text-lg">Your Choices Regarding Cookies</h3>
       <p>
         If You prefer to avoid the use of Cookies on the Website, first You must disable the use of Cookies in your
         browser and then delete the Cookies saved in your browser associated with this website. You may use this option
@@ -111,7 +111,7 @@ function CookiePolicy() {
         If You&apos;d like to delete Cookies or instruct your web browser to delete or refuse Cookies, please visit the
         help pages of your web browser.
       </p>
-      <ul>
+      <ul className="list-disc mx-5">
         <li>
           <p>
             For the Chrome web browser, please visit this page from Google:{" "}
@@ -162,7 +162,7 @@ function CookiePolicy() {
         </li>
       </ul>
       <p>For any other web browser, please visit your web browser&apos;s official web pages.</p>
-      <h2>More Information about Cookies</h2>
+      <h3>More Information about Cookies</h3>
       <p>
         You can learn more about cookies:{" "}
         <a
@@ -174,10 +174,15 @@ function CookiePolicy() {
         </a>
         .
       </p>
-      <h2>Contact Us</h2>
+      <h3 className="font-subheader text-lg">Contact Us</h3>
       <p>If you have any questions about this Cookies Policy, You can contact us:</p>
-      <ul>
-        <li>By email: contact@andrewhay.no</li>
+      <ul className="list-disc mx-5">
+        <li>
+          By email:{" "}
+          <a className="hover:text-blue-500" href="mailto: contact@andrewhay.no">
+            contact@andrewhay.no
+          </a>
+        </li>
       </ul>
     </div>
   );

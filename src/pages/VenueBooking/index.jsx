@@ -155,7 +155,7 @@ function VenueBooking() {
     return isWithinInterval(date, { start: range[0], end: range[1] });
   }
 
- /**
+  /**
    * Checks if a date is within the range and returns it or not.
    * @param {date} date the date to be checked
    * @param {array} ranges an array of the booking ranges to be checked.
@@ -172,7 +172,7 @@ function VenueBooking() {
     return allDisabledRange.some((range) => isWithinInterval(date, { start: range[0], end: range[1] }));
   };
 
- /**
+  /**
    * Adds to the date then rechecks to see if still a disabled date, if true continues to add until date is not diabled.
    * @param {date} startDate the current date.
    */
@@ -269,7 +269,7 @@ function VenueBooking() {
             <svg className="fill-red-400">
               <rect width="45" height="35" />
             </svg>
-            <p className="m-2">Booked/Unavailable</p>
+            <p className="m-2">Booked/Unselectable</p>
           </span>
           <span className="flex items-center">
             <svg className="fill-lightblue">
@@ -297,7 +297,7 @@ function VenueBooking() {
             <h2 className="mx-2 font-subheader text-lg">Date from</h2>
             <Calendar
               calendarType="ISO 8601"
-              className="m-2 !bg-lightblue shadow-lg"
+              className="m-2 shadow-lg"
               onChange={onChangeFrom}
               returnValue={"start"}
               minDetail="year"
@@ -310,7 +310,7 @@ function VenueBooking() {
           <div>
             <h2 className="mx-2 font-subheader text-lg">Date to</h2>
             <Calendar
-              className="m-2 !bg-lightblue shadow-lg"
+              className="m-2 shadow-lg"
               onChange={onChangeTo}
               returnValue={"end"}
               minDetail="year"

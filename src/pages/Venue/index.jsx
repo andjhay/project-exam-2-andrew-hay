@@ -111,10 +111,10 @@ function Venue() {
   }
 
   return (
-    <div className="font-paragraph">
+    <div className="mx-auto flex flex-col font-paragraph">
       <h1 className="m-2 text-center font-header text-3xl">{name}</h1>
       <div className="m-3 flex flex-col md:flex-row">
-        <div className="basis-1/2">
+        <div className="m-5 basis-1/2">
           <div className="flex items-center justify-center">
             <div>
               <span className={media.length <= 1 ? "pointer-events-none opacity-25" : ""} onClick={handleClickRemove}>
@@ -138,6 +138,18 @@ function Venue() {
               </span>
             </div>
           </div>
+          <div className="m-4 flex flex-col items-center">
+            {!user.name ? <h3 className="font-subheader text-lg">Login or sign up now to book</h3> : null}
+            <button
+              id="create-booking"
+              onClick={() => navigate("/bookingcreate/" + id)}
+              className={
+                user.name ? "main-button w-fit shadow" : "main-button pointer-events-none w-fit opacity-50 shadow"
+              }
+            >
+              Book This Venue
+            </button>
+          </div>
           <div className="flex justify-center">
             <div>
               <h3 className="font-subheader text-lg">Availability</h3>
@@ -146,7 +158,7 @@ function Venue() {
                   <svg className="fill-red-400">
                     <rect width="45" height="35" />
                   </svg>
-                  <p className="m-2">Booked/Unavailable</p>
+                  <p className="m-2">Booked/Unselectable</p>
                 </span>
                 <span className="flex items-center">
                   <svg className="fill-lightblue">
@@ -156,7 +168,7 @@ function Venue() {
                 </span>
               </div>
               <Calendar
-                className="view-only mb-3 !bg-lightblue shadow-lg"
+                className="view-only mb-3 shadow-lg"
                 tileDisabled={data.bookings?.length >= 1 ? tileDisabled : null}
                 minDate={new Date()}
                 minDetail="year"
@@ -188,7 +200,7 @@ function Venue() {
             </p>
           </div>
           {facilities ? null : <h2 className="my-3 font-subheader text-xl">Venue Facilities</h2>}
-          <div className="flex">
+          <div className="me-auto flex">
             {meta.wifi === true ? (
               <div className="flex basis-1/4 flex-col items-center p-2">
                 <svg className="h-10" xmlns="http://www.w3.org/2000/svg" viewBox="0 96 960 960">
@@ -221,18 +233,6 @@ function Venue() {
                 <p className="text-center">Pets Allowed</p>
               </div>
             ) : null}
-          </div>
-          <div className="m-4 flex flex-col items-center">
-            {!user.name ? <h3 className="font-subheader text-lg">Login or sign up now to book</h3> : null}
-            <button
-              id="create-booking"
-              onClick={() => navigate("/bookingcreate/" + id)}
-              className={
-                user.name ? "main-button w-fit shadow" : "main-button pointer-events-none w-fit opacity-50 shadow"
-              }
-            >
-              Book This Venue
-            </button>
           </div>
           {user.name === owner.name ? (
             <div id="venues-upcoming-bookings">

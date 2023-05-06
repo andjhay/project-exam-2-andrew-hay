@@ -6,15 +6,20 @@ import useUser from "../../hooks/useUser";
 import Logo from "../../assets/holidazelogotextlargebg.png";
 
 /**
- * Venue Card component used to display a venue to select either to view or to manage.
- * @param {string} id the venues individual ID
- * @param {object} venue data of a specific venue
- * @param {string} userName string value of the users user name, used to check if a user is logged in.
- * @param {userData} userData all the users current session data.
- * @param {function} setUserData function to update the current sessions user data when changes occur.
- * @param {array} venues list of all venues managed by the user to filter out a specific venue upon deletion.
+ * @typedef {object} Props
+ * @property {string} id the venues individual ID
+ * @property {object} venue data of a specific venue
+ * @property {string} userName string value of the users user name, used to check if a user is logged in.
+ * @property {userData} userData all the users current session data.
+ * @property {function} setUserData function to update the current sessions user data when changes occur.
+ * @property {array} venues list of all venues managed by the user to filter out a specific venue upon deletion.
  */
-function VenueCard({ venue, userName, venues, userData, setUserData }) {
+
+/**
+ * Venue Card component used to display a venue to select either to view or to manage.
+ * @param {Props} props
+ */
+function VenueCard({ venue: { price, rating, media, id, name, maxGuests }, userName, venues, userData, setUserData }) {
   VenueCard.propTypes = {
     setUserData: PropTypes.func,
     userData: PropTypes.object,
@@ -44,7 +49,7 @@ function VenueCard({ venue, userName, venues, userData, setUserData }) {
     });
   }
 
-  let mediaCount = venue.media.length;
+  let mediaCount = media.length;
 
   function handleClickAdd() {
     if (img === mediaCount - 1) {
@@ -67,7 +72,7 @@ function VenueCard({ venue, userName, venues, userData, setUserData }) {
   }
 
   return (
-    <div className="flex flex-col rounded-lg font-paragraph shadow-lg">
+    <div className="border-gray-200 flex flex-col rounded-lg border-2 font-paragraph shadow-lg">
       <div className="flex basis-1/2 items-center justify-center">
         <div className="me-auto basis-1/12">
           <span
@@ -82,9 +87,9 @@ function VenueCard({ venue, userName, venues, userData, setUserData }) {
         <div className="basis-10/12">
           <img
             className="card-img m-auto rounded-b-md shadow"
-            src={mediaCount === 0 ? Logo : venue.media[img]}
+            src={mediaCount === 0 ? Logo : media[img]}
             onError={defaultSrc}
-            alt={venue.name}
+            alt={name}
           />
         </div>
         <div className="ms-auto basis-1/12">
@@ -100,28 +105,28 @@ function VenueCard({ venue, userName, venues, userData, setUserData }) {
       </div>
       <div className="m-3 flex grow basis-1/2 flex-col justify-end">
         <div className="mx-6">
-          {venue.name ? <h2 className="font-subheader text-xl">{venue.name}</h2> : null}
+          {name ? <h2 className="font-subheader text-xl">{name}</h2> : null}
           <p>
-            NOK <b>{venue.price}</b> per night
+            NOK <b>{price}</b> per night
           </p>
           <p>
-            Guests: <b>{venue.maxGuests}</b>
+            Guests: <b>{maxGuests}</b>
           </p>
           <p>
-            Rating: <b>{venue.rating === 0 ? "No Rating Yet" : venue.rating}</b>
+            Rating: <b>{rating === 0 ? "No Rating Yet" : rating}</b>
           </p>
         </div>
         <div className="my-2 flex flex-wrap justify-center">
-          <button onClick={() => navigate("/venue/" + venue.id)} className="main-button shadow">
+          <button onClick={() => navigate("/venue/" + id)} className="main-button shadow">
             {pageLocation.pathname.includes("account") && loggedInUser ? "Bookings at your Venue" : "View Venue"}
           </button>
           {loggedInUser ? (
             <>
-              <button onClick={() => navigate("/venueedit/" + venue.id)} className="main-button shadow">
+              <button onClick={() => navigate("/venueedit/" + id)} className="main-button shadow">
                 Edit Venue
               </button>
               <button
-                onClick={() => handleDelete(venue.id)}
+                onClick={() => handleDelete(id)}
                 className="main-button !bg-red-600 shadow hover:!bg-red-400 hover:!text-white"
               >
                 Delete

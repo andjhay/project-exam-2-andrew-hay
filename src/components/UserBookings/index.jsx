@@ -5,11 +5,16 @@ import { deleteItem } from "../../utilities/delete";
 import useUser from "../../hooks/useUser";
 
 /**
+ * @typedef {object} Props
+ * @property {string} userName name of the user used to determine if a user is logged in.
+ * @property {object} bookings the users bookings data.
+ * @property {object} userData all userData.
+ * @property {function} setUserData function to update the user date to update elements on the page this component is used within.
+ */
+
+/**
  * Bookings component to display a list of all bookings the user has current and upcoming filtering out bookings before the current date.
- * @param {string} userName name of the user used to determine if a user is logged in.
- * @param {object} bookings the users bookings data.
- * @param {object} userData all userData.
- * @param {function} setUserData function to update the user date to update elements on the page this component is used within.
+ * @param {Props} props
  */
 function UserBookings({ userName, bookings, userData, setUserData }) {
   UserBookings.propTypes = {
@@ -53,7 +58,7 @@ function UserBookings({ userName, bookings, userData, setUserData }) {
       {filteredBookings?.length >= 1
         ? filteredBookings?.map((booking) => {
             return (
-              <div key={booking.id} className="m-2 rounded-lg p-3 shadow-lg">
+              <div key={booking.id} className="m-2 rounded-lg p-3 shadow-lg border-2 border-gray-200 ">
                 Booking at: {booking.venue.name} - {booking.guests} {booking.guests > 1 ? "guests" : "guest"} from{" "}
                 {new Date(booking.dateFrom).toLocaleString("en-GB").slice(0, 10)} to{" "}
                 {new Date(booking.dateTo).toLocaleString("en-GB").slice(0, 10)}

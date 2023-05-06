@@ -4,15 +4,29 @@ import { Link } from "react-router-dom";
 import { Marker, Popup } from "react-leaflet";
 
 /**
- * Marker component that contains location information of a venue.
- * @param {object} venue Venue data to provide location information for map marker.
+ * @typedef {object} Props
+ * @property {object} venue - Venue data that provides location information for the map marker.
+ * @property {object} venue.location - Location information for the venue, including latitude and longitude.
+ * @property {string} venue.name - Name of the venue.
+ * @property {string} venue.id - ID of the venue.
  */
-function MapMarker({ venue }) {
-  
+
+/**
+ * A marker component that displays location information for a venue.
+ * @component
+ * @param {Props} props
+ */
+function MapMarker({ venue: { location, name, id } }) {
   MapMarker.propTypes = {
-    venue: PropTypes.object,
+    venue: PropTypes.shape({
+      location: PropTypes.object,
+      name: PropTypes.string.isRequired,
+      id: PropTypes.string.isRequired,
+    }).isRequired,
   };
 
+  // Due to lack of location data making the map boring randomized locations for venues with default 0,0
+  // location these are currently not in use now that there is some more venues been created.
   function getRandomLat() {
     let min = Math.ceil(90);
     let max = Math.floor(-60);
@@ -24,17 +38,16 @@ function MapMarker({ venue }) {
     let max = Math.floor(-175);
     return Math.floor(Math.random() * (max - min + 1) + min);
   }
+
   return (
     <Marker
       position={
-        venue.location.lat === 0 && venue.location.lng === 0
-          ? [getRandomLat(), getRandomLng()]
-          : [venue.location.lat, venue.location.lng]
+        location.lat === 0 && location.lng === 0 ? [getRandomLat(), getRandomLng()] : [location.lat, location.lng]
       }
     >
       <Popup>
-        {venue.name}
-        <Link to={"/venue/" + venue.id}>
+        {name}
+        <Link to={"/venue/" + id}>
           <button className="mx-2 rounded-lg border-2 border-darkbrown bg-darkbrown px-2 py-1 font-subheader text-white hover:border-yellowsand">
             View
           </button>

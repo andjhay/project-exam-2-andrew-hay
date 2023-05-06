@@ -3,11 +3,16 @@ import React from "react";
 import VenueCard from "../VenueCard";
 
 /**
+ * @typedef {object} Props
+ * @property {string} userName name of the user used to determine if a user is logged in.
+ * @property {object} venues the users venue data.
+ * @property {object} userData all userData.
+ * @property {function} setUserData function to update the user date to update elements on the page this component is used within.
+ */
+
+/**
  * Venue component to display a list of all venues the user manages.
- * @param {string} userName name of the user used to determine if a user is logged in.
- * @param {object} venues the users venue data.
- * @param {object} userData all userData.
- * @param {function} setUserData function to update the user date to update elements on the page this component is used within.
+ * @param {Props} props
  */
 function UserVenues({ userName, venues, userData, setUserData }) {
   UserVenues.propTypes = {

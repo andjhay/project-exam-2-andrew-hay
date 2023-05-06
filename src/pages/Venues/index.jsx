@@ -123,11 +123,17 @@ function Venues() {
           </Listbox>
         </div>
       </div>
-      <div id="venue-items" className="m-5 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-        {filteredData?.map((venue) => (
-          <VenueCard key={venue.id} venue={venue} />
-        ))}
-      </div>
+      {filteredData.length > 0 ? (
+        <div id="venue-items" className="m-5 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+          {filteredData?.map((venue) => (
+            <VenueCard key={venue.id} venue={venue} />
+          ))}
+        </div>
+      ) : (
+        <div>
+          <h3 className="m-5 text-center font-subheader text-lg">No Search Results</h3>
+        </div>
+      )}
     </>
   );
 }

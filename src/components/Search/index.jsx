@@ -66,12 +66,12 @@ function Search() {
         className="flex w-full flex-row items-center rounded-t-lg border-2 border-b-0 border-black bg-lightblue lg:flex-col lg:rounded-l-lg lg:rounded-tr-none lg:border-b-2 lg:border-r-0"
         htmlFor="searchTerm"
       >
-        <p className="w-24 text-center">Where</p>
+        <p className="w-24 text-center">Looking For</p>
         <input
           id="searchTerm"
           defaultValue={search.searchTerm}
           type="text"
-          className="h-10 w-auto rounded-tr-lg border-l-2 border-black p-1 px-3 placeholder-black shadow-xl focus:outline-none lg:rounded-t-none lg:rounded-bl-lg lg:border-l-0 lg:border-r-0 lg:border-t-2"
+          className="h-10 rounded-tr-lg border-l-2 border-black p-1 px-3 placeholder-black shadow-xl focus:outline-none lg:rounded-t-none lg:rounded-bl-lg lg:border-l-0 lg:border-r-0 lg:border-t-2"
           placeholder="Search"
           aria-label="Search"
         />
