@@ -22,6 +22,9 @@ const initialCheckboxes = [
   { id: "pets", label: "Pets", checked: false },
 ];
 
+/**
+ * Venue Manager Page component to create and edit venues by submitting data on the venue through a form.
+ */
 function VenueManage() {
   const pageLocation = useLocation();
   let editMode = false;
@@ -59,6 +62,10 @@ function VenueManage() {
     }
   }, [location, meta]);
 
+  /**
+   * Checks or unchecks the checkboxes while allowing them to be consitionally rendered.
+   * @param {number} index The position of the checkbox to update in the array of checkboxs.
+   */
   function handleCheckboxChanges(index) {
     const updatedCheckboxes = [...checkboxes];
     updatedCheckboxes[index].checked = !updatedCheckboxes[index].checked;
@@ -130,6 +137,24 @@ function VenueManage() {
     }
   };
 
+  /**
+   * Displays guide message for form validation requirements when user interacts with input and indicates when input is acceptable.
+   * @param {object} event The event information when the input has a value change
+   */
+  function inputValidate(event) {
+    let inputCurrent = document.getElementById(event.target.id);
+    if (event.target.validity.valid === false && event.target.value !== "") {
+      inputCurrent.nextSibling.classList.remove("hidden");
+      inputCurrent.classList.remove("bg-green-200");
+    } else if (event.target.validity.valid === true && event.target.value !== "") {
+      inputCurrent.nextSibling.classList.add("hidden");
+      inputCurrent.classList.add("bg-green-200");
+    } else {
+      inputCurrent.nextSibling.classList.add("hidden");
+      inputCurrent.classList.remove("bg-green-200");
+    }
+  }
+
   if (isLoading) {
     return <LoadingElement />;
   }
@@ -150,11 +175,14 @@ function VenueManage() {
             className="rounded-md border-2 border-black p-1"
             defaultValue={editMode ? name : null}
             required
+            onChange={inputValidate}
             minLength={3}
             type="name"
             placeholder={editMode ? name : "(required)"}
           />
+          <p className="hidden text-red-500">Venue Name must be 3 characters or more.</p>
         </div>
+
         <div className="my-2 flex flex-col">
           <label htmlFor="description">Description</label>
           <textarea
@@ -162,9 +190,11 @@ function VenueManage() {
             className="rounded-md border-2 border-black p-1"
             defaultValue={editMode ? description : null}
             required
+            onChange={inputValidate}
             type="text"
             placeholder={editMode ? description : "(required)"}
           />
+          <p className="hidden text-red-500"></p>
         </div>
         <div className="my-2 flex flex-col">
           <label htmlFor="maxGuests">Max Guests</label>
@@ -173,9 +203,11 @@ function VenueManage() {
             className="rounded-md border-2 border-black p-1"
             defaultValue={editMode ? maxGuests : 1}
             required
+            onChange={inputValidate}
             min={1}
             type="number"
           />
+          <p className="hidden text-red-500"></p>
         </div>
         <div className="my-2 flex flex-col">
           <label htmlFor="price">Price</label>
@@ -184,9 +216,11 @@ function VenueManage() {
             className="rounded-md border-2 border-black p-1"
             defaultValue={editMode ? price : 0}
             required
+            onChange={inputValidate}
             min={0}
             type="number"
           />
+          <p className="hidden text-red-500"></p>
         </div>
         <div className="my-2 flex flex-col">
           <label htmlFor="rating">Rating</label>
@@ -214,8 +248,10 @@ function VenueManage() {
             className="rounded-md border-2 border-black p-1"
             defaultValue={editMode ? media : null}
             type="url"
+            onChange={inputValidate}
             placeholder="(https://) Media URL (url,url,...)"
           />
+          <p className="hidden text-red-500">Must be an URL to an img file type starting with https://</p>
         </div>
         <h2 className="my-3 font-subheader text-xl">Facilities:</h2>
         <div className="flex flex-wrap justify-center py-4">
@@ -241,10 +277,12 @@ function VenueManage() {
             id="address"
             className="rounded-md border-2 border-black p-1"
             minLength={3}
+            onChange={inputValidate}
             type="text"
             defaultValue={editMode ? data.location?.address : null}
             placeholder={editMode ? data.location?.address : null}
           />
+          <p className="hidden text-red-500">Must be 3 characters or more.</p>
         </div>
         <div className="my-2 flex flex-col">
           <label htmlFor="city">City</label>
@@ -253,9 +291,11 @@ function VenueManage() {
             className="rounded-md border-2 border-black p-1"
             minLength={3}
             type="text"
+            onChange={inputValidate}
             defaultValue={editMode ? data.location?.city : null}
             placeholder={editMode ? data.location?.city : null}
           />
+          <p className="hidden text-red-500">Must be 3 characters or more.</p>
         </div>
         <div className="my-2 flex flex-col">
           <label htmlFor="zip">Zip Code</label>
@@ -263,9 +303,11 @@ function VenueManage() {
             id="zip"
             className="rounded-md border-2 border-black p-1"
             type="text"
+            onChange={inputValidate}
             defaultValue={editMode ? data.location?.zip : null}
             placeholder={editMode ? data.location?.zip : null}
           />
+          <p className="hidden text-red-500"></p>
         </div>
         <div className="my-2 flex flex-col">
           <label htmlFor="country">Country</label>
@@ -273,9 +315,11 @@ function VenueManage() {
             id="country"
             className="rounded-md border-2 border-black p-1"
             type="text"
+            onChange={inputValidate}
             defaultValue={editMode ? data.location?.country : null}
             placeholder={editMode ? data.location?.country : null}
           />
+          <p className="hidden text-red-500"></p>
         </div>
         <div className="my-2 flex flex-col">
           <label htmlFor="continent">Continent</label>
@@ -283,9 +327,11 @@ function VenueManage() {
             id="continent"
             className="rounded-md border-2 border-black p-1"
             type="text"
+            onChange={inputValidate}
             defaultValue={editMode ? data.location?.continent : null}
             placeholder={editMode ? data.location?.continent : null}
           />
+          <p className="hidden text-red-500"></p>
         </div>
         <div className="flex justify-center">
           <button id="submit-venue" type="submit" className="main-button shadow">

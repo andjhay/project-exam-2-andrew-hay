@@ -11,7 +11,7 @@ module.exports = {
         yellowsand: "#F2CF8D",
       },
       fontFamily: {
-        header: ["Concert One"],
+        header: ["Montserrat"],
         subheader: ["Lexend"],
         paragraph: ["Ubuntu"],
       },

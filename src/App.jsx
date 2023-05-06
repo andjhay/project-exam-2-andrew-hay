@@ -1,7 +1,6 @@
 import React from "react";
 import "./styles.css";
 import "./styles.scss";
-import "react-calendar/dist/Calendar.css";
 import { Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
 import Layout from "./components/Layout";

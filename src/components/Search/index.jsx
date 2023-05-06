@@ -2,6 +2,9 @@ import React, { useState } from "react";
 import useSearch from "../../hooks/useSearch";
 import { useNavigate } from "react-router-dom";
 
+/**
+ * Search component that stores the search object and redirects to view results
+ */
 function Search() {
   const { search, setSearchInput } = useSearch();
   const [fromDate, setFromDate] = useState("");
@@ -33,6 +36,10 @@ function Search() {
   let today = date.slice(0, 10);
   let dayAfterToday;
 
+  /**
+   * Date selection function that does not allow date to to be < or = to date from.
+   * @param {object} event when a date is selected in type date search inputs dateTo or dateFrom.
+   */
   function dateSelected(event) {
     let dateToInput = document.getElementById("dateTo");
     let inputToDate = new Date(dateToInput.value);
@@ -59,12 +66,12 @@ function Search() {
         className="flex w-full flex-row items-center rounded-t-lg border-2 border-b-0 border-black bg-lightblue lg:flex-col lg:rounded-l-lg lg:rounded-tr-none lg:border-b-2 lg:border-r-0"
         htmlFor="searchTerm"
       >
-        <p className="w-24 text-center">Where</p>
+        <p className="w-24 text-center">Looking For</p>
         <input
           id="searchTerm"
           defaultValue={search.searchTerm}
           type="text"
-          className="h-10 w-auto rounded-tr-lg border-l-2 border-black p-1 px-3 placeholder-black shadow-xl focus:outline-none lg:rounded-t-none lg:rounded-bl-lg lg:border-l-0 lg:border-r-0 lg:border-t-2"
+          className="h-10 rounded-tr-lg border-l-2 border-black p-1 px-3 placeholder-black shadow-xl focus:outline-none lg:rounded-t-none lg:rounded-bl-lg lg:border-l-0 lg:border-r-0 lg:border-t-2"
           placeholder="Search"
           aria-label="Search"
         />

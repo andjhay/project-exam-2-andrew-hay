@@ -11,6 +11,9 @@ import useUser from "../../hooks/useUser";
 
 let userData = storage.load("user");
 
+/**
+ * Nav component contains logo, navlinks and mobile menu and log in/sign up modal
+ */
 function Nav() {
   let [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   let [isOpen, setIsOpen] = useState(false);
@@ -96,7 +99,7 @@ function Nav() {
           {isLoggedIn ? (
             <>
               <NavLink
-              id="nav-username"
+                id="nav-username"
                 to={"/account/" + user?.name}
                 className={({ isActive }) =>
                   isActive ? "text-white underline underline-offset-4" : "underline underline-offset-4 hover:text-white"
@@ -119,7 +122,7 @@ function Nav() {
             </>
           )}
           <NavLink
-          id="nav-account"
+            id="nav-account"
             aria-label="to-account"
             to={"/account/" + user?.name}
             className={
@@ -136,14 +139,19 @@ function Nav() {
       </nav>
 
       <Dialog as="div" className="lg:hidden" open={mobileMenuOpen} onClose={setMobileMenuOpen}>
-        <div className="fixed inset-0 z-10" />
-        <Dialog.Panel className="fixed inset-y-0 right-0 z-10 w-full overflow-y-auto bg-lightblue px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10">
-          <div className="flex items-center justify-between">
+        <div className="fixed inset-0 z-20" />
+        <Dialog.Panel className="fixed inset-y-0 right-0 z-20 w-full overflow-y-auto bg-darkblue px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10">
+          <div className="-mt-1 flex items-center justify-between">
             <NavLink onClick={() => setMobileMenuOpen(false)} to="/" className="-m-1.5 p-1.5">
               <span className="sr-only">Holidaze</span>
               <img className="h-8 w-auto" src={LogoText} alt="" />
             </NavLink>
-            <button id="mobile-close" type="button" className="rounded-md p-2.5 text-darkbrown" onClick={() => setMobileMenuOpen(false)}>
+            <button
+              id="mobile-close"
+              type="button"
+              className="me-5 rounded-md p-2.5 pe-4 text-darkbrown"
+              onClick={() => setMobileMenuOpen(false)}
+            >
               <span className="sr-only">Close menu</span>
               <XMarkIcon className="h-10 w-10" aria-hidden="true" />
             </button>
@@ -151,7 +159,7 @@ function Nav() {
           <div className="my-4 divide-y divide-darkbrown">
             <div className="flex flex-col space-y-2 py-6">
               <NavLink
-              id="mobile-home"
+                id="mobile-home"
                 onClick={() => setMobileMenuOpen(false)}
                 to="/"
                 className={({ isActive }) =>
@@ -163,7 +171,7 @@ function Nav() {
                 Home
               </NavLink>
               <NavLink
-              id="mobile-venues"
+                id="mobile-venues"
                 onClick={() => setMobileMenuOpen(false)}
                 to="/venues"
                 className={({ isActive }) =>
@@ -179,7 +187,7 @@ function Nav() {
               {isLoggedIn ? (
                 <>
                   <NavLink
-                  id="mobile-username"
+                    id="mobile-username"
                     onClick={() => setMobileMenuOpen(false)}
                     to={"/account/" + user?.name}
                     className={({ isActive }) =>
@@ -205,7 +213,7 @@ function Nav() {
                 </>
               )}
               <NavLink
-              id="mobile-account"
+                id="mobile-account"
                 aria-label="to-account"
                 to={"/account/" + user?.name}
                 onClick={() => setMobileMenuOpen(false)}
@@ -228,9 +236,14 @@ function Nav() {
         <div className="fixed inset-0 bg-black bg-opacity-75" />
         <div className="fixed inset-0 flex items-center justify-center p-4">
           <Dialog.Panel className="w-full max-w-md rounded-2xl bg-white p-6 text-left shadow-xl transition-all">
-            <Dialog.Title className="flex">
+            <Dialog.Title className="flex font-subheader text-xl">
               {currentForm}
-              <button id="modal-close" type="button" className="-m-2.5 ms-auto rounded-md p-2.5 text-gray-700" onClick={closeModal}>
+              <button
+                id="modal-close"
+                type="button"
+                className="-m-2.5 ms-auto rounded-md p-2.5 text-gray-700"
+                onClick={closeModal}
+              >
                 <span className="sr-only">Close menu</span>
                 <XMarkIcon className="h-10 w-10" aria-hidden="true" />
               </button>

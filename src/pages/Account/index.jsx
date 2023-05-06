@@ -11,6 +11,9 @@ import * as storage from "../../utilities/storage.js";
 import LoadingElement from "../../components/LoadingElement";
 import ErrorElement from "../../components/Error";
 
+/**
+ * Account Page component that displays all the required sub components and information of the account page.
+ */
 function Account() {
   let { user, setUser } = useUser();
   let { userName } = useParams();
@@ -59,37 +62,39 @@ function Account() {
   }
 
   return (
-    <div className="mx-auto flex flex-col lg:w-[80vw]">
+    <div className="mx-auto flex flex-col font-paragraph">
       <h1 className="m-2 text-center font-header text-3xl">Account</h1>
-      <div className="flex min-w-full flex-col sm:flex-row">
-        <div className="m-5 flex basis-1/2 flex-col items-center">
-          <img className="max-h-60 rounded-lg" src={avatar ? avatar : Logo} alt="user avatar" />
-          {loggedInUser ? (
-            <form className="my-2 flex flex-col items-center" onSubmit={submitUpdate}>
-              <label htmlFor="avatar" className="font-paragraph">
-                Update Avatar
-              </label>
-              <input
-                id="avatar"
-                required
-                className="rounded-md border-2 border-black p-1 font-paragraph"
-                type="url"
-                placeholder="(https://) Image URL"
-              />
-              <button id="submit-avatar" type="submit" className="main-button shadow">
-                Update
-              </button>
-            </form>
-          ) : null}
+      <div className="flex min-w-full flex-col md:flex-row">
+        <div className="m-5 flex basis-1/2 flex-col items-center md:items-end">
+          <div>
+            <img className="max-h-60 rounded-lg" src={avatar ? avatar : Logo} alt="user avatar" />
+            {loggedInUser ? (
+              <form className="my-2 flex flex-col items-center" onSubmit={submitUpdate}>
+                <label htmlFor="avatar" className="font-paragraph">
+                  Update Profile Picture
+                </label>
+                <input
+                  id="avatar"
+                  required
+                  className="rounded-md border-2 border-black p-1 font-paragraph"
+                  type="url"
+                  placeholder="(https://) Image URL"
+                />
+                <button id="submit-avatar" type="submit" className="main-button shadow">
+                  Update
+                </button>
+              </form>
+            ) : null}
+          </div>
         </div>
         <div className="m-5 basis-1/2 ">
           <h2 className="mb-3 font-subheader text-xl">Account Details</h2>
-          <div className="font-paragraph">
+          <div className="my-5 font-paragraph">
             <p>Username: {name}</p>
             <p>Email: {email}</p>
             <p>Account Type: {venueManager ? "Manager" : "Customer"}</p>
             {venueManager ? <p>Venues: {_count?.venues}</p> : null}
-            <p>Total Bookings done: {_count?.bookings}</p>
+            <p>All Time Total Bookings: {_count?.bookings}</p>
           </div>
           {loggedInUser ? (
             <Link to={"/venuecreate/" + user.name}>

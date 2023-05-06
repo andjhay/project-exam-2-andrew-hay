@@ -1,5 +1,9 @@
 import * as storage from "../utilities/storage.js";
 
+/**
+ * Compiles the headers to be sent with requests
+ * @returns {object} headers to be sent.
+ */
 function headers() {
   let token = storage.load("token");
   if (token)
@@ -10,6 +14,12 @@ function headers() {
     };
 }
 
+/**
+ * Fetch function with included auth token headers.
+ * @param {string} url
+ * @param {object} options
+ * @returns
+ */
 export async function authFetch(url, options = {}) {
   let response = await fetch(url, {
     headers: headers(),

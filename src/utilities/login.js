@@ -4,6 +4,11 @@ import * as storage from "./storage.js";
 const apiLogin = "/auth/login";
 const method = "post";
 
+/**
+ * Logs the user in to get auth token from api.
+ * @param {object} input form data password and email.
+ * @returns Response including auth token.
+ */
 export async function login(input) {
   const loginUrl = apiPath + apiLogin;
   const body = JSON.stringify(input);

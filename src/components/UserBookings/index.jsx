@@ -4,7 +4,25 @@ import { Link, useNavigate } from "react-router-dom";
 import { deleteItem } from "../../utilities/delete";
 import useUser from "../../hooks/useUser";
 
+/**
+ * @typedef {object} Props
+ * @property {string} userName name of the user used to determine if a user is logged in.
+ * @property {object} bookings the users bookings data.
+ * @property {object} userData all userData.
+ * @property {function} setUserData function to update the user date to update elements on the page this component is used within.
+ */
+
+/**
+ * Bookings component to display a list of all bookings the user has current and upcoming filtering out bookings before the current date.
+ * @param {Props} props
+ */
 function UserBookings({ userName, bookings, userData, setUserData }) {
+  UserBookings.propTypes = {
+    bookings: PropTypes.array,
+    setUserData: PropTypes.func,
+    userData: PropTypes.oneOfType([PropTypes.array, PropTypes.object]),
+    userName: PropTypes.string,
+  };
   const { user } = useUser();
   let loggedInUser = false;
   if (userName === user.name) {
@@ -13,6 +31,10 @@ function UserBookings({ userName, bookings, userData, setUserData }) {
 
   const navigate = useNavigate();
 
+  /**
+   * Handles deleting a booking and updating the current session user data to display the information correctly on the page.
+   * @param {string} id The selected bookings ID to pass to delete api call.
+   */
   function handleDelete(id) {
     deleteItem(id, "/bookings");
     setUserData({
@@ -36,7 +58,7 @@ function UserBookings({ userName, bookings, userData, setUserData }) {
       {filteredBookings?.length >= 1
         ? filteredBookings?.map((booking) => {
             return (
-              <div key={booking.id} className="m-2 rounded-lg p-3 shadow-lg">
+              <div key={booking.id} className="m-2 rounded-lg p-3 shadow-lg border-2 border-gray-200 ">
                 Booking at: {booking.venue.name} - {booking.guests} {booking.guests > 1 ? "guests" : "guest"} from{" "}
                 {new Date(booking.dateFrom).toLocaleString("en-GB").slice(0, 10)} to{" "}
                 {new Date(booking.dateTo).toLocaleString("en-GB").slice(0, 10)}
@@ -65,12 +87,5 @@ function UserBookings({ userName, bookings, userData, setUserData }) {
     </div>
   );
 }
-
-UserBookings.propTypes = {
-  bookings: PropTypes.array,
-  setUserData: PropTypes.func,
-  userData: PropTypes.oneOfType([PropTypes.array, PropTypes.object]),
-  userName: PropTypes.any,
-};
 
 export default UserBookings;

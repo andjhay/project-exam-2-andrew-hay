@@ -11,22 +11,23 @@ import { updatePut } from "../../utilities/update";
 import { createPost } from "../../utilities/create";
 import useUser from "../../hooks/useUser";
 
+/**
+ * Booking Page component that allows a user to submit a new booking or edit existing bookings.
+ */
 function VenueBooking() {
   let { user } = useUser();
   let { venueId, bookingId } = useParams();
-  const navigate = useNavigate();
-  // All data to display
   const { data, isLoading, isError, errorMsg } = useApi(apiPath + "/venues/" + venueId + "?_bookings=true");
   let { name, price, maxGuests } = data;
   let bookingData = data.bookings?.filter((booking) => booking.id === bookingId)[0];
   const bookings = useMemo(() => data.bookings || [], [data.bookings]);
-  // Conditional statement between modes
+  const navigate = useNavigate();
   const pageLocation = useLocation();
   let editMode = false;
   if (pageLocation.pathname.includes("edit")) {
     editMode = true;
   }
-  // Guest input value management
+
   const { search } = useSearch();
   let guestsValue = search.guests;
 
@@ -40,7 +41,10 @@ function VenueBooking() {
   function handleGuestsSelected(event) {
     setGuestsSelected(event.target.value);
   }
-  // Handel button press to submit create or update booking
+
+  /**
+   * Submits the current page data to the booking api url to create or update
+   */
   async function submitBooking() {
     let formData = {};
     if (!editMode) {
@@ -56,8 +60,6 @@ function VenueBooking() {
     }
     navigate("/account/" + user.name);
   }
-
-  // Calender date values
 
   const allOtherBookings = bookings.filter((booking) => booking.id !== bookingId);
   let disabledRangesFrom = null;
@@ -77,7 +79,6 @@ function VenueBooking() {
         ];
       }
     });
-
     disabledRangesTo = allOtherBookings.map((booking) => {
       if (
         booking.dateFrom === undefined ||
@@ -103,7 +104,6 @@ function VenueBooking() {
         ];
       }
     });
-
     disabledRangesTo = bookings.map((booking) => {
       if (booking.dateFrom === undefined || new Date(booking.dateFrom) > new Date(booking.dateTo)) {
         return [new Date(), new Date()];
@@ -124,33 +124,60 @@ function VenueBooking() {
     });
   }
 
+  /**
+   * Function determines what tiles to disable in month view. For the calender showing date selection From
+   * @param {date} date a date on the calender.
+   * @param {string} view the calenders current view mode.
+   */
   function tileDisabledFrom({ date, view }) {
     if (view === "month") {
       return isWithinRanges(date, disabledRangesFrom);
     }
   }
 
+  /**
+   * Function determines what tiles to disable in month view. For the calender showing date selection To
+   * @param {date} date a date on the calender.
+   * @param {string} view the calenders current view mode.
+   */
   function tileDisabledTo({ date, view }) {
     if (view === "month") {
       return isWithinRanges(date, disabledRangesTo);
     }
   }
 
+  /**
+   * Checks if a date is within a range to decide if it should be disabled.
+   * @param {date} date the date to be checked
+   * @param {array} range an array of the dates to be checked.
+   */
   function isWithinRange(date, range) {
     return isWithinInterval(date, { start: range[0], end: range[1] });
   }
 
+  /**
+   * Checks if a date is within the range and returns it or not.
+   * @param {date} date the date to be checked
+   * @param {array} ranges an array of the booking ranges to be checked.
+   */
   function isWithinRanges(date, ranges) {
     return ranges.some((range) => isWithinRange(date, range));
   }
 
+  /**
+   * Checks if a date is within the range and returns it or not.
+   * @param {date} date the date to be checked, should be the valueFrom to be displayed on the calender.
+   */
   const isDateDisabled = (date) => {
     return allDisabledRange.some((range) => isWithinInterval(date, { start: range[0], end: range[1] }));
   };
 
+  /**
+   * Adds to the date then rechecks to see if still a disabled date, if true continues to add until date is not diabled.
+   * @param {date} startDate the current date.
+   */
   const getNextAvailableDate = (startDate) => {
     let nextDate = startDate;
-
     while (!editMode && isDateDisabled(nextDate)) {
       nextDate = addDays(nextDate, 1);
     }
@@ -159,13 +186,13 @@ function VenueBooking() {
 
   let from = new Date(new Date().setHours(2, 0, 0, 0));
   let to = new Date(new Date().setHours(2, 0, 0, 0));
-
   let nextDate = getNextAvailableDate(new Date());
   const [valueFrom, onChangeFrom] = useState(from);
   const [valueTo, onChangeTo] = useState(to);
   const [datesSet, setDatesSet] = useState(false);
   const [dayAfterSelected, setDayAfterSelected] = useState(null);
   const [closestDate, setClosestDate] = useState(null);
+
   useEffect(() => {
     if (editMode && bookingData !== undefined && datesSet === false) {
       setDatesSet(true);
@@ -178,6 +205,11 @@ function VenueBooking() {
     }
   }, [bookingData, editMode, nextDate, valueFrom, datesSet]);
 
+  /**
+   * Gets the closest date in the future to the selected date from an array of all the bookings.
+   * @param {date} date the date to be checked, should be the input from date.
+   * @param {array} array an array of all the booking dates.
+   */
   function closestLaterDate(array, date) {
     let closestDate = null;
     let closestDiff = Infinity;
@@ -219,8 +251,6 @@ function VenueBooking() {
   let totalNights = Math.floor((Date.parse(valueTo) - Date.parse(valueFrom)) / 86400000);
   let totalPrice = totalNights * price;
 
-  console.log(data);
-
   if (isLoading) {
     return <LoadingElement />;
   }
@@ -239,7 +269,7 @@ function VenueBooking() {
             <svg className="fill-red-400">
               <rect width="45" height="35" />
             </svg>
-            <p className="m-2">Booked/Unavailable</p>
+            <p className="m-2">Booked/Unselectable</p>
           </span>
           <span className="flex items-center">
             <svg className="fill-lightblue">
@@ -267,7 +297,7 @@ function VenueBooking() {
             <h2 className="mx-2 font-subheader text-lg">Date from</h2>
             <Calendar
               calendarType="ISO 8601"
-              className="m-2 !bg-lightblue shadow-lg"
+              className="m-2 shadow-lg"
               onChange={onChangeFrom}
               returnValue={"start"}
               minDetail="year"
@@ -280,7 +310,7 @@ function VenueBooking() {
           <div>
             <h2 className="mx-2 font-subheader text-lg">Date to</h2>
             <Calendar
-              className="m-2 !bg-lightblue shadow-lg"
+              className="m-2 shadow-lg"
               onChange={onChangeTo}
               returnValue={"end"}
               minDetail="year"

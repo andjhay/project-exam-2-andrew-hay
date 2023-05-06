@@ -3,6 +3,11 @@ import { authFetch } from "./authFetch.js";
 
 const method = "delete";
 
+/**
+ * Spesifies and Deletes a object from the api.
+ * @param {string} id
+ * @param {string} apiDestination
+ */
 export async function deleteItem(id, apiDestination) {
   const deleteVenueURL = apiPath + apiDestination + "/" + id;
 

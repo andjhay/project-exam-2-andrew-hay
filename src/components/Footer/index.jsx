@@ -2,10 +2,13 @@ import React from "react";
 import { Link } from "react-router-dom";
 import useUser from "../../hooks/useUser";
 
+/**
+ * Footer component with links to site information.
+ */
 function Footer() {
   let { user } = useUser();
   return (
-    <footer className="font-paragraph grid grid-cols-2 divide-x divide-black bg-sand p-2 ">
+    <footer className="grid grid-cols-2 divide-x divide-black bg-sand p-2 font-paragraph ">
       <div className="grid grid-cols-1 justify-items-center sm:grid-cols-2">
         <Link id="footer-sitemap" to="/sitemap" className="hover:text-white">
           Sitemap
@@ -13,7 +16,8 @@ function Footer() {
         <Link id="footer-home" to="/" className="hover:text-white">
           Home
         </Link>
-        <Link id="footer-account"
+        <Link
+          id="footer-account"
           to={"/account/" + user?.name}
           className={user?.name === undefined ? "pointer-events-none opacity-50" : "hover:text-white"}
         >

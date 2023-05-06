@@ -4,7 +4,26 @@ import { register } from "../../utilities/register";
 import { login } from "../../utilities/login";
 import * as storage from "../../utilities/storage.js";
 
+/**
+ * @typedef {object} Props
+ * @property {string} currentForm Log In or Sign Up in order to determine what inputs to render
+ * @property {function} closeModal Closes Modal that the form is to be displayed inside.
+ * @property {function} setLoggedIn updates a value on whether user has logged in through the form.
+ * @property {function} setUser Updates a user hook storing session data.
+ */
+
+/**
+ * Form component that displays and handles different inputs for logging in or registering a user.
+ * @param {Props} props
+ */
 function Form({ currentForm, closeModal, setLoggedIn, setUser }) {
+  Form.propTypes = {
+    closeModal: PropTypes.func,
+    currentForm: PropTypes.string,
+    setLoggedIn: PropTypes.func,
+    setUser: PropTypes.func,
+  };
+
   const submitForm = async (event) => {
     event.preventDefault();
     const form = [...event.target];
@@ -38,9 +57,26 @@ function Form({ currentForm, closeModal, setLoggedIn, setUser }) {
     }
   };
 
+  /**
+   * Displays guide message for form validation requirements when user interacts with input and indicates when input is acceptable.
+   * @param {object} event The event information when the input has a value change
+   */
+  function inputValidate(event) {
+    let inputCurrent = document.getElementById(event.target.id);
+    if (event.target.validity.valid === false && event.target.value !== "" && currentForm === "Sign Up") {
+      inputCurrent.nextSibling.classList.remove("hidden");
+      inputCurrent.classList.remove("bg-green-200");
+    } else if (event.target.validity.valid === true && event.target.value !== "" && currentForm === "Sign Up") {
+      inputCurrent.nextSibling.classList.add("hidden");
+      inputCurrent.classList.add("bg-green-200");
+    } else {
+      inputCurrent.nextSibling.classList.add("hidden");
+    }
+  }
+
   return (
     <div>
-      <form onSubmit={submitForm}>
+      <form className="font-paragraph" onSubmit={submitForm}>
         {currentForm === "Sign Up" ? (
           <div className="my-2 flex flex-col">
             <label>Username</label>
@@ -48,11 +84,16 @@ function Form({ currentForm, closeModal, setLoggedIn, setUser }) {
               id="name"
               className="rounded-md border-2 border-black p-1"
               required
-              minLength={3}
+              minLength={2}
+              maxLength={25}
+              onChange={inputValidate}
               type="name"
               pattern="^[\w]+$"
               placeholder="(required)"
             />
+            <p className="hidden text-red-500">
+              Username must be one word between 2 and 25 characters. Can include letters, numbers and _
+            </p>
           </div>
         ) : null}
         <div className="my-2 flex flex-col">
@@ -61,10 +102,12 @@ function Form({ currentForm, closeModal, setLoggedIn, setUser }) {
             id="email"
             className="rounded-md border-2 border-black p-1"
             required
+            onChange={inputValidate}
             type="email"
             pattern="^[\w]+@stud.noroff.no|[\w]+@noroff.no$"
-            placeholder="@stud.noroff.no/@noroff.no(required)"
+            placeholder={currentForm === "Sign Up" ? "@stud.noroff.no or @noroff.no (required)" : "Email"}
           />
+          <p className="hidden text-red-500">Email must end with @stud.noroff.no or @noroff.no </p>
         </div>
         <div className="my-2 flex flex-col">
           <label>Password</label>
@@ -72,20 +115,24 @@ function Form({ currentForm, closeModal, setLoggedIn, setUser }) {
             id="password"
             className="rounded-md border-2 border-black p-1"
             required
+            onChange={inputValidate}
             minLength={8}
             type="password"
-            placeholder="Min 8 (required)"
+            placeholder={currentForm === "Sign Up" ? "Min 8 characters (required)" : "Password"}
           />
+          <p className="hidden text-red-500">Password must be 8 or more characters</p>
         </div>
         {currentForm === "Sign Up" ? (
           <div className="my-2 flex flex-col">
-            <label>Avatar</label>
+            <label>Profile Picture</label>
             <input
               id="avatar"
               className="rounded-md border-2 border-black p-1"
               type="url"
-              placeholder="(https://) Image URL (optional)"
+              onChange={inputValidate}
+              placeholder="https:// Image URL (optional)"
             />
+            <p className="hidden text-red-500">Must be an URL to an img file type starting with https://</p>
           </div>
         ) : null}
         {currentForm === "Sign Up" ? (
@@ -123,12 +170,5 @@ function Form({ currentForm, closeModal, setLoggedIn, setUser }) {
     </div>
   );
 }
-
-Form.propTypes = {
-  closeModal: PropTypes.func,
-  currentForm: PropTypes.string,
-  setLoggedIn: PropTypes.func,
-  setUser: PropTypes.func,
-};
 
 export default Form;

@@ -3,6 +3,13 @@ import { authFetch } from "./authFetch.js";
 
 const method = "put";
 
+/**
+ * Updates data on api either avatar, booking or venue.
+ * @param {object} data
+ * @param {string} apiDestination
+ * @param {string} id
+ * @returns Response.
+ */
 export async function updatePut(data, apiDestination, id) {
   const updateVenueUrl = apiPath + "/venues/" + id;
   const updateAvatarUrl = apiPath + "/profiles/" + id + "/media";

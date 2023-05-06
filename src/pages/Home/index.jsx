@@ -1,6 +1,9 @@
 import React from "react";
 import Search from "../../components/Search";
 
+/**
+ * Home Page component the main landing page of the site with CTA search component.
+ */
 function Home() {
   return (
     <div className="flex grow bg-[url('/src/assets/beach.jpg')] bg-cover">

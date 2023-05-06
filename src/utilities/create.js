@@ -3,6 +3,12 @@ import { authFetch } from "./authFetch.js";
 
 const method = "post";
 
+/**
+ * Creates new object on api either a venue or booking.
+ * @param {object} data form data from venue creation or booking.
+ * @param {string} apiDestination string to determine what path to use.
+ * @returns 
+ */
 export async function createPost(data, apiDestination) {
   const createVenueUrl = apiPath + "/venues";
   const createBookingUrl = apiPath + "/bookings";
