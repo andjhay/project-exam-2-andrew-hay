@@ -13,6 +13,7 @@ function CookiePolicy() {
         understand what type of cookies We use, or the information We collect using Cookies and how that information is
         used. This Cookies Policy has been created with the help of the{" "}
         <a
+          className="hover:text-blue-500"
           href="https://www.privacypolicies.com/cookies-policy-generator/"
           target="_blank"
           rel="noreferrer external nofollow noopener"
@@ -38,7 +39,7 @@ function CookiePolicy() {
       </p>
       <h3 className="font-subheader text-lg">Definitions</h3>
       <p>For the purposes of this Cookies Policy:</p>
-      <ul className="list-disc mx-5">
+      <ul className="mx-5 list-disc">
         <li>
           <strong>Company</strong> (referred to as either &quot;the Company&quot;, &quot;We&quot;, &quot;Us&quot; or
           &quot;Our&quot; in this Cookies Policy) refers to Holidaze.
@@ -50,6 +51,7 @@ function CookiePolicy() {
         <li>
           <strong>Website</strong> refers to Holidaze, accessible from{" "}
           <a
+            className="hover:text-blue-500"
             href="https://project-exam-2-andrew-hay.netlify.app/"
             rel="noreferrer external nofollow noopener"
             target="_blank"
@@ -70,7 +72,7 @@ function CookiePolicy() {
         browser.
       </p>
       <p>We use both session and persistent Cookies for the purposes set out below:</p>
-      <ul className="list-disc mx-5">
+      <ul className="mx-5 list-disc">
         <li>
           <p>
             <strong>Necessary / Essential Cookies</strong>
@@ -111,11 +113,12 @@ function CookiePolicy() {
         If You&apos;d like to delete Cookies or instruct your web browser to delete or refuse Cookies, please visit the
         help pages of your web browser.
       </p>
-      <ul className="list-disc mx-5">
+      <ul className="mx-5 list-disc">
         <li>
           <p>
             For the Chrome web browser, please visit this page from Google:{" "}
             <a
+              className="hover:text-blue-500"
               href="https://support.google.com/accounts/answer/32050"
               rel="noreferrer external nofollow noopener"
               target="_blank"
@@ -128,6 +131,7 @@ function CookiePolicy() {
           <p>
             For the Internet Explorer web browser, please visit this page from Microsoft:{" "}
             <a
+              className="hover:text-blue-500"
               href="http://support.microsoft.com/kb/278835"
               rel="noreferrer external nofollow noopener"
               target="_blank"
@@ -140,6 +144,7 @@ function CookiePolicy() {
           <p>
             For the Firefox web browser, please visit this page from Mozilla:{" "}
             <a
+              className="hover:text-blue-500"
               href="https://support.mozilla.org/en-US/kb/delete-cookies-remove-info-websites-stored"
               rel="noreferrer external nofollow noopener"
               target="_blank"
@@ -152,6 +157,7 @@ function CookiePolicy() {
           <p>
             For the Safari web browser, please visit this page from Apple:{" "}
             <a
+              className="hover:text-blue-500"
               href="https://support.apple.com/guide/safari/manage-cookies-and-website-data-sfri11471/mac"
               rel="noreferrer external nofollow noopener"
               target="_blank"
@@ -166,6 +172,7 @@ function CookiePolicy() {
       <p>
         You can learn more about cookies:{" "}
         <a
+          className="hover:text-blue-500"
           href="https://www.privacypolicies.com/blog/cookies/"
           target="_blank"
           rel="noreferrer external nofollow noopener"
@@ -176,7 +183,7 @@ function CookiePolicy() {
       </p>
       <h3 className="font-subheader text-lg">Contact Us</h3>
       <p>If you have any questions about this Cookies Policy, You can contact us:</p>
-      <ul className="list-disc mx-5">
+      <ul className="mx-5 list-disc">
         <li>
           By email:{" "}
           <a className="hover:text-blue-500" href="mailto: contact@andrewhay.no">

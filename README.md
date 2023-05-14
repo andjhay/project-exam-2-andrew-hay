@@ -4,7 +4,7 @@
 
 ## Description
 
-Year 2 exam project for Noroff higher professional degree in front-end development, built using create-react-app & tailwind. Google Material Fonts and Icons have been used. react-calender and leaflet maps were vital in creating the site. see full list of dependencies later.
+Year 2 exam project for Noroff higher professional degree in front-end development, built using create-react-app & tailwind. Google Material Fonts and Icons have been used. react-calender and leaflet maps were vital in creating the site. see full list of dependencies at the end of Readme.
 
 ## Links to required submissions
 
@@ -55,7 +55,7 @@ git $ git clone https://github.com/andjhay/project-exam-2-andrew-hay.git
 npm install
 ```
 
-3. Run:
+3. Run development environment:
 
 ```
 npm run start
@@ -68,13 +68,27 @@ npm run start
 To run end-to-end tests in console run:
 
 ```
-npm run cypress-test
+npm run cy-live /*For hosted site*/
 ```
 
-Else to view end-to-end tests in progress run:
+Or
 
 ```
-npm run cypress
+npm run cy-local /*For localhost*/
+```
+
+Else to view end-to-end tests or select a spesific test run:
+
+```
+npm run cy
+```
+
+### Unit Tests
+
+Run all unit tests
+
+```
+npm run test
 ```
 
 ## Dependencies

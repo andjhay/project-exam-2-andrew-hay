@@ -26,9 +26,10 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
-    "cypress": "cypress open",
-    "cypress-test": "cypress run",
+    "test": "react-scripts test --watchAll=false",
+    "cy": "cypress open",
+    "cy-live": "cypress run --spec 'cypress/e2e/live/*.cy.js' ",
+    "cy-local": "cypress run --spec 'cypress/e2e/local/*.cy.js' ",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {

@@ -5,8 +5,8 @@ import React from "react";
  */
 function FAQ() {
   return (
-    <div className="flex flex-col items-center font-paragraph">
-      <h1 className="m-3 text-center font-header text-2xl">Frequently Asked Questions</h1>
+    <div className="m-5 flex flex-col items-center font-paragraph">
+      <h1 className="font-header text-2xl">Frequently Asked Questions</h1>
       <div>
         <div className="my-3">
           <p>Q: What is this site for?</p>

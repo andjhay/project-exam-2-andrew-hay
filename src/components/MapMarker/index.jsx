@@ -26,7 +26,6 @@ function MapMarker({ venue: { location, name, id } }) {
   };
 
   // Due to lack of location data making the map boring randomized locations for venues with default 0,0
-  // location these are currently not in use now that there is some more venues been created.
   function getRandomLat() {
     let min = Math.ceil(90);
     let max = Math.floor(-60);

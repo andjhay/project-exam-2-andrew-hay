@@ -17,6 +17,7 @@ function PrivacyPolicy() {
         and use of information in accordance with this Privacy Policy. This Privacy Policy has been created with the
         help of the{" "}
         <a
+          className="hover:text-blue-500"
           href="https://www.privacypolicies.com/privacy-policy-generator/"
           target="_blank"
           rel="noreferrer external nofollow noopener"
@@ -98,6 +99,7 @@ function PrivacyPolicy() {
           <p>
             <strong>Website</strong> refers to Holidaze, accessible from{" "}
             <a
+              className="hover:text-blue-500"
               href="https://project-exam-2-andrew-hay.netlify.app/"
               rel="noreferrer external nofollow noopener"
               target="_blank"
@@ -163,6 +165,7 @@ function PrivacyPolicy() {
         computer or mobile device when You go offline, while Session Cookies are deleted as soon as You close Your web
         browser. Learn more about cookies on the{" "}
         <a
+          className="hover:text-blue-500"
           href="https://www.privacypolicies.com/blog/privacy-policy-template/#Use_Of_Cookies_Log_Files_And_Tracking"
           target="_blank"
           rel="noreferrer external nofollow noopener"
@@ -407,7 +410,12 @@ function PrivacyPolicy() {
       <h2 className="my-2 font-subheader text-xl">Contact Us</h2>
       <p>If you have any questions about this Privacy Policy, You can contact us:</p>
       <ul className="mx-5 list-disc">
-        <li>By email: contact@andrewhay.no</li>
+        <li>
+          By email:{" "}
+          <a className="hover:text-blue-500" href="mailto: contact@andrewhay.no">
+            contact@andrewhay.no
+          </a>
+        </li>
       </ul>
     </div>
   );

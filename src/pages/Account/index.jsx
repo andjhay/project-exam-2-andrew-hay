@@ -53,6 +53,23 @@ function Account() {
     avatarInput.value = "";
   };
 
+  /**
+   * Displays guide message for form validation requirements when user interacts with input and indicates when input is acceptable.
+   * @param {object} event The event information when the input has a value change
+   */
+  function inputValidate(event) {
+    let inputCurrent = document.getElementById(event.target.id);
+    if (event.target.validity.valid === false && event.target.value !== "") {
+      inputCurrent.nextSibling.classList.remove("hidden");
+      inputCurrent.classList.remove("bg-green-200");
+    } else if (event.target.validity.valid === true && event.target.value !== "") {
+      inputCurrent.nextSibling.classList.add("hidden");
+      inputCurrent.classList.add("bg-green-200");
+    } else {
+      inputCurrent.nextSibling.classList.add("hidden");
+    }
+  }
+
   if (isLoading) {
     return <LoadingElement />;
   }
@@ -78,8 +95,10 @@ function Account() {
                   required
                   className="rounded-md border-2 border-black p-1 font-paragraph"
                   type="url"
-                  placeholder="(https://) Image URL"
+                  onChange={inputValidate}
+                  placeholder="https:// Image URL"
                 />
+                <p className="hidden text-red-500">Must be an URL to an img file type starting with https://</p>
                 <button id="submit-avatar" type="submit" className="main-button shadow">
                   Update
                 </button>

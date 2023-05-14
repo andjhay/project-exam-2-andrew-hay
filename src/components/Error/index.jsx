@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 /**
  * @typedef {object} Props
  * @property {object} errorMsg - The error message object, which contains a status code and message.
- * @property {object} data - The data object, which contains additional error information.
+ * @property {array} data - The data object, which contains additional error information.
  */
 
 /**
@@ -19,7 +19,7 @@ function ErrorElement({ errorMsg: { statuscode, message }, data: { statusCode, s
       message: PropTypes.string,
     }),
     data: PropTypes.shape({
-      statusCode: PropTypes.string,
+      statusCode: PropTypes.number,
       status: PropTypes.string,
       errors: PropTypes.arrayOf(
         PropTypes.shape({
