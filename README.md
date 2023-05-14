@@ -85,6 +85,8 @@ npm run cy
 
 ### Unit Tests
 
+Run all unit tests
+
 ```
 npm run test
 ```

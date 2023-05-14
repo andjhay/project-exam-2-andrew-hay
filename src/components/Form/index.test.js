@@ -2,7 +2,7 @@ import React from "react";
 import { render, screen } from "@testing-library/react";
 import Form from ".";
 
-describe("ProductCard", () => {
+describe("Modal Form", () => {
   test("displays information correctly", () => {
     render(<Form />);
 
