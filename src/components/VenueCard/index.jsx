@@ -27,7 +27,6 @@ function VenueCard({ venue: { price, rating, media, id, name, maxGuests }, userN
     venue: PropTypes.object,
     venues: PropTypes.oneOfType([PropTypes.array, PropTypes.object]),
   };
-
   const { user } = useUser();
   const [img, setImg] = useState(0);
   const navigate = useNavigate();
@@ -72,7 +71,7 @@ function VenueCard({ venue: { price, rating, media, id, name, maxGuests }, userN
   }
 
   return (
-    <div className="border-gray-200 flex flex-col rounded-lg border-2 font-paragraph shadow-lg">
+    <div className="flex flex-col rounded-lg border-2 border-gray-200 font-paragraph shadow-lg">
       <div className="flex basis-1/2 items-center justify-center">
         <div className="me-auto basis-1/12">
           <span

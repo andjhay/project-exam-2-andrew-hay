@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import useSearch from "../../hooks/useSearch";
 import { useNavigate } from "react-router-dom";
+import useApi from "../../hooks/useApi";
+import { apiPath } from "../../shared/api";
 
 /**
  * Search component that stores the search object and redirects to view results
@@ -11,7 +13,7 @@ function Search() {
   const [toDate, setToDate] = useState();
   const navigate = useNavigate();
 
-  const submitSearch = async (event) => {
+  const submitSearch = (event) => {
     event.preventDefault();
     const form = [...event.target];
     let formData = {};
@@ -71,7 +73,7 @@ function Search() {
           id="searchTerm"
           defaultValue={search.searchTerm}
           type="text"
-          className="h-10 rounded-tr-lg border-l-2 border-black p-1 px-3 placeholder-black shadow-xl focus:outline-none lg:rounded-t-none lg:rounded-bl-lg lg:border-l-0 lg:border-r-0 lg:border-t-2"
+          className="h-10 grow rounded-tr-lg border-l-2 border-black p-1 px-3 placeholder-black shadow-xl focus:outline-none lg:rounded-t-none lg:rounded-bl-lg lg:border-l-0 lg:border-r-0 lg:border-t-2"
           placeholder="Search"
           aria-label="Search"
         />
@@ -112,7 +114,7 @@ function Search() {
         />
       </label>
       <label
-        className="flex w-full flex-row items-center border-2 border-b-0 border-black bg-lightblue lg:flex-col lg:rounded-r-lg lg:border-b-2 lg:border-l-0 lg:border-l-0"
+        className="flex w-full flex-row items-center border-2 border-b-0 border-black bg-lightblue lg:flex-col lg:rounded-r-lg lg:border-b-2 lg:border-l-0"
         htmlFor="guests"
       >
         <span className="w-24 text-center">Guests</span>

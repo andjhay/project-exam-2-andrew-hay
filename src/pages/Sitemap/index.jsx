@@ -11,22 +11,22 @@ function Sitemap() {
       <div>
         <ul className="list-disc">
           <Link to="/venues">
-            <li>Venues</li>
+            <li className="hover:text-blue-500">Venues</li>
           </Link>
           <Link to="/venuesmap">
-            <li>Venues Map</li>
+            <li className="hover:text-blue-500">Venues Map</li>
           </Link>
           <Link to="/privacy">
-            <li>Privacy Policy</li>
+            <li className="hover:text-blue-500">Privacy Policy</li>
           </Link>
           <Link to="/cookies">
-            <li>Cookie Policy</li>
+            <li className="hover:text-blue-500">Cookie Policy</li>
           </Link>
           <Link to="/faq">
-            <li>FAQ</li>
+            <li className="hover:text-blue-500">FAQ</li>
           </Link>
           <Link to="*">
-            <li>Route Not Found</li>
+            <li className="hover:text-blue-500">Route Not Found</li>
           </Link>
         </ul>
       </div>

@@ -114,7 +114,7 @@ function Venue() {
     <div className="mx-auto flex flex-col font-paragraph">
       <h1 className="m-2 text-center font-header text-3xl">{name}</h1>
       <div className="m-3 flex flex-col md:flex-row">
-        <div className="m-5 basis-1/2">
+        <div className="basis-1/2">
           <div className="flex items-center justify-center">
             <div>
               <span className={media.length <= 1 ? "pointer-events-none opacity-25" : ""} onClick={handleClickRemove}>
@@ -158,7 +158,7 @@ function Venue() {
                   <svg className="fill-red-400">
                     <rect width="45" height="35" />
                   </svg>
-                  <p className="m-2">Booked/Unselectable</p>
+                  <p className="m-2">Booked</p>
                 </span>
                 <span className="flex items-center">
                   <svg className="fill-lightblue">
@@ -194,7 +194,10 @@ function Venue() {
             <p>Rating: {rating === 0 ? "No Rating Yet" : rating + ""}</p>
             <p>
               Owner:{" "}
-              <Link className={user.name ? "underline" : "pointer-events-none"} to={"/account/" + owner.name}>
+              <Link
+                className={user.name ? "underline hover:text-blue-500" : "pointer-events-none"}
+                to={"/account/" + owner.name}
+              >
                 {user.name ? owner.name : owner.name + " (Log in to view profile)"}
               </Link>{" "}
             </p>

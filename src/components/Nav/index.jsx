@@ -102,7 +102,9 @@ function Nav() {
                 id="nav-username"
                 to={"/account/" + user?.name}
                 className={({ isActive }) =>
-                  isActive ? "text-white underline underline-offset-4" : "underline underline-offset-4 hover:text-white"
+                  isActive
+                    ? "mx-2 font-paragraph text-white underline underline-offset-4"
+                    : "mx-2 font-paragraph underline underline-offset-4 hover:text-white"
                 }
               >
                 {user?.name}
@@ -144,12 +146,12 @@ function Nav() {
           <div className="-mt-1 flex items-center justify-between">
             <NavLink onClick={() => setMobileMenuOpen(false)} to="/" className="-m-1.5 p-1.5">
               <span className="sr-only">Holidaze</span>
-              <img className="h-8 w-auto" src={LogoText} alt="" />
+              <img className="ms-4 h-12 w-auto" src={LogoText} alt="" />
             </NavLink>
             <button
               id="mobile-close"
               type="button"
-              className="me-5 rounded-md p-2.5 pe-4 text-darkbrown"
+              className="me-2 rounded-md p-2.5 text-darkbrown"
               onClick={() => setMobileMenuOpen(false)}
             >
               <span className="sr-only">Close menu</span>
@@ -192,8 +194,8 @@ function Nav() {
                     to={"/account/" + user?.name}
                     className={({ isActive }) =>
                       isActive
-                        ? "font-paragraph text-white underline underline-offset-4"
-                        : "font-paragraph underline underline-offset-4 hover:text-white"
+                        ? "mx-2 font-paragraph text-white underline underline-offset-4"
+                        : "mx-2 font-paragraph underline underline-offset-4 hover:text-white"
                     }
                   >
                     {user?.name}
