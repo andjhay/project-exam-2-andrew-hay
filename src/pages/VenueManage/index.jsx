@@ -207,7 +207,7 @@ function VenueManage() {
             min={1}
             type="number"
           />
-          <p className="hidden text-red-500"></p>
+          <p className="hidden text-red-500">Must be 1 or more.</p>
         </div>
         <div className="my-2 flex flex-col">
           <label htmlFor="price">Price</label>
@@ -220,7 +220,7 @@ function VenueManage() {
             min={0}
             type="number"
           />
-          <p className="hidden text-red-500"></p>
+          <p className="hidden text-red-500">Cannot be a negative value.</p>
         </div>
         <div className="my-2 flex flex-col">
           <label htmlFor="rating">Rating</label>

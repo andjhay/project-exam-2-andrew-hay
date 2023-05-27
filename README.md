@@ -6,6 +6,13 @@
 
 Year 2 exam project for Noroff higher professional degree in front-end development, built using create-react-app & tailwind. Google Material Fonts and Icons have been used. react-calender and leaflet maps were vital in creating the site. see full list of dependencies at the end of Readme.
 
+## API
+
+https://docs.noroff.dev/
+
+About: The API source is created and maintained by Noroff, all entries are Noroff Students own. </br>
+Limitations: 100 item fetch limit, this limits the ability to search all venues and rather only a selection of 100. </br> There is also a limiter on the number of fetches so refreshing the page aggressivly will block furhter requests for a short period of time.
+
 ## Links to required submissions
 
 | Resource         | URL                                                                                                                     |

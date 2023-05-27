@@ -11,12 +11,13 @@ import LoadingElement from "../../components/LoadingElement";
 import ErrorElement from "../../components/Error";
 
 const sortBy = [
-  { id: 1, value: "Price (low)", sort: "?sort=price&sortOrder=asc&_owner=true&_bookings=true" },
-  { id: 2, value: "Price (high)", sort: "?sort=price&sortOrder=desc&_owner=true&_bookings=true" },
-  { id: 3, value: "Guests (less)", sort: "?sort=maxGuests&sortOrder=asc&_owner=true&_bookings=true" },
-  { id: 4, value: "Guests (more)", sort: "?sort=maxGuests&sortOrder=desc&_owner=true&_bookings=true" },
-  { id: 5, value: "Rating (low)", sort: "?sort=rating&sortOrder=asc&_owner=true&_bookings=true" },
-  { id: 6, value: "Rating (High)", sort: "?sort=rating&sortOrder=asc&_owner=true&_bookings=true" },
+  { id: 1, value: "Recently Added", sort: "?sort=created&sortOrder=desc&_owner=true&_bookings=true" },
+  { id: 3, value: "Price (low)", sort: "?sort=price&sortOrder=asc&_owner=true&_bookings=true" },
+  { id: 4, value: "Price (high)", sort: "?sort=price&sortOrder=desc&_owner=true&_bookings=true" },
+  { id: 5, value: "Guests (less)", sort: "?sort=maxGuests&sortOrder=asc&_owner=true&_bookings=true" },
+  { id: 6, value: "Guests (more)", sort: "?sort=maxGuests&sortOrder=desc&_owner=true&_bookings=true" },
+  { id: 7, value: "Rating (low)", sort: "?sort=rating&sortOrder=asc&_owner=true&_bookings=true" },
+  { id: 8, value: "Rating (High)", sort: "?sort=rating&sortOrder=desc&_owner=true&_bookings=true" },
 ];
 
 /**
