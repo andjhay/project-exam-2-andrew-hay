@@ -23,21 +23,25 @@ function VenueBooking() {
   const bookings = useMemo(() => data.bookings || [], [data.bookings]);
   const navigate = useNavigate();
   const pageLocation = useLocation();
+  const { search } = useSearch();
   let editMode = false;
   if (pageLocation.pathname.includes("edit")) {
     editMode = true;
   }
-
-  const { search } = useSearch();
-  let guestsValue = search.guests;
+  let guestsValue = 1;
 
   if (editMode) {
-    guestsValue = bookingData?.guests;
+    guestsValue = Number(bookingData?.guests);
+  } else if (search) {
+    guestsValue = Number(search?.guests);
   }
+
   const [guestsSelected, setGuestsSelected] = useState(1);
+
   useEffect(() => {
-    setGuestsSelected(guestsValue);
+    setGuestsSelected(Number(guestsValue));
   }, [guestsValue]);
+
   function handleGuestsSelected(event) {
     setGuestsSelected(event.target.value);
   }
@@ -54,11 +58,20 @@ function VenueBooking() {
     formData["dateTo"] = valueTo;
     formData["guests"] = Number(guestsSelected);
     if (editMode) {
-      await updatePut(formData, "Booking", bookingId);
+      let response = await updatePut(formData, "Booking", bookingId);
+      if (response.errors) {
+        console.log(response);
+      } else {
+        navigate("/account/" + user.name);
+      }
     } else {
-      await createPost(formData, "Booking");
+      let response = await createPost(formData, "Booking");
+      if (response.errors) {
+        console.log(response);
+      } else {
+        navigate("/account/" + user.name);
+      }
     }
-    navigate("/account/" + user.name);
   }
 
   const allOtherBookings = bookings.filter((booking) => booking.id !== bookingId);
@@ -251,6 +264,22 @@ function VenueBooking() {
   let totalNights = Math.floor((Date.parse(valueTo) - Date.parse(valueFrom)) / 86400000);
   let totalPrice = totalNights * price;
 
+  function handleClickAdd() {
+    if (guestsSelected < maxGuests) {
+      setGuestsSelected(guestsSelected + 1);
+    } else {
+      null;
+    }
+  }
+
+  function handleClickRemove() {
+    if (guestsSelected > 1) {
+      setGuestsSelected(guestsSelected - 1);
+    } else {
+      null;
+    }
+  }
+
   if (isLoading) {
     return <LoadingElement />;
   }
@@ -279,18 +308,33 @@ function VenueBooking() {
           </span>
         </div>
 
-        <div className="my-2 flex w-fit flex-col">
-          <label htmlFor="guests">Guests</label>
+        <div className="my-2 flex w-fit items-center">
+          <label className="m-2" htmlFor="guests">
+            Select Guests (Max {maxGuests})
+          </label>
+          <span onClick={handleClickRemove}>
+            <svg xmlns="http://www.w3.org/2000/svg" height="48" viewBox="0 -960 960 960" width="48">
+              <path d="M200-450v-60h560v60H200Z" />
+            </svg>
+          </span>
+
           <input
             id="guests"
             className="rounded-md border-2 border-black p-1"
-            defaultValue={guestsValue}
+            value={guestsSelected}
             onChange={handleGuestsSelected}
             required
             min={1}
             max={maxGuests}
             type="number"
+            disabled
           />
+
+          <span onClick={handleClickAdd}>
+            <svg xmlns="http://www.w3.org/2000/svg" height="48" viewBox="0 -960 960 960" width="48">
+              <path d="M450-200v-250H200v-60h250v-250h60v250h250v60H510v250h-60Z" />
+            </svg>
+          </span>
         </div>
         <div className="my-2 flex flex-wrap justify-center">
           <div>
