@@ -1,6 +1,9 @@
 # Project Exam 2 - Holidaze
 
-<img width="952" alt="image" src="https://user-images.githubusercontent.com/88853764/235364640-e8c0eda8-a6ac-49ca-9105-a6283af34d2a.png">
+### Hosted Demo
+https://project-exam-2-andrew-hay.netlify.app/
+
+<img width="1000" alt="finished site" src="https://user-images.githubusercontent.com/88853764/235364640-e8c0eda8-a6ac-49ca-9105-a6283af34d2a.png">
 
 ## Description
 
@@ -53,7 +56,7 @@ Trello(Kanban) and TeamGantt (Gantt) a Trello Power-Up feature
 1. Clone the repo:
 
 ```bash
-git $ git clone https://github.com/andjhay/project-exam-2-andrew-hay.git
+git clone https://github.com/andjhay/project-exam-2-andrew-hay.git
 ```
 
 2. Install the dependencies:
@@ -119,3 +122,7 @@ In addition to what is installed with create-react-app these dependencies were r
 <li>react-router-dom v6.10.0</li>
 <li>date-fns v2.29.3 (Date and time function library)</li>
 </ul>
+
+## Contact
+
+[My LinkedIn page](https://www.linkedin.com/in/andrewjameshay/)
